@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test AutoShop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .test-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .test-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚗 AutoShop Premium</h1>
+        <p>Test di funzionamento base - Se vedi questa pagina, il server funziona!</p>
+        <button class="test-btn" onclick="testFunction()">Test JavaScript</button>
+        <div id="testResult"></div>
+    </div>
+
+    <script>
+        function testFunction() {
+            document.getElementById('testResult').innerHTML = '✅ JavaScript funziona! Il sito è pronto per essere migliorato.';
+        }
+        
+        // Test di caricamento
+        console.log('🚗 AutoShop Premium - Test di caricamento completato');
+        console.log('📍 URL corrente:', window.location.href);
+        console.log('🌐 User Agent:', navigator.userAgent);
+    </script>
+</body>
+</html>

@@ -30,7 +30,7 @@ class AutoShopApp {
 
     setupEventListeners() {
         // Event listeners per i bottoni CTA
-        document.querySelectorAll('.btn-primary-glass, .btn-cta-glass, .btn-cta-large').forEach(btn => {
+        document.querySelectorAll('.glass-button.primary, .glass-button.secondary, .glass-button.accent, .glass-button.large').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.handleCTAClick(e);
             });
@@ -41,14 +41,14 @@ class AutoShopApp {
             if (e.target.closest('.car-favorite')) {
                 this.toggleFavorite(e.target.closest('.car-favorite'));
             }
-            if (e.target.closest('.btn-details')) {
-                this.navigateToDetails(e.target.closest('.btn-details'));
+            if (e.target.closest('.glass-button.primary')) {
+                this.navigateToDetails(e.target.closest('.glass-button.primary'));
             }
-            if (e.target.closest('.btn-compare')) {
-                this.toggleCompare(e.target.closest('.btn-compare'));
+            if (e.target.closest('.glass-button.secondary')) {
+                this.toggleCompare(e.target.closest('.glass-button.secondary'));
             }
-            if (e.target.closest('.btn-add-to-cart')) {
-                this.addToCart(e.target.closest('.btn-add-to-cart'));
+            if (e.target.closest('.glass-button.accent')) {
+                this.addToCart(e.target.closest('.glass-button.accent'));
             }
         });
 
@@ -694,14 +694,20 @@ class AutoShopApp {
                     <div class="car-price">${CarUtils.formatPrice(car.prezzo)}</div>
                     
                     <div class="car-actions">
-                        <button class="btn-details btn-fill-in" data-car-id="${car.id}">
+                        <button class="glass-button primary shimmer" data-car-id="${car.id}">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
                             Dettagli
                         </button>
-                        <button class="btn-compare btn-pulse ${isInCompare ? 'active' : ''}" data-car-id="${car.id}">
+                        <button class="glass-button secondary ${isInCompare ? 'pulse' : 'shimmer'}" data-car-id="${car.id}">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                            </svg>
                             ${isInCompare ? 'Rimuovi' : 'Confronta'}
                         </button>
-                        <button class="btn-add-to-cart btn-ripple" data-car-id="${car.id}">
-                            <svg class="cart-icon-small" viewBox="0 0 24 24">
+                        <button class="glass-button accent shimmer" data-car-id="${car.id}">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
                             </svg>
                             Aggiungi al Carrello

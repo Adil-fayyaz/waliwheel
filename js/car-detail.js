@@ -336,10 +336,16 @@ class CarDetailPage {
                                 </div>
                                 <div class="car-price">€${car.prezzo.toLocaleString('it-IT')}</div>
                                 <div class="car-actions">
-                                    <button class="btn-details btn-fill-in" onclick="window.location.href='car-detail-template.html?id=${car.id}'">
+                                    <button class="glass-button primary shimmer" data-car-id="${car.id}">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                        </svg>
                                         Dettagli
                                     </button>
-                                    <button class="btn-compare btn-pulse" onclick="addToCompare(${car.id})">
+                                    <button class="glass-button secondary shimmer" data-car-id="${car.id}">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                                        </svg>
                                         Confronta
                                     </button>
                                 </div>
@@ -516,6 +522,73 @@ class CarDetailPage {
                 this.toggleFavorite();
             });
         }
+        
+        // Event listeners per i tab
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => this.switchTab(btn));
+        });
+        
+        // Event listeners per la galleria
+        const galleryPrev = document.getElementById('galleryPrev');
+        const galleryNext = document.getElementById('galleryNext');
+        
+        if (galleryPrev) {
+            galleryPrev.addEventListener('click', () => this.previousImage());
+        }
+        
+        if (galleryNext) {
+            galleryNext.addEventListener('click', () => this.nextImage());
+        }
+        
+        // Event listeners per i thumbnail
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.thumbnail-item')) {
+                const thumbnail = e.target.closest('.thumbnail-item');
+                const imageIndex = parseInt(thumbnail.dataset.index);
+                this.showImage(imageIndex);
+            }
+        });
+        
+        // Event listeners per i pulsanti delle auto correlate
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.glass-button.primary')) {
+                const button = e.target.closest('.glass-button.primary');
+                const carId = button.dataset.carId;
+                if (carId) {
+                    window.location.href = `car-detail-template.html?id=${carId}`;
+                }
+            }
+            if (e.target.closest('.glass-button.secondary')) {
+                const button = e.target.closest('.glass-button.secondary');
+                const carId = button.dataset.carId;
+                if (carId) {
+                    this.addToCompare(carId);
+                }
+            }
+        });
+        
+        // Event listeners per i pulsanti del concessionario
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.dealer-actions .glass-button.primary')) {
+                this.contactDealer();
+            }
+            if (e.target.closest('.dealer-actions .glass-button.secondary')) {
+                this.showDealerMap();
+            }
+        });
+        
+        // Event listeners per il calcolatore di finanziamento
+        const downPaymentSlider = document.getElementById('downPayment');
+        const loanTermSlider = document.getElementById('loanTerm');
+        
+        if (downPaymentSlider) {
+            downPaymentSlider.addEventListener('input', () => this.updateFinancing());
+        }
+        
+        if (loanTermSlider) {
+            loanTermSlider.addEventListener('input', () => this.updateFinancing());
+        }
     }
 
     addToCart() {
@@ -621,7 +694,7 @@ class CarDetailPage {
             if (isFavorite) {
                 favoriteBtn.classList.add('favorited');
                 favoriteBtn.innerHTML = `
-                    <svg class="btn-icon" viewBox="0 0 24 24" style="fill: #ef4444;">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
                     Preferiti
@@ -629,7 +702,7 @@ class CarDetailPage {
             } else {
                 favoriteBtn.classList.remove('favorited');
                 favoriteBtn.innerHTML = `
-                    <svg class="btn-icon" viewBox="0 0 24 24">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
                     Preferiti
@@ -665,6 +738,110 @@ class CarDetailPage {
             toast.classList.remove('show');
             setTimeout(() => document.body.removeChild(toast), 300);
         }, 3000);
+    }
+    
+    contactDealer() {
+        // Simula contatto concessionario
+        this.showToast('Contatto concessionario in sviluppo. Email: info@waliwheelse.it', 'info');
+    }
+    
+    showDealerMap() {
+        // Simula apertura mappa
+        this.showToast('Mappa concessionario in sviluppo. Indirizzo: Via Roma 123, Milano', 'info');
+    }
+    
+    switchTab(clickedTab) {
+        // Rimuovi classe active da tutti i tab
+        document.querySelectorAll('.tab-btn').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Nascondi tutti i contenuti dei tab
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Aggiungi classe active al tab cliccato
+        clickedTab.classList.add('active');
+        
+        // Mostra il contenuto corrispondente
+        const tabName = clickedTab.dataset.tab;
+        const tabContent = document.getElementById(`${tabName}-tab`);
+        if (tabContent) {
+            tabContent.classList.add('active');
+        }
+    }
+    
+    showImage(imageIndex) {
+        if (!this.currentCar || !this.currentCar.immagini) return;
+        
+        if (imageIndex >= 0 && imageIndex < this.currentCar.immagini.length) {
+            this.currentImageIndex = imageIndex;
+            this.updateMainImage();
+            this.updateThumbnailSelection();
+        }
+    }
+    
+    previousImage() {
+        if (!this.currentCar || !this.currentCar.immagini) return;
+        
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.currentCar.immagini.length) % this.currentCar.immagini.length;
+        this.updateMainImage();
+        this.updateThumbnailSelection();
+    }
+    
+    nextImage() {
+        if (!this.currentCar || !this.currentCar.immagini) return;
+        
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.currentCar.immagini.length;
+        this.updateMainImage();
+        this.updateThumbnailSelection();
+    }
+    
+    updateMainImage() {
+        const mainImage = document.getElementById('mainCarImage');
+        if (mainImage && this.currentCar && this.currentCar.immagini) {
+            mainImage.src = this.currentCar.immagini[this.currentImageIndex];
+            mainImage.alt = `${this.currentCar.nome} - Immagine ${this.currentImageIndex + 1}`;
+        }
+    }
+    
+    updateThumbnailSelection() {
+        // Rimuovi selezione da tutti i thumbnail
+        document.querySelectorAll('.thumbnail-item').forEach(thumb => {
+            thumb.classList.remove('active');
+        });
+        
+        // Aggiungi selezione al thumbnail corrente
+        const currentThumb = document.querySelector(`[data-index="${this.currentImageIndex}"]`);
+        if (currentThumb) {
+            currentThumb.classList.add('active');
+        }
+    }
+    
+    updateFinancing() {
+        const downPaymentSlider = document.getElementById('downPayment');
+        const loanTermSlider = document.getElementById('loanTerm');
+        const downPaymentValue = document.getElementById('downPaymentValue');
+        const loanTermValue = document.getElementById('loanTermValue');
+        const monthlyPayment = document.getElementById('monthlyPayment');
+        
+        if (!downPaymentSlider || !loanTermSlider) return;
+        
+        const downPaymentPercent = parseInt(downPaymentSlider.value);
+        const loanTerm = parseInt(loanTermSlider.value);
+        const carPrice = this.currentCar.prezzo;
+        
+        const downPaymentAmount = (carPrice * downPaymentPercent) / 100;
+        const loanAmount = carPrice - downPaymentAmount;
+        const monthlyRate = 0.005; // 0.5% mensile (6% annuo)
+        
+        const monthlyPaymentAmount = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, loanTerm)) / 
+                                   (Math.pow(1 + monthlyRate, loanTerm) - 1);
+        
+        if (downPaymentValue) downPaymentValue.textContent = `${downPaymentPercent}%`;
+        if (loanTermValue) loanTermValue.textContent = `${loanTerm} mesi`;
+        if (monthlyPayment) monthlyPayment.textContent = `€${Math.round(monthlyPaymentAmount).toLocaleString('it-IT')}`;
     }
 }
 

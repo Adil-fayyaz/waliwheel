@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wali Wheelse - Dettagli Auto</title>
+    <meta name="description" content="Scopri tutti i dettagli e le specifiche tecniche della tua auto dei sogni">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Swiper CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/car-detail.css">
+    <link rel="stylesheet" href="css/button-effects.css">
+</head>
+<body>
+    <!-- Header Glass -->
+    <header class="header-glass">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <div class="logo-glow">
+                    <span class="logo-text">Wali</span>
+                    <span class="logo-accent">Wheelse</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="catalogo.html" class="nav-link active">Catalogo</a></li>
+                <li><a href="chi-siamo.html" class="nav-link">Chi Siamo</a></li>
+                <li><a href="finanziamento.html" class="nav-link">Finanziamento</a></li>
+                <li><a href="contatti.html" class="nav-link">Contatti</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <!-- Carrello -->
+                <div class="cart-container">
+                    <button class="cart-btn" id="cartBtn" aria-label="Carrello">
+                        <svg class="cart-icon" viewBox="0 0 24 24">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+
+                <!-- Autenticazione Unificata -->
+                <div class="auth-container" id="authContainer">
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn-auth-unified" id="authBtn">
+                            <svg class="auth-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span>Accedi / Registrati</span>
+                        </button>
+                    </div>
+                    
+                    <div class="user-profile hidden" id="userProfile">
+                        <div class="user-avatar" id="userAvatar">
+                            <img src="" alt="Avatar utente" id="userAvatarImg">
+                        </div>
+                        <div class="user-status">
+                            <span class="user-name" id="userName">Nome Utente</span>
+                            <span class="user-email" id="userEmail">email@example.com</span>
+                        </div>
+                        <div class="user-menu" id="userMenu">
+                            <div class="menu-item" data-action="profile">Profilo</div>
+                            <div class="menu-item" data-action="orders">Ordini</div>
+                            <div class="menu-item" data-action="favorites">Preferiti</div>
+                            <div class="menu-item" data-action="logout">Logout</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu mobile">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="catalogo.html">Catalogo</a>
+            <span class="separator">/</span>
+            <span class="current">Dettagli Auto</span>
+        </div>
+    </nav>
+
+    <!-- Car Detail Hero -->
+    <section class="car-detail-hero">
+        <div class="container">
+            <div class="car-detail-grid">
+                <!-- Gallery Section -->
+                <div class="car-gallery">
+                    <div class="main-image-container">
+                        <img src="" alt="" id="mainCarImage" class="main-car-image">
+                        <div class="image-overlay">
+                            <button class="gallery-btn gallery-prev" id="galleryPrev">
+                                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                            </button>
+                            <button class="gallery-btn gallery-next" id="galleryNext">
+                                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="thumbnail-gallery" id="thumbnailGallery">
+                        <!-- Thumbnails will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Car Info Section -->
+                <div class="car-info">
+                    <div class="car-header">
+                        <h1 class="car-title" id="carTitle">Nome Auto</h1>
+                        <div class="car-badges">
+                            <span class="badge badge-new" id="badgeNew">Nuova</span>
+                            <span class="badge badge-featured" id="badgeFeatured">In Evidenza</span>
+                        </div>
+                    </div>
+                    
+                    <div class="car-price-section">
+                        <div class="price-main">
+                            <span class="price-currency">€</span>
+                            <span class="price-amount" id="carPrice">0</span>
+                        </div>
+                        <div class="price-details">
+                            <span class="price-monthly" id="priceMonthly">€0/mese</span>
+                            <span class="price-tax">+ IVA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="car-quick-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="spec-value" id="carRating">4.8</span>
+                            <span class="spec-label">Rating</span>
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span class="spec-value" id="carYear">2024</span>
+                            <span class="spec-label">Anno</span>
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="spec-value" id="carMileage">0 km</span>
+                            <span class="spec-label">Chilometraggio</span>
+                        </div>
+                    </div>
+                    
+                                                <div class="car-actions">
+                                <button class="btn-primary-glass btn-add-to-cart btn-ripple" id="addToCartBtn">
+                                    <svg class="btn-icon" viewBox="0 0 24 24">
+                                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                                    </svg>
+                                    Aggiungi al Carrello
+                                </button>
+                                
+                                <button class="btn-secondary-glass btn-compare btn-pulse" id="compareBtn">
+                                    <svg class="btn-icon" viewBox="0 0 24 24">
+                                        <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                                    </svg>
+                                    Confronta
+                                </button>
+                                
+                                <button class="btn-outline btn-favorite btn-fill-in" id="favoriteBtn">
+                                    <svg class="btn-icon" viewBox="0 0 24 24">
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                    </svg>
+                                    Preferiti
+                                </button>
+                            </div>
+                    
+                    <div class="car-financing">
+                        <h3>Finanziamento</h3>
+                        <div class="financing-calculator">
+                            <div class="input-group">
+                                <label for="downPayment">Acconto</label>
+                                <input type="range" id="downPayment" min="0" max="100" value="20">
+                                <span class="range-value" id="downPaymentValue">20%</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="loanTerm">Durata</label>
+                                <input type="range" id="loanTerm" min="12" max="84" value="36">
+                                <span class="range-value" id="loanTermValue">36 mesi</span>
+                            </div>
+                            <div class="monthly-payment">
+                                <span class="payment-label">Rata Mensile:</span>
+                                <span class="payment-amount" id="monthlyPayment">€0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Car Details Tabs -->
+    <section class="car-details-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="specs">Specifiche Tecniche</button>
+                    <button class="tab-btn" data-tab="features">Dotazioni</button>
+                    <button class="tab-btn" data-tab="gallery">Galleria</button>
+                    <button class="tab-btn" data-tab="reviews">Recensioni</button>
+                    <button class="tab-btn" data-tab="dealer">Concessionario</button>
+                </div>
+                
+                <div class="tab-content active" id="specs-tab">
+                    <div class="specs-grid">
+                        <div class="specs-category">
+                            <h3>Motore e Prestazioni</h3>
+                            <div class="specs-list" id="engineSpecs">
+                                <!-- Engine specs will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="specs-category">
+                            <h3>Dimensioni e Peso</h3>
+                            <div class="specs-list" id="dimensionsSpecs">
+                                <!-- Dimensions specs will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="specs-category">
+                            <h3>Consumi e Emissioni</h3>
+                            <div class="specs-list" id="consumptionSpecs">
+                                <!-- Consumption specs will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="features-tab">
+                    <div class="features-grid" id="featuresGrid">
+                        <!-- Features will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="gallery-tab">
+                    <div class="full-gallery" id="fullGallery">
+                        <!-- Full gallery will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="reviews-tab">
+                    <div class="reviews-section">
+                        <div class="reviews-header">
+                            <h3>Recensioni Clienti</h3>
+                            <div class="rating-summary">
+                                <div class="rating-stars">
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="rating-text">4.8 su 5 (127 recensioni)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="reviews-list" id="reviewsList">
+                            <!-- Reviews will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="dealer-tab">
+                    <div class="dealer-info">
+                        <div class="dealer-card">
+                            <div class="dealer-avatar">
+                                <img src="assets/images/dealer-avatar.jpg" alt="Concessionario">
+                            </div>
+                            <div class="dealer-details">
+                                <h3>Wali Wheelse - Milano</h3>
+                                <p>Via Roma 123, 20100 Milano</p>
+                                <p>Tel: +39 02 1234567</p>
+                                <p>Email: info@waliwheelse.it</p>
+                            </div>
+                            <div class="dealer-actions">
+                                <button class="btn-primary-glass">Contatta</button>
+                                <button class="btn-secondary-glass">Mappa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Cars -->
+    <section class="related-cars">
+        <div class="container">
+            <h2 class="section-title">Auto Simili</h2>
+            <div class="cars-grid" id="relatedCarsGrid">
+                <!-- Related cars will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Wali Wheelse</h3>
+                    <p>La tua concessionaria di fiducia per auto di lusso e sportive</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contatti</h3>
+                    <p>Via Roma 123, Milano</p>
+                    <p>Tel: +39 02 1234567</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+                <!-- Scripts -->
+            <script src="js/data.js"></script>
+            <script src="js/button-animations.js"></script>
+            <script src="js/car-detail.js"></script>
+</body>
+</html>

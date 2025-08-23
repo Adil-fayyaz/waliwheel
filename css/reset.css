@@ -1,0 +1,132 @@
+/* CSS Reset e Normalizzazione */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    overflow-x: hidden;
+}
+
+/* Reset liste */
+ul, ol {
+    list-style: none;
+}
+
+/* Reset link */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* Reset bottoni */
+button {
+    border: none;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Reset input */
+input, textarea, select {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+/* Reset immagini */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Reset tabelle */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Reset form */
+form {
+    margin: 0;
+}
+
+/* Focus visibile per accessibilità */
+*:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Scrollbar personalizzata */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+    opacity: 0.8;
+}
+
+/* Selezione testo */
+::selection {
+    background: var(--color-primary);
+    color: var(--color-bg);
+}
+
+/* Placeholder */
+::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+}
+
+/* Rimuovi outline su elementi interattivi */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+/* Reset per elementi SVG */
+svg {
+    fill: currentColor;
+}
+
+/* Utility per nascondere elementi */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

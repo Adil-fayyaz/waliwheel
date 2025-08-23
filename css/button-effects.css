@@ -1,0 +1,402 @@
+/* ===== EFFETTI PULSANTI MODERNI E FLUIDI ===== */
+
+/* Variabili per i colori e le transizioni */
+:root {
+    --btn-primary-color: #6366f1;
+    --btn-primary-hover: #4f46e5;
+    --btn-secondary-color: #10b981;
+    --btn-secondary-hover: #059669;
+    --btn-accent-color: #f59e0b;
+    --btn-accent-hover: #d97706;
+    --btn-danger-color: #ef4444;
+    --btn-danger-hover: #dc2626;
+    --transition-butter: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ===== EFFETTO FILL-IN (Riempimento al passaggio del mouse) ===== */
+.btn-fill-in {
+    --color: var(--btn-primary-color);
+    --hover: var(--btn-primary-hover);
+    position: relative;
+    color: var(--color);
+    border: 2px solid var(--color);
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: all var(--transition-butter);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-fill-in::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--hover);
+    transition: left var(--transition-smooth);
+    z-index: -1;
+}
+
+.btn-fill-in:hover::before {
+    left: 0;
+}
+
+.btn-fill-in:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+/* ===== EFFETTO PULSE (Pulsazione) ===== */
+.btn-pulse {
+    --color: var(--btn-secondary-color);
+    --hover: var(--btn-secondary-hover);
+    position: relative;
+    color: var(--color);
+    border: 2px solid var(--color);
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: all var(--transition-butter);
+    overflow: hidden;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.btn-pulse:hover {
+    animation: pulse 1.5s infinite;
+    background-color: var(--hover);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ===== EFFETTO PRESS (Pressione al click) ===== */
+.btn-press {
+    background: linear-gradient(135deg, var(--btn-accent-color), var(--btn-accent-hover));
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+    transition: all var(--transition-butter);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-press::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--btn-accent-hover), var(--btn-accent-color));
+    opacity: 0;
+    transition: opacity var(--transition-butter);
+}
+
+.btn-press:hover::before {
+    opacity: 1;
+}
+
+.btn-press:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+}
+
+.btn-press:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 15px rgba(245, 158, 11, 0.3);
+}
+
+/* ===== EFFETTO RIPPLE (Increspatura al click) ===== */
+.btn-ripple {
+    position: relative;
+    background: linear-gradient(135deg, var(--btn-danger-color), var(--btn-danger-hover));
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all var(--transition-butter);
+}
+
+.btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-ripple:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+/* ===== EFFETTO RAISE (Sollevamento al passaggio del mouse) ===== */
+.btn-raise {
+    --color: var(--btn-primary-color);
+    --hover: var(--btn-primary-hover);
+    color: var(--color);
+    border: 2px solid var(--color);
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: all var(--transition-smooth);
+    position: relative;
+}
+
+.btn-raise::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--hover);
+    border-radius: 6px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-smooth);
+    z-index: -1;
+}
+
+.btn-raise:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-raise:hover {
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+}
+
+/* ===== EFFETTO GLOW (Bagliore) ===== */
+.btn-glow {
+    background: linear-gradient(45deg, var(--btn-primary-color), var(--btn-secondary-color));
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    position: relative;
+    transition: all var(--transition-butter);
+    overflow: hidden;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+    border-radius: 10px;
+    z-index: -1;
+    background-size: 400%;
+    animation: glowing 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+.btn-glow:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+}
+
+/* ===== EFFETTO SLIDE (Scorrimento) ===== */
+.btn-slide {
+    --color: var(--btn-secondary-color);
+    --hover: var(--btn-secondary-hover);
+    color: var(--color);
+    border: 2px solid var(--color);
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-butter);
+}
+
+.btn-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--hover);
+    transition: left var(--transition-smooth);
+    z-index: -1;
+}
+
+.btn-slide:hover::before {
+    left: 0;
+}
+
+.btn-slide:hover {
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* ===== EFFETTO BOUNCE (Rimbalzo) ===== */
+.btn-bounce {
+    background: linear-gradient(135deg, var(--btn-accent-color), var(--btn-accent-hover));
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: all var(--transition-butter);
+    position: relative;
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    80% {
+        transform: translateY(-5px);
+    }
+}
+
+.btn-bounce:hover {
+    animation: bounce 1s ease-in-out;
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+}
+
+/* ===== EFFETTO SHIMMER (Scintillio) ===== */
+.btn-shimmer {
+    background: linear-gradient(90deg, var(--btn-primary-color), var(--btn-secondary-color), var(--btn-primary-color));
+    background-size: 200% 100%;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-butter);
+}
+
+.btn-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-shimmer:hover::before {
+    left: 100%;
+}
+
+.btn-shimmer:hover {
+    background-position: 200% 0;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+}
+
+/* ===== EFFETTI RESPONSIVI ===== */
+@media (max-width: 768px) {
+    .btn-fill-in,
+    .btn-pulse,
+    .btn-press,
+    .btn-ripple,
+    .btn-raise,
+    .btn-glow,
+    .btn-slide,
+    .btn-bounce,
+    .btn-shimmer {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ===== EFFETTI PER TEMA SCURO ===== */
+[data-theme="dark"] .btn-fill-in,
+[data-theme="dark"] .btn-pulse,
+[data-theme="dark"] .btn-press,
+[data-theme="dark"] .btn-ripple,
+[data-theme="dark"] .btn-raise,
+[data-theme="dark"] .btn-glow,
+[data-theme="dark"] .btn-slide,
+[data-theme="dark"] .btn-bounce,
+[data-theme="dark"] .btn-shimmer {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .btn-fill-in:hover,
+[data-theme="dark"] .btn-pulse:hover,
+[data-theme="dark"] .btn-press:hover,
+[data-theme="dark"] .btn-ripple:hover,
+[data-theme="dark"] .btn-raise:hover,
+[data-theme="dark"] .btn-glow:hover,
+[data-theme="dark"] .btn-slide:hover,
+[data-theme="dark"] .btn-bounce:hover,
+[data-theme="dark"] .btn-shimmer:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}

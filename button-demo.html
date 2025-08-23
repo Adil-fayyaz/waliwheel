@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wali Wheelse - Demo Effetti Pulsanti</title>
+    <meta name="description" content="Scopri tutti gli effetti moderni e fluidi dei pulsanti">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/button-effects.css">
+    
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        .demo-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .demo-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .button-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .button-category {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .category-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .button-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .button-example {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .button-example button {
+            min-width: 150px;
+        }
+        
+        .example-label {
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            min-width: 100px;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: 1rem;
+            }
+            
+            .demo-title {
+                font-size: 2rem;
+            }
+            
+            .button-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-button {
+                position: static;
+                margin-bottom: 2rem;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Torna alla Home</a>
+    
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1 class="demo-title">🎨 Demo Effetti Pulsanti</h1>
+            <p class="demo-subtitle">Scopri tutti gli effetti moderni e fluidi implementati nei pulsanti di Wali Wheelse</p>
+        </div>
+        
+        <div class="button-showcase">
+            <!-- Fill-In Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Fill-In Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Primario:</span>
+                        <button class="btn-fill-in">Esplora</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Secondario:</span>
+                        <button class="btn-fill-in" style="--color: #10b981; --hover: #059669;">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Accent:</span>
+                        <button class="btn-fill-in" style="--color: #f59e0b; --hover: #d97706;">Arancione</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pulse Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Pulse Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-pulse">Pulsante</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Rosso:</span>
+                        <button class="btn-pulse" style="--color: #ef4444; --hover: #dc2626;">Rosso</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Blu:</span>
+                        <button class="btn-pulse" style="--color: #3b82f6; --hover: #2563eb;">Blu</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Press Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Press Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-press">Premi</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Verde:</span>
+                        <button class="btn-press" style="background: linear-gradient(135deg, #10b981, #059669);">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Blu:</span>
+                        <button class="btn-press" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">Blu</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ripple Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Ripple Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Rosso:</span>
+                        <button class="btn-ripple">Ripple</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Verde:</span>
+                        <button class="btn-ripple" style="background: linear-gradient(135deg, #10b981, #059669);">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Blu:</span>
+                        <button class="btn-ripple" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">Blu</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Raise Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Raise Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-raise">Solleva</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Verde:</span>
+                        <button class="btn-raise" style="--color: #10b981; --hover: #059669;">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Arancione:</span>
+                        <button class="btn-raise" style="--color: #f59e0b; --hover: #d97706;">Arancione</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Glow Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Glow Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-glow">Bagliore</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Verde:</span>
+                        <button class="btn-glow" style="background: linear-gradient(45deg, #10b981, #059669);">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Rosso:</span>
+                        <button class="btn-glow" style="background: linear-gradient(45deg, #ef4444, #dc2626);">Rosso</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Slide Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-slide">Scorri</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Blu:</span>
+                        <button class="btn-slide" style="--color: #3b82f6; --hover: #2563eb;">Blu</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Viola:</span>
+                        <button class="btn-slide" style="--color: #8b5cf6; --hover: #7c3aed;">Viola</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bounce Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Bounce Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-bounce">Rimbalza</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Verde:</span>
+                        <button class="btn-bounce" style="background: linear-gradient(135deg, #10b981, #059669);">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Blu:</span>
+                        <button class="btn-bounce" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">Blu</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shimmer Effect -->
+            <div class="button-category">
+                <h2 class="category-title">Shimmer Effect</h2>
+                <div class="button-examples">
+                    <div class="button-example">
+                        <span class="example-label">Standard:</span>
+                        <button class="btn-shimmer">Scintilla</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Verde:</span>
+                        <button class="btn-shimmer" style="background: linear-gradient(90deg, #10b981, #059669, #10b981);">Verde</button>
+                    </div>
+                    <div class="button-example">
+                        <span class="example-label">Rosso:</span>
+                        <button class="btn-shimmer" style="background: linear-gradient(90deg, #ef4444, #dc2626, #ef4444);">Rosso</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="button-category" style="text-align: center; margin-top: 2rem;">
+            <h2 class="category-title">🎯 Caratteristiche degli Effetti</h2>
+            <div style="color: white; line-height: 1.6;">
+                <p>✅ <strong>Fluidi come burro:</strong> Transizioni smooth con cubic-bezier</p>
+                <p>✅ <strong>Responsive:</strong> Ottimizzati per tutti i dispositivi</p>
+                <p>✅ <strong>Performance:</strong> Utilizzo di will-change e transform3d</p>
+                <p>✅ <strong>Accessibilità:</strong> Supporto per tema scuro e focus states</p>
+                <p>✅ <strong>Interattività:</strong> Effetti magnetici e particelle fluttuanti</p>
+                <p>✅ <strong>Modernità:</strong> Design glassmorphism e neumorphism</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/button-animations.js"></script>
+</body>
+</html>

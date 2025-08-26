@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Animazioni Avanzate - Wali Wheelse</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/button-effects.css">
+    <link rel="stylesheet" href="css/glassmorphism-buttons.css">
+    <link rel="stylesheet" href="css/advanced-effects.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .test-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .test-button {
+            margin: 0.5rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-success { background-color: #10b981; }
+        .status-warning { background-color: #f59e0b; }
+        .status-error { background-color: #ef4444; }
+        
+        .console-output {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        
+        .console-line {
+            margin: 0.25rem 0;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .console-success { color: #10b981; }
+        .console-warning { color: #f59e0b; }
+        .console-error { color: #ef4444; }
+        .console-info { color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header preserve-3d">
+            <h1 class="test-title">🧪 Test Animazioni Avanzate</h1>
+            <p>Verifica delle nuove funzionalità GSAP, 3D e UI moderne</p>
+        </div>
+        
+        <div class="test-section preserve-3d">
+            <h2>🎬 Test Animazioni GSAP</h2>
+            <p>Verifica che le animazioni GSAP siano caricate e funzionanti</p>
+            
+            <div class="test-grid">
+                <div class="test-card preserve-3d">
+                    <h3>GSAP Core</h3>
+                    <p>Verifica caricamento libreria principale</p>
+                    <div id="gsapStatus" class="status-indicator status-warning"></div>
+                    <span id="gsapText">Verificando...</span>
+                </div>
+                
+                <div class="test-card preserve-3d">
+                    <h3>ScrollTrigger</h3>
+                    <p>Verifica plugin scroll-triggered</p>
+                    <div id="scrollTriggerStatus" class="status-indicator status-warning"></div>
+                    <span id="scrollTriggerText">Verificando...</span>
+                </div>
+                
+                <div class="test-card preserve-3d">
+                    <h3>MotionPath</h3>
+                    <p>Verifica plugin motion path</p>
+                    <div id="motionPathStatus" class="status-indicator status-warning"></div>
+                    <span id="motionPathText">Verificando...</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section preserve-3d">
+            <h2>🎯 Test Effetti 3D</h2>
+            <p>Verifica che gli effetti 3D e le trasformazioni funzionino</p>
+            
+            <div class="test-grid">
+                <div class="test-card preserve-3d" id="test3DCard">
+                    <h3>Card 3D</h3>
+                    <p>Questa card dovrebbe ruotare in 3D al movimento del mouse</p>
+                    <button class="glass-button primary shimmer preserve-3d test-button">Test 3D</button>
+                </div>
+                
+                <div class="test-card preserve-3d" id="testParallaxCard">
+                    <h3>Parallax</h3>
+                    <p>Questa card dovrebbe muoversi con parallax allo scroll</p>
+                    <button class="glass-button secondary pulse preserve-3d test-button">Test Parallax</button>
+                </div>
+                
+                <div class="test-card preserve-3d" id="testMorphCard">
+                    <h3>Morphing</h3>
+                    <p>Questa card dovrebbe cambiare forma al hover</p>
+                    <button class="glass-button accent neon preserve-3d test-button">Test Morph</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section preserve-3d">
+            <h2>🔘 Test Bottoni Avanzati</h2>
+            <p>Verifica che tutti gli effetti dei bottoni funzionino</p>
+            
+            <div class="test-grid">
+                <div class="test-card preserve-3d">
+                    <h3>Effetti Base</h3>
+                    <button class="glass-button primary shimmer preserve-3d test-button">Shimmer</button>
+                    <button class="glass-button secondary pulse preserve-3d test-button">Pulse</button>
+                    <button class="glass-button accent neon preserve-3d test-button">Neon</button>
+                </div>
+                
+                <div class="test-card preserve-3d">
+                    <h3>Effetti Avanzati</h3>
+                    <button class="glass-button primary magnetic preserve-3d test-button">Magnetic</button>
+                    <button class="glass-button secondary floating preserve-3d test-button">Floating</button>
+                    <button class="glass-button accent preserve-3d test-button">Standard</button>
+                </div>
+                
+                <div class="test-card preserve-3d">
+                    <h3>Dimensioni</h3>
+                    <button class="glass-button primary small preserve-3d test-button">Small</button>
+                    <button class="glass-button secondary preserve-3d test-button">Normal</button>
+                    <button class="glass-button accent large preserve-3d test-button">Large</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section preserve-3d">
+            <h2>📊 Console Output</h2>
+            <p>Log delle verifiche e degli errori</p>
+            
+            <div class="console-output" id="consoleOutput">
+                <div class="console-line console-info">🚀 Inizializzazione test animazioni avanzate...</div>
+            </div>
+        </div>
+        
+        <div class="test-section preserve-3d">
+            <h2>🔗 Navigazione</h2>
+            <p>Link per testare altre pagine</p>
+            
+            <div class="test-grid">
+                <div class="test-card preserve-3d">
+                    <a href="index.html" class="glass-button primary shimmer preserve-3d test-button">🏠 Home</a>
+                    <a href="demo-features.html" class="glass-button secondary pulse preserve-3d test-button">✨ Demo</a>
+                    <a href="glassmorphism-demo.html" class="glass-button accent neon preserve-3d test-button">🎨 Glassmorphism</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/button-animations.js"></script>
+    <script src="js/advanced-animations.js"></script>
+    <script>
+        class TestAdvancedAnimations {
+            constructor() {
+                this.consoleOutput = document.getElementById('consoleOutput');
+                this.init();
+            }
+            
+            init() {
+                this.log('🧪 Test inizializzato', 'info');
+                this.testGSAP();
+                this.test3DEffects();
+                this.testButtonEffects();
+                this.testPerformance();
+            }
+            
+            testGSAP() {
+                this.log('🎬 Testando GSAP...', 'info');
+                
+                if (window.gsap) {
+                    this.updateStatus('gsapStatus', 'gsapText', 'success', '✅ GSAP caricato');
+                    this.log('✅ GSAP caricato correttamente', 'success');
+                    
+                    if (window.gsap.ScrollTrigger) {
+                        this.updateStatus('scrollTriggerStatus', 'scrollTriggerText', 'success', '✅ ScrollTrigger disponibile');
+                        this.log('✅ ScrollTrigger plugin disponibile', 'success');
+                    } else {
+                        this.updateStatus('scrollTriggerStatus', 'scrollTriggerText', 'error', '❌ ScrollTrigger mancante');
+                        this.log('❌ ScrollTrigger plugin non disponibile', 'error');
+                    }
+                    
+                    if (window.gsap.MotionPathPlugin) {
+                        this.updateStatus('motionPathStatus', 'motionPathText', 'success', '✅ MotionPath disponibile');
+                        this.log('✅ MotionPath plugin disponibile', 'success');
+                    } else {
+                        this.updateStatus('motionPathStatus', 'motionPathText', 'error', '❌ MotionPath mancante');
+                        this.log('❌ MotionPath plugin non disponibile', 'error');
+                    }
+                } else {
+                    this.updateStatus('gsapStatus', 'gsapText', 'error', '❌ GSAP non caricato');
+                    this.log('❌ GSAP non disponibile', 'error');
+                }
+            }
+            
+            test3DEffects() {
+                this.log('🎯 Testando effetti 3D...', 'info');
+                
+                // Test trasformazioni 3D
+                const testCard = document.getElementById('test3DCard');
+                if (testCard) {
+                    testCard.style.transform = 'rotateX(15deg) rotateY(15deg)';
+                    setTimeout(() => {
+                        testCard.style.transform = '';
+                        this.log('✅ Trasformazioni 3D funzionanti', 'success');
+                    }, 1000);
+                }
+                
+                // Test parallax
+                const parallaxCard = document.getElementById('testParallaxCard');
+                if (parallaxCard) {
+                    parallaxCard.style.transform = 'translateZ(50px)';
+                    setTimeout(() => {
+                        parallaxCard.style.transform = '';
+                        this.log('✅ Effetti parallax funzionanti', 'success');
+                    }, 1000);
+                }
+            }
+            
+            testButtonEffects() {
+                this.log('🔘 Testando effetti bottoni...', 'info');
+                
+                const buttons = document.querySelectorAll('.glass-button');
+                let workingButtons = 0;
+                
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        workingButtons++;
+                        this.log(`✅ Bottone cliccato: ${button.textContent.trim()}`, 'success');
+                        
+                        if (workingButtons === buttons.length) {
+                            this.log('🎉 Tutti i bottoni funzionano correttamente!', 'success');
+                        }
+                    });
+                });
+                
+                this.log(`🔘 Testati ${buttons.length} bottoni`, 'info');
+            }
+            
+            testPerformance() {
+                this.log('⚡ Testando performance...', 'info');
+                
+                // Test FPS
+                let frameCount = 0;
+                let lastTime = performance.now();
+                
+                const measureFPS = () => {
+                    frameCount++;
+                    const currentTime = performance.now();
+                    
+                    if (currentTime - lastTime >= 1000) {
+                        const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                        this.log(`📊 FPS: ${fps}`, fps > 30 ? 'success' : 'warning');
+                        
+                        frameCount = 0;
+                        lastTime = currentTime;
+                    }
+                    
+                    requestAnimationFrame(measureFPS);
+                };
+                
+                requestAnimationFrame(measureFPS);
+            }
+            
+            updateStatus(statusId, textId, type, text) {
+                const statusElement = document.getElementById(statusId);
+                const textElement = document.getElementById(textId);
+                
+                if (statusElement && textElement) {
+                    statusElement.className = `status-indicator status-${type}`;
+                    textElement.textContent = text;
+                }
+            }
+            
+            log(message, type = 'info') {
+                const line = document.createElement('div');
+                line.className = `console-line console-${type}`;
+                line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                
+                this.consoleOutput.appendChild(line);
+                this.consoleOutput.scrollTop = this.consoleOutput.scrollHeight;
+                
+                console.log(message);
+            }
+        }
+        
+        // Inizializza i test quando il DOM è pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            window.testAdvancedAnimations = new TestAdvancedAnimations();
+            
+            // Inizializza le animazioni avanzate se disponibili
+            if (window.AdvancedAnimations) {
+                try {
+                    window.advancedAnimations = new window.AdvancedAnimations();
+                    window.testAdvancedAnimations.log('🎬 Animazioni avanzate inizializzate nei test!', 'success');
+                } catch (error) {
+                    window.testAdvancedAnimations.log(`⚠️ Errore animazioni avanzate: ${error.message}`, 'error');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

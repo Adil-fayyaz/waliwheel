@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti - Wali Wheelse</title>
+    <meta name="description" content="Contattaci per informazioni su auto di lusso, preventivi e assistenza. Siamo qui per aiutarti a trovare la tua auto dei sogni.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css?v=2.0.0">
+    <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="css/button-effects.css?v=2.0.0">
+    <link rel="stylesheet" href="css/glassmorphism-buttons.css?v=2.0.0">
+    <link rel="stylesheet" href="css/advanced-effects.css?v=2.0.0">
+    <link rel="stylesheet" href="css/chatbot.css?v=2.0.0">
+    <link rel="stylesheet" href="css/advanced-features.css?v=2.0.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Glass -->
+    <header class="header-glass gpu-accelerated">
+        <nav class="nav-container">
+            <div class="nav-brand gpu-accelerated">
+                <div class="logo-glow preserve-3d">
+                    <span class="logo-text">Wali</span>
+                    <span class="logo-accent">Wheelse</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu preserve-3d">
+                <li><a href="index.html" class="nav-link preserve-3d">Home</a></li>
+                <li><a href="catalogo.html" class="nav-link preserve-3d">Catalogo</a></li>
+                <li><a href="chi-siamo.html" class="nav-link preserve-3d">Chi Siamo</a></li>
+                <li><a href="finanziamento.html" class="nav-link preserve-3d">Finanziamento</a></li>
+                <li><a href="contatti.html" class="nav-link active preserve-3d">Contatti</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <!-- Carrello -->
+                <div class="cart-container">
+                    <button class="cart-btn" id="cartBtn" aria-label="Carrello">
+                        <svg class="cart-icon" viewBox="0 0 24 24">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+
+                <!-- Notifiche -->
+                <button class="notifications-btn" id="notificationsBtn" aria-label="Notifiche">
+                    <svg class="notifications-icon" viewBox="0 0 24 24">
+                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                    </svg>
+                    <span class="notifications-badge" id="notificationsBadge">0</span>
+                </button>
+
+                <!-- Confronto Auto -->
+                <button class="compare-btn" id="compareBtn" aria-label="Confronta Auto">
+                    <svg class="compare-icon" viewBox="0 0 24 24">
+                        <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                    </svg>
+                    <span class="compare-count" id="compareCount">0</span>
+                </button>
+
+                <!-- Tema -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+                    <svg class="theme-icon" viewBox="0 0 24 24">
+                        <path class="sun-path" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        <path class="moon-path" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+                
+                <!-- Autenticazione Unificata -->
+                <div class="auth-container" id="authContainer">
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn-auth-unified" id="authBtn">
+                            <svg class="auth-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span>Accedi / Registrati</span>
+                        </button>
+                    </div>
+
+                    <!-- Stato autenticato -->
+                    <div class="user-profile hidden ultra-modern" id="userProfile">
+                        <div class="profile-info">
+                            <div class="profile-avatar">
+                                <img src="assets/images/default-avatar.png" alt="Avatar utente" id="userAvatar">
+                            </div>
+                            <div class="profile-details">
+                                <span class="user-name" id="userName">Nome Utente</span>
+                                <span class="user-email" id="userEmail">email@example.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button class="profile-btn ultra-modern" id="profileBtn" title="Profilo">
+                                <svg class="profile-icon" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                <span>Profilo</span>
+                            </button>
+                            
+                            <button class="logout-btn ultra-modern" id="logoutBtn" title="Logout">
+                                <svg class="logout-icon" viewBox="0 0 24 24">
+                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu mobile">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section Contatti -->
+    <section class="hero-contact preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title preserve-3d">
+                    <span class="title-line">Contattaci</span>
+                    <span class="title-accent">Ora</span>
+                </h1>
+                <p class="hero-subtitle preserve-3d">
+                    Siamo qui per aiutarti a trovare la tua auto dei sogni
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informazioni Contatto -->
+    <section class="contact-info-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-card preserve-3d">
+                    <div class="contact-icon">📞</div>
+                    <h3>Telefono</h3>
+                    <p>+39 123 456 789</p>
+                    <p class="contact-time">Lun-Ven: 9:00-18:00</p>
+                </div>
+                
+                <div class="contact-card preserve-3d">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>info@waliwheelse.it</p>
+                    <p class="contact-time">Risposta entro 24h</p>
+                </div>
+                
+                <div class="contact-card preserve-3d">
+                    <div class="contact-icon">📍</div>
+                    <h3>Indirizzo</h3>
+                    <p>Via Roma 123</p>
+                    <p>20100 Milano, Italia</p>
+                </div>
+                
+                <div class="contact-card preserve-3d">
+                    <div class="contact-icon">🕒</div>
+                    <h3>Orari</h3>
+                    <p>Lunedì - Venerdì: 9:00-18:00</p>
+                    <p>Sabato: 9:00-12:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Contatto -->
+    <section class="contact-form-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="contact-form-container preserve-3d">
+                <h2 class="section-title">Invia un Messaggio</h2>
+                <p class="section-subtitle">Compila il form e ti risponderemo al più presto</p>
+                
+                <form class="contact-form preserve-3d" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactFirstName">Nome *</label>
+                            <input type="text" id="contactFirstName" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactLastName">Cognome *</label>
+                            <input type="text" id="contactLastName" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactEmail">Email *</label>
+                            <input type="email" id="contactEmail" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone">Telefono</label>
+                            <input type="tel" id="contactPhone" class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactSubject">Oggetto *</label>
+                        <select id="contactSubject" class="form-select" required>
+                            <option value="">Seleziona un oggetto</option>
+                            <option value="informazioni">Informazioni Generali</option>
+                            <option value="preventivo">Richiesta Preventivo</option>
+                            <option value="test-drive">Prenotazione Test Drive</option>
+                            <option value="finanziamento">Informazioni Finanziamento</option>
+                            <option value="altro">Altro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactMessage">Messaggio *</label>
+                        <textarea id="contactMessage" class="form-textarea" rows="5" placeholder="Descrivi la tua richiesta..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="contactPrivacy" required>
+                            <span class="checkmark"></span>
+                            Accetto la <a href="#" class="privacy-link">Privacy Policy</a> *
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="glass-button primary large shimmer preserve-3d">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                        <span>Invia Messaggio</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mappa Google Maps -->
+    <section class="map-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <h2 class="section-title">Dove Siamo</h2>
+            <div class="map-container preserve-3d">
+                <div id="googleMap" class="google-map-container">
+                    <!-- Google Maps verrà caricato qui -->
+                </div>
+                <div class="map-info-overlay">
+                    <div class="map-info-card">
+                        <h3>🚗 Showroom Wali Wheelse</h3>
+                        <p><strong>📍 Indirizzo:</strong><br>Via Roma 123, 20100 Milano</p>
+                        <p><strong>🚇 Metro:</strong> Linea Rossa - Stazione Duomo</p>
+                        <p><strong>🅿️ Parcheggio:</strong> Gratuito disponibile</p>
+                        <div class="map-actions">
+                            <button class="btn-directions" onclick="window.googleMapsIntegration?.getDirections()">
+                                🗺️ Indicazioni
+                            </button>
+                            <button class="btn-call" onclick="window.googleMapsIntegration?.callDealer()">
+                                📞 Chiama
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <h2 class="section-title">Domande Frequenti</h2>
+            <div class="faq-container preserve-3d">
+                <div class="faq-item preserve-3d">
+                    <div class="faq-question">
+                        <h3>Come posso prenotare un test drive?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Puoi prenotare un test drive chiamandoci al +39 123 456 789, inviandoci un'email o compilando il form di contatto. Ti ricontatteremo entro 24 ore per confermare l'appuntamento.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item preserve-3d">
+                    <div class="faq-question">
+                        <h3>Offrite servizi di finanziamento?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sì, offriamo diverse soluzioni di finanziamento personalizzate, inclusi prestiti personali, finanziamenti auto e leasing operativo. I nostri esperti ti aiuteranno a trovare la soluzione migliore.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item preserve-3d">
+                    <div class="faq-question">
+                        <h3>Le auto hanno garanzia?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Tutte le nostre auto sono controllate rigorosamente e vengono fornite con garanzia. Le auto nuove hanno garanzia del costruttore, mentre quelle usate hanno garanzia estesa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Glass -->
+    <footer class="footer-glass preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-text">Wali</span>
+                        <span class="logo-accent">Wheelse</span>
+                    </div>
+                    <p>La tua concessionaria di fiducia per auto di lusso</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Servizi</h3>
+                    <ul>
+                        <li><a href="#">Vendita Auto</a></li>
+                        <li><a href="#">Finanziamento</a></li>
+                        <li><a href="#">Assicurazioni</a></li>
+                        <li><a href="#">Assistenza</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contatti</h3>
+                    <ul>
+                        <li>📞 +39 123 456 789</li>
+                        <li>📧 info@waliwheelse.it</li>
+                        <li>📍 Via Roma 123, Milano</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Social</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wali Wheelse. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils.js?v=2.0.0"></script>
+    <script src="js/navigation.js?v=2.0.0"></script>
+    <script src="js/main.js?v=2.0.0"></script>
+    
+    <!-- Nuove funzionalità avanzate -->
+    <script src="js/chatbot.js?v=2.0.0"></script>
+    <script src="js/google-maps-integration.js?v=2.0.0"></script>
+    
+    <!-- Google reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
+    
+    <script>
+        // Gestione form contatti
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleContactSubmit);
+            }
+
+            // Gestione FAQ
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const faqItem = toggle.closest('.faq-item');
+                    const answer = faqItem.querySelector('.faq-answer');
+                    
+                    if (answer.style.maxHeight) {
+                        answer.style.maxHeight = null;
+                        toggle.textContent = '+';
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        toggle.textContent = '−';
+                    }
+                });
+            });
+        });
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            
+            // Simula invio form
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<span>Invio in corso...</span>';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Messaggio inviato con successo! Ti risponderemo al più presto.');
+                e.target.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

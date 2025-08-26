@@ -305,6 +305,8 @@
         </div>
     </div>
     
+    <script src="js/button-animations.js"></script>
+    <script src="js/advanced-animations.js"></script>
     <script>
         // Test interattività
         document.addEventListener('DOMContentLoaded', () => {
@@ -330,6 +332,16 @@
                     console.log(`🎯 Hover su: ${button.textContent.trim()}`);
                 });
             });
+
+            // Inizializza le animazioni avanzate se disponibili
+            if (window.AdvancedAnimations) {
+                try {
+                    window.advancedAnimations = new window.AdvancedAnimations();
+                    console.log('🎬 Animazioni avanzate inizializzate nel demo glassmorphism!');
+                } catch (error) {
+                    console.warn('⚠️ Errore nell\'inizializzazione delle animazioni avanzate:', error);
+                }
+            }
         });
     </script>
 </body>

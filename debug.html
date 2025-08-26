@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Sincronizzazione - Wali Wheelse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Sincronizzazione Dati</h1>
+    <p>Questa pagina ti aiuta a debuggare la sincronizzazione tra il pannello admin e il sito principale.</p>
+
+    <div class="debug-section">
+        <h2>📊 Stato Attuale localStorage</h2>
+        <div class="debug-info" id="localStorageStatus">
+            Caricamento...
+        </div>
+        <button class="btn" onclick="refreshLocalStorageStatus()">🔄 Aggiorna Stato</button>
+        <button class="btn btn-warning" onclick="clearAllStorage()">🗑️ Pulisci Tutto</button>
+    </div>
+
+    <div class="debug-section">
+        <h2>🚗 Dati Auto</h2>
+        <div class="debug-info" id="carsData">
+            Caricamento...
+        </div>
+        <button class="btn" onclick="refreshCarsData()">🔄 Aggiorna Dati Auto</button>
+        <button class="btn btn-success" onclick="addTestCar()">➕ Aggiungi Auto Test</button>
+    </div>
+
+    <div class="debug-section">
+        <h2>🔗 Test Sincronizzazione</h2>
+        <div class="debug-info" id="syncTest">
+            Clicca "Test Sincronizzazione" per iniziare...
+        </div>
+        <button class="btn btn-success" onclick="testSynchronization()">🧪 Test Sincronizzazione</button>
+        <button class="btn btn-warning" onclick="forceSync()">⚡ Forza Sincronizzazione</button>
+    </div>
+
+    <div class="debug-section">
+        <h2>📋 Azioni Rapide</h2>
+        <button class="btn" onclick="openAdminPanel()">🔧 Apri Pannello Admin</button>
+        <button class="btn" onclick="openMacchinePage()">🚗 Apri Pagina Macchine</button>
+        <button class="btn btn-danger" onclick="resetToExampleData()">🔄 Reset a Dati Esempio</button>
+    </div>
+
+    <script>
+        // Funzioni di debug
+        function refreshLocalStorageStatus() {
+            const status = document.getElementById('localStorageStatus');
+            const publishedCars = localStorage.getItem('publishedCars');
+            const siteCars = localStorage.getItem('siteCars');
+            
+            let statusText = '=== STATO localStorage ===\n\n';
+            
+            if (publishedCars) {
+                try {
+                    const cars = JSON.parse(publishedCars);
+                    statusText += `📦 publishedCars: ${cars.length} auto\n`;
+                    statusText += `   Contenuto: ${JSON.stringify(cars, null, 2)}\n\n`;
+                } catch (e) {
+                    statusText += `❌ publishedCars: Errore parsing - ${e.message}\n\n`;
+                }
+            } else {
+                statusText += `❌ publishedCars: Non trovato\n\n`;
+            }
+            
+            if (siteCars) {
+                try {
+                    const cars = JSON.parse(siteCars);
+                    statusText += `🌐 siteCars: ${cars.length} auto\n`;
+                    statusText += `   Contenuto: ${JSON.stringify(cars, null, 2)}\n\n`;
+                } catch (e) {
+                    statusText += `❌ siteCars: Errore parsing - ${e.message}\n\n`;
+                }
+            } else {
+                statusText += `❌ siteCars: Non trovato\n\n`;
+            }
+            
+            status.textContent = statusText;
+        }
+
+        function refreshCarsData() {
+            const carsData = document.getElementById('carsData');
+            const publishedCars = localStorage.getItem('publishedCars');
+            const siteCars = localStorage.getItem('siteCars');
+            
+            let dataText = '=== DATI AUTO ===\n\n';
+            
+            if (publishedCars) {
+                try {
+                    const cars = JSON.parse(publishedCars);
+                    dataText += `📦 Auto totali nell'admin: ${cars.length}\n`;
+                    cars.forEach((car, index) => {
+                        dataText += `   ${index + 1}. ${car.name} (${car.brand}) - €${car.price} - Status: ${car.status}\n`;
+                    });
+                } catch (e) {
+                    dataText += `❌ Errore parsing publishedCars: ${e.message}\n`;
+                }
+            }
+            
+            dataText += '\n';
+            
+            if (siteCars) {
+                try {
+                    const cars = JSON.parse(siteCars);
+                    dataText += `🌐 Auto disponibili sul sito: ${cars.length}\n`;
+                    cars.forEach((car, index) => {
+                        dataText += `   ${index + 1}. ${car.name} (${car.brand}) - €${car.price} - Status: ${car.status}\n`;
+                    });
+                } catch (e) {
+                    dataText += `❌ Errore parsing siteCars: ${e.message}\n`;
+                }
+            }
+            
+            carsData.textContent = dataText;
+        }
+
+        function addTestCar() {
+            const testCar = {
+                id: Date.now(),
+                name: 'Auto Test Debug',
+                brand: 'Test',
+                model: 'Debug',
+                year: 2024,
+                price: 25000,
+                fuel: 'benzina',
+                transmission: 'automatico',
+                power: 150,
+                mileage: 0,
+                color: 'Rosso',
+                description: 'Auto di test per debug sincronizzazione',
+                features: ['Test', 'Debug', 'Sincronizzazione'],
+                images: ['https://via.placeholder.com/400x300/ff0000/ffffff?text=TEST+DEBUG'],
+                mainImage: 'https://via.placeholder.com/400x300/ff0000/ffffff?text=TEST+DEBUG',
+                status: 'active',
+                date: new Date().toISOString().split('T')[0],
+                location: 'Test',
+                dealer: 'Debug System'
+            };
+            
+            // Salva in publishedCars
+            let publishedCars = [];
+            const existingPublished = localStorage.getItem('publishedCars');
+            if (existingPublished) {
+                try {
+                    publishedCars = JSON.parse(existingPublished);
+                } catch (e) {
+                    console.error('Errore parsing publishedCars:', e);
+                }
+            }
+            publishedCars.unshift(testCar);
+            localStorage.setItem('publishedCars', JSON.stringify(publishedCars));
+            
+            // Salva in siteCars
+            const siteCars = publishedCars.filter(car => car.status === 'active' || car.status === 'available');
+            localStorage.setItem('siteCars', JSON.stringify(siteCars));
+            
+            alert('Auto di test aggiunta! Controlla i dati aggiornati.');
+            refreshLocalStorageStatus();
+            refreshCarsData();
+        }
+
+        function testSynchronization() {
+            const syncTest = document.getElementById('syncTest');
+            let testText = '=== TEST SINCRONIZZAZIONE ===\n\n';
+            
+            const publishedCars = localStorage.getItem('publishedCars');
+            const siteCars = localStorage.getItem('siteCars');
+            
+            if (!publishedCars) {
+                testText += '❌ publishedCars non trovato\n';
+                testText += '❌ Sincronizzazione fallita\n';
+            } else if (!siteCars) {
+                testText += '✅ publishedCars trovato\n';
+                testText += '❌ siteCars non trovato\n';
+                testText += '❌ Sincronizzazione fallita\n';
+            } else {
+                try {
+                    const published = JSON.parse(publishedCars);
+                    const site = JSON.parse(siteCars);
+                    
+                    testText += `✅ publishedCars: ${published.length} auto\n`;
+                    testText += `✅ siteCars: ${site.length} auto\n`;
+                    
+                    const activeCars = published.filter(car => car.status === 'active' || car.status === 'available');
+                    
+                    if (site.length === activeCars.length) {
+                        testText += '✅ Sincronizzazione OK\n';
+                        testText += `   Auto attive: ${activeCars.length}\n`;
+                        testText += `   Auto sul sito: ${site.length}\n`;
+                    } else {
+                        testText += '❌ Sincronizzazione fallita\n';
+                        testText += `   Auto attive: ${activeCars.length}\n`;
+                        testText += `   Auto sul sito: ${site.length}\n`;
+                    }
+                } catch (e) {
+                    testText += `❌ Errore parsing: ${e.message}\n`;
+                }
+            }
+            
+            syncTest.textContent = testText;
+        }
+
+        function forceSync() {
+            const publishedCars = localStorage.getItem('publishedCars');
+            if (publishedCars) {
+                try {
+                    const cars = JSON.parse(publishedCars);
+                    const siteCars = cars.filter(car => car.status === 'active' || car.status === 'available');
+                    localStorage.setItem('siteCars', JSON.stringify(siteCars));
+                    alert('Sincronizzazione forzata completata!');
+                    refreshLocalStorageStatus();
+                    refreshCarsData();
+                } catch (e) {
+                    alert('Errore durante la sincronizzazione: ' + e.message);
+                }
+            } else {
+                alert('Nessuna auto trovata in publishedCars');
+            }
+        }
+
+        function clearAllStorage() {
+            if (confirm('Sei sicuro di voler cancellare tutti i dati? Questa azione non può essere annullata.')) {
+                localStorage.removeItem('publishedCars');
+                localStorage.removeItem('siteCars');
+                alert('Storage pulito!');
+                refreshLocalStorageStatus();
+                refreshCarsData();
+            }
+        }
+
+        function openAdminPanel() {
+            window.open('admin.html', '_blank');
+        }
+
+        function openMacchinePage() {
+            window.open('macchine.html', '_blank');
+        }
+
+        function resetToExampleData() {
+            if (confirm('Ripristinare i dati di esempio? Questo sovrascriverà i dati attuali.')) {
+                const exampleCars = [
+                    {
+                        id: 1,
+                        name: 'BMW X5 xDrive40i',
+                        brand: 'BMW',
+                        model: 'X5',
+                        year: 2024,
+                        price: 85000,
+                        fuel: 'benzina',
+                        transmission: 'automatico',
+                        power: 340,
+                        mileage: 15000,
+                        color: 'Alpine White',
+                        description: 'SUV di lusso con prestazioni eccezionali e comfort superiore',
+                        features: ['Navigazione', 'Cruise Control', 'Sedili Riscaldati', 'Sistema Audio Premium'],
+                        images: ['https://via.placeholder.com/400x300/667eea/ffffff?text=BMW+X5'],
+                        mainImage: 'https://via.placeholder.com/400x300/667eea/ffffff?text=BMW+X5',
+                        status: 'active',
+                        date: '2024-01-15',
+                        location: 'Milano',
+                        dealer: 'BMW Milano Centro'
+                    }
+                ];
+                
+                localStorage.setItem('publishedCars', JSON.stringify(exampleCars));
+                localStorage.setItem('siteCars', JSON.stringify(exampleCars));
+                
+                alert('Dati di esempio ripristinati!');
+                refreshLocalStorageStatus();
+                refreshCarsData();
+            }
+        }
+
+        // Inizializzazione
+        window.onload = function() {
+            refreshLocalStorageStatus();
+            refreshCarsData();
+        };
+    </script>
+</body>
+</html>

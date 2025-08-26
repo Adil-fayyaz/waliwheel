@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Sincronizzazione - Wali Wheelse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section h3 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .test-result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-result.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .step-number {
+            background: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Sincronizzazione Dati</h1>
+    <p>Questa pagina ti guida attraverso i test per verificare la sincronizzazione tra admin e sito principale.</p>
+
+    <div class="test-section">
+        <h3>📋 Istruzioni Test</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Apri il pannello admin</strong> e aggiungi una nuova auto
+        </div>
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Verifica i dati</strong> usando i pulsanti di debug
+        </div>
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Apri la pagina macchine</strong> e controlla se l'auto è visibile
+        </div>
+        <div class="step">
+            <span class="step-number">4</span>
+            <strong>Risolvi eventuali problemi</strong> identificati
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>🔧 Azioni Test</h3>
+        <button class="btn btn-success" onclick="runFullTest()">🚀 Test Completo</button>
+        <button class="btn" onclick="testLocalStorage()">📊 Test localStorage</button>
+        <button class="btn" onclick="testDataStructure()">🏗️ Test Struttura Dati</button>
+        <button class="btn" onclick="testSync()">🔗 Test Sincronizzazione</button>
+        <button class="btn btn-warning" onclick="openAdminPanel()">🔧 Apri Admin</button>
+        <button class="btn" onclick="openMacchinePage()">🚗 Apri Macchine</button>
+    </div>
+
+    <div class="test-section">
+        <h3>📊 Risultati Test</h3>
+        <div id="testResults">
+            Clicca "Test Completo" per iniziare...
+        </div>
+    </div>
+
+    <script>
+        function runFullTest() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<div class="test-result warning">🔄 Esecuzione test completo...</div>';
+            
+            let allTestsPassed = true;
+            let testResults = [];
+            
+            // Test 1: localStorage
+            try {
+                const publishedCars = localStorage.getItem('publishedCars');
+                const siteCars = localStorage.getItem('siteCars');
+                
+                if (publishedCars && siteCars) {
+                    testResults.push('✅ localStorage: Entrambi i campi presenti');
+                } else {
+                    testResults.push('❌ localStorage: Campi mancanti');
+                    allTestsPassed = false;
+                }
+            } catch (e) {
+                testResults.push('❌ localStorage: Errore - ' + e.message);
+                allTestsPassed = false;
+            }
+            
+            // Test 2: Struttura dati
+            try {
+                const publishedCars = localStorage.getItem('publishedCars');
+                if (publishedCars) {
+                    const cars = JSON.parse(publishedCars);
+                    if (Array.isArray(cars) && cars.length > 0) {
+                        const firstCar = cars[0];
+                        const requiredFields = ['id', 'name', 'brand', 'price', 'status'];
+                        const missingFields = requiredFields.filter(field => !firstCar.hasOwnProperty(field));
+                        
+                        if (missingFields.length === 0) {
+                            testResults.push('✅ Struttura dati: Tutti i campi richiesti presenti');
+                        } else {
+                            testResults.push('❌ Struttura dati: Campi mancanti: ' + missingFields.join(', '));
+                            allTestsPassed = false;
+                        }
+                    } else {
+                        testResults.push('❌ Struttura dati: Nessuna auto trovata o formato non valido');
+                        allTestsPassed = false;
+                    }
+                } else {
+                    testResults.push('❌ Struttura dati: Nessun dato presente');
+                    allTestsPassed = false;
+                }
+            } catch (e) {
+                testResults.push('❌ Struttura dati: Errore parsing - ' + e.message);
+                allTestsPassed = false;
+            }
+            
+            // Test 3: Sincronizzazione
+            try {
+                const publishedCars = localStorage.getItem('publishedCars');
+                const siteCars = localStorage.getItem('siteCars');
+                
+                if (publishedCars && siteCars) {
+                    const published = JSON.parse(publishedCars);
+                    const site = JSON.parse(siteCars);
+                    
+                    const activeCars = published.filter(car => car.status === 'active' || car.status === 'available');
+                    
+                    if (site.length === activeCars.length) {
+                        testResults.push('✅ Sincronizzazione: OK - ' + site.length + ' auto sincronizzate');
+                    } else {
+                        testResults.push('❌ Sincronizzazione: Fallita - ' + activeCars.length + ' attive vs ' + site.length + ' sul sito');
+                        allTestsPassed = false;
+                    }
+                } else {
+                    testResults.push('❌ Sincronizzazione: Dati mancanti');
+                    allTestsPassed = false;
+                }
+            } catch (e) {
+                testResults.push('❌ Sincronizzazione: Errore - ' + e.message);
+                allTestsPassed = false;
+            }
+            
+            // Mostra risultati
+            const resultClass = allTestsPassed ? 'success' : 'error';
+            const resultIcon = allTestsPassed ? '✅' : '❌';
+            const resultText = allTestsPassed ? 'TUTTI I TEST SUPERATI' : 'ALCUNI TEST FALLITI';
+            
+            results.innerHTML = `
+                <div class="test-result ${resultClass}">
+                    ${resultIcon} ${resultText}
+                </div>
+                <div style="margin-top: 15px;">
+                    ${testResults.map(result => `<div style="margin: 5px 0;">${result}</div>`).join('')}
+                </div>
+            `;
+        }
+
+        function testLocalStorage() {
+            const results = document.getElementById('testResults');
+            const publishedCars = localStorage.getItem('publishedCars');
+            const siteCars = localStorage.getItem('siteCars');
+            
+            let resultText = '<h4>Test localStorage:</h4>';
+            
+            if (publishedCars) {
+                try {
+                    const cars = JSON.parse(publishedCars);
+                    resultText += `<div class="test-result success">✅ publishedCars: ${cars.length} auto</div>`;
+                } catch (e) {
+                    resultText += `<div class="test-result error">❌ publishedCars: Errore parsing</div>`;
+                }
+            } else {
+                resultText += `<div class="test-result error">❌ publishedCars: Non trovato</div>`;
+            }
+            
+            if (siteCars) {
+                try {
+                    const cars = JSON.parse(siteCars);
+                    resultText += `<div class="test-result success">✅ siteCars: ${cars.length} auto</div>`;
+                } catch (e) {
+                    resultText += `<div class="test-result error">❌ siteCars: Errore parsing</div>`;
+                }
+            } else {
+                resultText += `<div class="test-result error">❌ siteCars: Non trovato</div>`;
+            }
+            
+            results.innerHTML = resultText;
+        }
+
+        function testDataStructure() {
+            const results = document.getElementById('testResults');
+            const publishedCars = localStorage.getItem('publishedCars');
+            
+            if (!publishedCars) {
+                results.innerHTML = '<div class="test-result error">❌ Nessun dato presente per il test</div>';
+                return;
+            }
+            
+            try {
+                const cars = JSON.parse(publishedCars);
+                if (cars.length === 0) {
+                    results.innerHTML = '<div class="test-result warning">⚠️ Nessuna auto presente</div>';
+                    return;
+                }
+                
+                const firstCar = cars[0];
+                const requiredFields = ['id', 'name', 'brand', 'price', 'status', 'model', 'year', 'fuel', 'transmission'];
+                const missingFields = requiredFields.filter(field => !firstCar.hasOwnProperty(field));
+                
+                let resultText = '<h4>Test Struttura Dati:</h4>';
+                resultText += `<div class="test-result success">✅ Auto trovate: ${cars.length}</div>`;
+                
+                if (missingFields.length === 0) {
+                    resultText += '<div class="test-result success">✅ Tutti i campi richiesti presenti</div>';
+                } else {
+                    resultText += `<div class="test-result error">❌ Campi mancanti: ${missingFields.join(', ')}</div>`;
+                }
+                
+                resultText += '<h5>Prima auto:</h5>';
+                resultText += `<pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">${JSON.stringify(firstCar, null, 2)}</pre>`;
+                
+                results.innerHTML = resultText;
+            } catch (e) {
+                results.innerHTML = `<div class="test-result error">❌ Errore parsing: ${e.message}</div>`;
+            }
+        }
+
+        function testSync() {
+            const results = document.getElementById('testResults');
+            const publishedCars = localStorage.getItem('publishedCars');
+            const siteCars = localStorage.getItem('siteCars');
+            
+            if (!publishedCars || !siteCars) {
+                results.innerHTML = '<div class="test-result error">❌ Dati mancanti per il test di sincronizzazione</div>';
+                return;
+            }
+            
+            try {
+                const published = JSON.parse(publishedCars);
+                const site = JSON.parse(siteCars);
+                
+                const activeCars = published.filter(car => car.status === 'active' || car.status === 'available');
+                
+                let resultText = '<h4>Test Sincronizzazione:</h4>';
+                resultText += `<div class="test-result success">✅ Auto totali nell'admin: ${published.length}</div>`;
+                resultText += `<div class="test-result success">✅ Auto attive: ${activeCars.length}</div>`;
+                resultText += `<div class="test-result success">✅ Auto sul sito: ${site.length}</div>`;
+                
+                if (site.length === activeCars.length) {
+                    resultText += '<div class="test-result success">✅ Sincronizzazione OK</div>';
+                } else {
+                    resultText += '<div class="test-result error">❌ Sincronizzazione fallita</div>';
+                    resultText += '<div class="test-result warning">⚠️ Differenza: ' + Math.abs(site.length - activeCars.length) + ' auto</div>';
+                }
+                
+                results.innerHTML = resultText;
+            } catch (e) {
+                results.innerHTML = `<div class="test-result error">❌ Errore test sincronizzazione: ${e.message}</div>`;
+            }
+        }
+
+        function openAdminPanel() {
+            window.open('admin.html', '_blank');
+        }
+
+        function openMacchinePage() {
+            window.open('macchine.html', '_blank');
+        }
+
+        // Inizializzazione
+        window.onload = function() {
+            console.log('Test page caricata. Usa i pulsanti per eseguire i test.');
+        };
+    </script>
+</body>
+</html>

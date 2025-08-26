@@ -5,6 +5,7 @@ class CarDetailPage {
         this.currentImageIndex = 0;
         this.carImages = [];
         this.init();
+        this.initAdvancedAnimations();
     }
 
     init() {
@@ -843,11 +844,54 @@ class CarDetailPage {
         if (loanTermValue) loanTermValue.textContent = `${loanTerm} mesi`;
         if (monthlyPayment) monthlyPayment.textContent = `€${Math.round(monthlyPaymentAmount).toLocaleString('it-IT')}`;
     }
+
+    // ===== ANIMAZIONI AVANZATE =====
+    initAdvancedAnimations() {
+        // Inizializza le animazioni GSAP se disponibili
+        if (window.AdvancedAnimations) {
+            try {
+                this.advancedAnimations = new window.AdvancedAnimations();
+                console.log('🎬 Animazioni avanzate inizializzate nella pagina dettagli!');
+            } catch (error) {
+                console.warn('⚠️ Errore nell\'inizializzazione delle animazioni avanzate:', error);
+            }
+        }
+
+        // Inizializza gli effetti 3D se disponibili
+        if (window.initTiltEffects) {
+            try {
+                window.initTiltEffects();
+                console.log('🎯 Effetti 3D inizializzati nella pagina dettagli!');
+            } catch (error) {
+                console.warn('⚠️ Errore nell\'inizializzazione degli effetti 3D:', error);
+            }
+        }
+
+        // Inizializza le animazioni dei bottoni se disponibili
+        if (window.ButtonAnimations) {
+            try {
+                this.buttonAnimations = new window.ButtonAnimations();
+                console.log('🔘 Animazioni bottoni inizializzate nella pagina dettagli!');
+            } catch (error) {
+                console.warn('⚠️ Errore nell\'inizializzazione delle animazioni bottoni:', error);
+            }
+        }
+    }
 }
 
 // Initialize car detail page when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new CarDetailPage();
+    
+    // Inizializza le animazioni avanzate se disponibili
+    if (window.AdvancedAnimations) {
+        try {
+            window.advancedAnimations = new window.AdvancedAnimations();
+            console.log('🎬 Animazioni avanzate inizializzate nella pagina dettagli!');
+        } catch (error) {
+            console.warn('⚠️ Errore nell\'inizializzazione delle animazioni avanzate:', error);
+        }
+    }
 });
 
 // Global functions for external use
@@ -862,4 +906,14 @@ function addToCompare(carId) {
 window.carDetailPage = null;
 document.addEventListener('DOMContentLoaded', () => {
     window.carDetailPage = new CarDetailPage();
+    
+    // Inizializza le animazioni avanzate se disponibili
+    if (window.AdvancedAnimations) {
+        try {
+            window.advancedAnimations = new window.AdvancedAnimations();
+            console.log('🎬 Animazioni avanzate inizializzate nella pagina dettagli (globale)!');
+        } catch (error) {
+            console.warn('⚠️ Errore nell\'inizializzazione delle animazioni avanzate (globale):', error);
+        }
+    }
 });

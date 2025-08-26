@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wali Wheelse - Concessionaria Auto di Lusso</title>
+    <meta name="description" content="Scopri la nostra selezione esclusiva di auto di lusso, nuove e usate. Finanziamento personalizzato e garanzia premium.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://waliwheelse.com/">
+    <meta property="og:title" content="Wali Wheelse - Auto di Lusso">
+    <meta property="og:description" content="Concessionaria auto di lusso con finanziamento personalizzato">
+    <meta property="og:image" content="https://waliwheelse.com/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://waliwheelse.com/">
+    <meta property="twitter:title" content="Wali Wheelse - Auto di Lusso">
+    <meta property="twitter:description" content="Concessionaria auto di lusso con finanziamento personalizzato">
+    <meta property="twitter:image" content="https://waliwheelse.com/images/twitter-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css?v=2.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="js/main.js" as="script">
+    <link rel="preload" href="js/profile-manager.js" as="script">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AutoDealer",
+        "name": "Wali Wheelse",
+        "description": "Concessionaria auto di lusso con finanziamento personalizzato",
+        "url": "https://waliwheelse.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IT"
+        },
+        "serviceType": "Auto Sales and Financing"
+    }
+    </script>
+</head>
+<body>
+    <!-- Header con Navigazione -->
+    <header class="header-glass gpu-accelerated">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <span class="logo-icon">🚗</span>
+                        <span class="logo-text">Wali Wheelse</span>
+                    </div>
+                    <div class="tagline">Concessionaria Auto di Lusso</div>
+                </div>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="catalogo.html" class="nav-link">Catalogo</a>
+                    <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
+                    <a href="finanziamento.html" class="nav-link">Finanziamento</a>
+                    <a href="contatti.html" class="nav-link">Contatti</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <div class="action-icon" id="cartIcon">
+                        <span class="icon-badge">0</span>
+                        🛒
+                    </div>
+                    <div class="action-icon" id="notificationsIcon">
+                        <span class="icon-badge">0</span>
+                        🔔
+                    </div>
+                    <div class="action-icon" id="menuIcon">
+                        <span class="icon-badge">0</span>
+                        ⚙️
+                    </div>
+                    
+                    <!-- Pulsante Accedi/Registrati -->
+                    <button class="btn-auth glass-button primary shimmer" id="authBtn">
+                        <span class="btn-icon">✓</span>
+                        Accedi / Registrati
+                    </button>
+                    
+                    <!-- Profilo Utente (nascosto di default) -->
+                    <div class="user-profile hidden" id="userProfile">
+                        <div class="user-avatar" id="userAvatar">
+                            <span class="avatar-text">👤</span>
+                        </div>
+                        <div class="user-menu" id="userMenu">
+                            <div class="menu-item" id="profileMenuItem">
+                                <span class="menu-icon">👤</span>
+                                <span class="menu-text">Profilo</span>
+                            </div>
+                            <div class="menu-item" id="ordersMenuItem">
+                                <span class="menu-icon">📋</span>
+                                <span class="menu-text">I Miei Ordini</span>
+                            </div>
+                            <div class="menu-item" id="favoritesMenuItem">
+                                <span class="menu-icon">❤️</span>
+                                <span class="menu-text">Preferiti</span>
+                            </div>
+                            <div class="menu-item" id="settingsMenuItem">
+                                <span class="menu-icon">⚙️</span>
+                                <span class="menu-text">Impostazioni</span>
+                            </div>
+                            <div class="menu-item" id="logoutMenuItem">
+                                <span class="menu-icon">🚪</span>
+                                <span class="menu-text">Esci</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-glass preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Trova la tua Auto dei Sogni</h1>
+                <p class="hero-subtitle">Scopri la nostra selezione esclusiva di auto di lusso, nuove e usate, con la garanzia Wali Wheelse</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card glass-card preserve-3d">
+                        <div class="stat-number" id="premiumCarsCount">0</div>
+                        <div class="stat-label">AUTO PREMIUM</div>
+                    </div>
+                    <div class="stat-card glass-card preserve-3d">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">ANNI ESPERIENZA</div>
+                    </div>
+                    <div class="stat-card glass-card preserve-3d">
+                        <div class="stat-number" id="satisfiedCustomersCount">0</div>
+                        <div class="stat-label">CLIENTI SODDISFATTI</div>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <button class="glass-button primary large shimmer preserve-3d" id="exploreCarsBtn">
+                        <span class="btn-icon">🚗</span>
+                        Esplora le Macchine
+                    </button>
+                    <button class="glass-button secondary large pulse preserve-3d" id="testDriveBtn">
+                        <span class="btn-icon">🎯</span>
+                        Prenota Test Drive
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Particelle fluttuanti -->
+        <div class="floating-particles">
+            <div class="particle" style="--delay: 0s; --duration: 20s;"></div>
+            <div class="particle" style="--delay: 5s; --duration: 25s;"></div>
+            <div class="particle" style="--delay: 10s; --duration: 30s;"></div>
+            <div class="particle" style="--delay: 15s; --duration: 35s;"></div>
+        </div>
+    </section>
+
+    <!-- Sezione Novità -->
+    <section class="section-news preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Novità e Offerte Speciali</h2>
+                <p class="section-subtitle">Scopri le ultime auto arrivate e le offerte esclusive</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card glass-card preserve-3d">
+                    <div class="news-image">
+                        <div class="placeholder-image">🚗</div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Nuova Mercedes Classe S</h3>
+                        <p>La berlina di lusso per eccellenza, disponibile per il test drive</p>
+                        <button class="glass-button outline shimmer preserve-3d">Scopri di Più</button>
+                    </div>
+                </div>
+                
+                <div class="news-card glass-card preserve-3d">
+                    <div class="news-image">
+                        <div class="placeholder-image">🏎️</div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Porsche 911 GT3 RS</h3>
+                        <p>La sportiva più desiderata, prenota la tua prova</p>
+                        <button class="glass-button outline shimmer preserve-3d">Scopri di Più</button>
+                    </div>
+                </div>
+                
+                <div class="news-card glass-card preserve-3d">
+                    <div class="news-image">
+                        <div class="news-image">
+                            <div class="placeholder-image">⚡</div>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Tesla Model S Plaid</h3>
+                        <p>L'elettrica più veloce del mondo, testa la potenza</p>
+                        <button class="glass-button outline shimmer preserve-3d">Scopri di Più</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Categorie -->
+    <section class="section-categories preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Scegli per Categoria</h2>
+                <p class="section-subtitle">Trova l'auto perfetta per le tue esigenze</p>
+            </div>
+            
+            <div class="category-filters preserve-3d">
+                <div class="filter-group">
+                    <label for="brand">Marca</label>
+                    <select id="brand" class="filter-select">
+                        <option value="">Tutte le Marche</option>
+                        <option value="mercedes">Mercedes-Benz</option>
+                        <option value="bmw">BMW</option>
+                        <option value="audi">Audi</option>
+                        <option value="porsche">Porsche</option>
+                        <option value="ferrari">Ferrari</option>
+                        <option value="lamborghini">Lamborghini</option>
+                        <option value="tesla">Tesla</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="price">Prezzo</label>
+                    <select id="price" class="filter-select">
+                        <option value="">Tutti i Prezzi</option>
+                        <option value="0-50000">Fino a €50.000</option>
+                        <option value="50000-100000">€50.000 - €100.000</option>
+                        <option value="100000-200000">€100.000 - €200.000</option>
+                        <option value="200000+">Oltre €200.000</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="year">Anno</label>
+                    <select id="year" class="filter-select">
+                        <option value="">Tutti gli Anni</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="transmission">Cambio</label>
+                    <select id="transmission" class="filter-select">
+                        <option value="">Tutti</option>
+                        <option value="Manuale">Manuale</option>
+                        <option value="Automatico">Automatico</option>
+                    </select>
+                </div>
+                
+                <div class="filter-actions preserve-3d">
+                    <button class="glass-button primary shimmer preserve-3d" id="applyFilters">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 17v2h6v-2H3zM3 5v2h9V5H3zm9 16v-2h9v-2h-9v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2H9v2h2v2h2v-2h9z"/>
+                        </svg>
+                        Applica Filtri
+                    </button>
+                    <button class="glass-button outline shimmer preserve-3d" id="clearFilters">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Cancella
+                    </button>
+                </div>
+            </div>
+            
+            <div class="category-pills">
+                <div class="glass-pill active" data-category="tutte">
+                    <span class="pill-icon">🚗</span>
+                    <span class="pill-text">Tutte</span>
+                </div>
+                <div class="glass-pill" data-category="suv">
+                    <span class="pill-icon">🚙</span>
+                    <span class="pill-text">SUV</span>
+                </div>
+                <div class="glass-pill" data-category="berlina">
+                    <span class="pill-icon">🏎️</span>
+                    <span class="pill-text">Berlina</span>
+                </div>
+                <div class="glass-pill" data-category="sportiva">
+                    <span class="pill-icon">🏁</span>
+                    <span class="pill-text">Sportiva</span>
+                </div>
+                <div class="glass-pill" data-category="elettrica">
+                    <span class="pill-icon">⚡</span>
+                    <span class="pill-text">Elettrica</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Finanziamento e Calcolatore -->
+    <section class="section-financing preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Finanziamento e Pagamenti</h2>
+                <p class="section-subtitle">Calcola la rata mensile e scopri le opzioni di finanziamento personalizzate</p>
+            </div>
+            
+            <!-- Opzioni di Finanziamento -->
+            <div class="financing-options preserve-3d">
+                <div class="financing-option featured preserve-3d">
+                    <div class="option-badge">Più Popolare</div>
+                    <div class="option-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Finanziamento Premium</h3>
+                    <div class="option-rate">2.9% TAN</div>
+                    <ul class="option-features">
+                        <li>✓ Tasso fisso garantito</li>
+                        <li>✓ Nessuna penale estinzione anticipata</li>
+                        <li>✓ Approvazione in 24h</li>
+                        <li>✓ Assicurazione inclusa</li>
+                    </ul>
+                    <button class="glass-button primary large shimmer preserve-3d">
+                        <span>Scegli Premium</span>
+                    </button>
+                </div>
+                
+                <div class="financing-option preserve-3d">
+                    <div class="option-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>Finanziamento Standard</h3>
+                    <div class="option-rate">3.9% TAN</div>
+                    <ul class="option-features">
+                        <li>✓ Rate flessibili</li>
+                        <li>✓ Durata fino a 84 mesi</li>
+                        <li>✓ Approvazione rapida</li>
+                        <li>✓ Supporto dedicato</li>
+                    </ul>
+                    <button class="glass-button secondary large pulse preserve-3d">
+                        <span>Scegli Standard</span>
+                    </button>
+                </div>
+                
+                <div class="financing-option preserve-3d">
+                    <div class="option-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>Leasing Operativo</h3>
+                    <div class="option-rate">1.9% TAN</div>
+                    <ul class="option-features">
+                        <li>✓ Canone ridotto</li>
+                        <li>✓ Manutenzione inclusa</li>
+                        <li>✓ Garanzia estesa</li>
+                        <li>✓ Cambio auto ogni 3 anni</li>
+                    </ul>
+                    <button class="glass-button outline large shimmer preserve-3d">
+                        <span>Scegli Leasing</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Calcolatore Finanziamento -->
+            <div class="financing-calculator glass-card preserve-3d">
+                <h3>Calcola la tua Rata</h3>
+                <div class="calculator-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carPrice">Prezzo Auto</label>
+                            <input type="number" id="carPrice" placeholder="€50.000" min="0" step="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="downPayment">Acconto</label>
+                            <input type="number" id="downPayment" placeholder="€10.000" min="0" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loanTerm">Durata (mesi)</label>
+                            <select id="loanTerm">
+                                <option value="12">12 mesi</option>
+                                <option value="24">24 mesi</option>
+                                <option value="36">36 mesi</option>
+                                <option value="48">48 mesi</option>
+                                <option value="60">60 mesi</option>
+                                <option value="72">72 mesi</option>
+                                <option value="84">84 mesi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="interestRate">Tasso di Interesse (%)</label>
+                            <input type="number" id="interestRate" value="2.9" min="0" step="0.1">
+                        </div>
+                    </div>
+                    
+                    <button class="glass-button primary large shimmer preserve-3d" id="calculateBtn">
+                        <span class="btn-icon">🧮</span>
+                        Calcola Rata
+                    </button>
+                </div>
+                
+                <div class="calculation-result hidden" id="calculationResult">
+                    <div class="result-item">
+                        <span class="result-label">Rata Mensile:</span>
+                        <span class="result-value" id="monthlyPayment">€0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Totale Interessi:</span>
+                        <span class="result-value" id="totalInterest">€0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Costo Totale:</span>
+                        <span class="result-value" id="totalCost">€0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-glass preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Wali Wheelse</h3>
+                    <p>La tua concessionaria di fiducia per auto di lusso e finanziamenti personalizzati.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">📷 Instagram</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Servizi</h4>
+                    <ul>
+                        <li><a href="#">Vendita Auto</a></li>
+                        <li><a href="#">Finanziamento</a></li>
+                        <li><a href="#">Assicurazione</a></li>
+                        <li><a href="#">Assistenza</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Supporto</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contatti</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Termini e Condizioni</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contatti</h4>
+                    <div class="contact-info">
+                        <p>📞 +39 123 456 7890</p>
+                        <p>📧 info@waliwheelse.com</p>
+                        <p>📍 Via Roma 123, Milano</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wali Wheelse. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modale Carrello -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h3>🛒 Carrello</h3>
+                <button class="cart-modal-close" id="cartModalClose">✕</button>
+            </div>
+            <div class="cart-modal-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Elementi del carrello -->
+                </div>
+                <div class="cart-total">
+                    <span>Totale:</span>
+                    <span id="cartTotal">€0</span>
+                </div>
+            </div>
+            <div class="cart-modal-footer">
+                <button class="btn-cart-secondary" id="clearCartBtn">Svuota</button>
+                <button class="btn-cart-primary" id="checkoutBtn">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Checkout -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-modal-content">
+            <div class="checkout-modal-header">
+                <h3>💳 Checkout</h3>
+                <button class="checkout-modal-close" id="checkoutModalClose">✕</button>
+            </div>
+            <div class="checkout-modal-body">
+                <!-- Step 1: Informazioni Personali -->
+                <div class="checkout-step-content" id="checkoutStep1">
+                    <h4>Informazioni Personali</h4>
+                    <form class="checkout-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkoutFirstName">Nome</label>
+                                <input type="text" id="checkoutFirstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutLastName">Cognome</label>
+                                <input type="text" id="checkoutLastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutEmail">Email</label>
+                            <input type="email" id="checkoutEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutPhone">Telefono</label>
+                            <input type="tel" id="checkoutPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutAddress">Indirizzo</label>
+                            <input type="text" id="checkoutAddress" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkoutCity">Città</label>
+                                <input type="text" id="checkoutCity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutZip">CAP</label>
+                                <input type="text" id="checkoutZip" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Step 2: Pagamento -->
+                <div class="checkout-step-content hidden" id="checkoutStep2">
+                    <div class="payment-methods">
+                        <div class="payment-method active" data-method="card">
+                            <input type="radio" name="paymentMethod" value="card" checked>
+                            <label>Carta di Credito</label>
+                        </div>
+                        <div class="payment-method" data-method="bank">
+                            <input type="radio" name="paymentMethod" value="bank">
+                            <label>Bonifico Bancario</label>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-form" id="cardPaymentForm">
+                        <div class="form-group">
+                            <label for="cardNumber">Numero Carta</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardExpiry">Scadenza</label>
+                                <input type="text" id="cardExpiry" placeholder="MM/AA">
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCvv">CVV</label>
+                                <input type="text" id="cardCvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Conferma -->
+                <div class="checkout-step-content hidden" id="checkoutStep3">
+                    <div class="order-summary">
+                        <h3>Riepilogo Ordine</h3>
+                        <div class="order-items" id="orderSummaryItems">
+                            <!-- Riepilogo ordine -->
+                        </div>
+                        <div class="order-total">
+                            <span>Totale:</span>
+                            <span id="orderTotalPrice">€0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checkout-modal-footer">
+                <button class="btn-checkout-secondary" id="checkoutPrevBtn" style="display: none;">
+                    Indietro
+                </button>
+                <button class="btn-checkout-primary" id="checkoutNextBtn">
+                    Avanti
+                </button>
+                <button class="btn-checkout-confirm hidden" id="checkoutConfirmBtn">
+                    Conferma Acquisto
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay Modali -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Modale Profilo Utente -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-modal-content">
+            <div class="profile-modal-header">
+                <h2>👤 Profilo Utente</h2>
+                <button class="profile-modal-close" id="profileModalClose">✕</button>
+            </div>
+            
+            <div class="profile-modal-body">
+                <!-- Informazioni Personali -->
+                <div class="profile-section">
+                    <h3>📋 Informazioni Personali</h3>
+                    <div class="profile-form">
+                        <div class="form-group">
+                            <label for="profileName">Nome Completo</label>
+                            <input type="text" id="profileName" placeholder="Il tuo nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" placeholder="La tua email">
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePhone">Telefono</label>
+                            <input type="tel" id="profilePhone" placeholder="Il tuo numero di telefono">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileBirth">Data di Nascita</label>
+                            <input type="date" id="profileBirth">
+                        </div>
+                        <button class="btn-profile-save" id="saveProfileBtn">💾 Salva Modifiche</button>
+                    </div>
+                </div>
+
+                <!-- Indirizzo -->
+                <div class="profile-section">
+                    <h3>📍 Indirizzo</h3>
+                    <div class="profile-form">
+                        <div class="form-group">
+                            <label for="profileAddress">Indirizzo</label>
+                            <input type="text" id="profileAddress" placeholder="Via e numero civico">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileCity">Città</label>
+                                <input type="text" id="profileCity" placeholder="Città">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileZip">CAP</label>
+                                <input type="text" id="profileZip" placeholder="CAP">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileCountry">Paese</label>
+                            <select id="profileCountry">
+                                <option value="IT">Italia</option>
+                                <option value="DE">Germania</option>
+                                <option value="FR">Francia</option>
+                                <option value="ES">Spagna</option>
+                                <option value="CH">Svizzera</option>
+                            </select>
+                        </div>
+                        <button class="btn-profile-save" id="saveAddressBtn">💾 Salva Indirizzo</button>
+                    </div>
+                </div>
+
+                <!-- Preferenze -->
+                <div class="profile-section">
+                    <h3>⚙️ Preferenze</h3>
+                    <div class="profile-preferences">
+                        <div class="preference-item">
+                            <label class="preference-label">
+                                <input type="checkbox" id="prefNewsletter">
+                                <span class="checkmark"></span>
+                                📧 Newsletter settimanale
+                            </label>
+                        </div>
+                        <div class="preference-item">
+                            <label class="preference-label">
+                                <input type="checkbox" id="prefNotifications">
+                                <span class="checkmark"></span>
+                                🔔 Notifiche push
+                            </label>
+                        </div>
+                        <div class="preference-item">
+                            <label class="preference-label">
+                                <input type="checkbox" id="prefMarketing">
+                                <span class="checkmark"></span>
+                                📢 Offerte speciali
+                            </label>
+                        </div>
+                        <div class="preference-item">
+                            <label class="preference-label">
+                                <input type="checkbox" id="prefAnalytics">
+                                <span class="checkmark"></span>
+                                📊 Analisi utilizzo
+                            </label>
+                        </div>
+                        <button class="btn-profile-save" id="savePreferencesBtn">💾 Salva Preferenze</button>
+                    </div>
+                </div>
+
+                <!-- Sicurezza -->
+                <div class="profile-section">
+                    <h3>🔒 Sicurezza</h3>
+                    <div class="profile-security">
+                        <div class="security-item">
+                            <span class="security-label">Password</span>
+                            <button class="btn-change-password" id="changePasswordBtn">🔑 Cambia Password</button>
+                        </div>
+                        <div class="security-item">
+                            <span class="security-label">Autenticazione a due fattori</span>
+                            <button class="btn-toggle-2fa" id="toggle2FABtn">📱 Attiva 2FA</button>
+                        </div>
+                        <div class="security-item">
+                            <span class="security-label">Sessione attiva</span>
+                            <button class="btn-logout-all" id="logoutAllBtn">🚪 Logout da tutti i dispositivi</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attività Recenti -->
+                <div class="profile-section">
+                    <h3>📱 Attività Recenti</h3>
+                    <div class="profile-activity" id="profileActivity">
+                        <div class="activity-item">
+                            <div class="activity-icon">🔐</div>
+                            <div class="activity-details">
+                                <span class="activity-text">Login effettuato</span>
+                                <span class="activity-time">Oggi, 14:30</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">👁️</div>
+                            <div class="activity-details">
+                                <span class="activity-text">Visualizzato profilo</span>
+                                <span class="activity-time">Ieri, 16:45</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">❤️</div>
+                            <div class="activity-details">
+                                <span class="activity-text">Aggiunta auto ai preferiti</span>
+                                <span class="activity-time">2 giorni fa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Cambio Password -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <div class="password-modal-header">
+                <h3>🔑 Cambia Password</h3>
+                <button class="password-modal-close" id="passwordModalClose">✕</button>
+            </div>
+            <div class="password-modal-body">
+                <div class="form-group">
+                    <label for="currentPassword">Password Attuale</label>
+                    <input type="password" id="currentPassword" placeholder="Inserisci la password attuale">
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Nuova Password</label>
+                    <input type="password" id="newPassword" placeholder="Inserisci la nuova password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Conferma Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Conferma la nuova password">
+                </div>
+                <div class="password-strength" id="passwordStrength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <span class="strength-text" id="strengthText">Inserisci una password</span>
+                </div>
+                <button class="btn-change-password-confirm" id="confirmPasswordChangeBtn">🔑 Cambia Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Impostazioni Avanzate -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-modal-content">
+            <div class="settings-modal-header">
+                <h3>⚙️ Impostazioni Avanzate</h3>
+                <button class="settings-modal-close" id="settingsModalClose">✕</button>
+            </div>
+            <div class="settings-modal-body">
+                <div class="settings-section">
+                    <h4>🎨 Aspetto</h4>
+                    <div class="setting-item">
+                        <label for="themeSelect">Tema</label>
+                        <select id="themeSelect">
+                            <option value="auto">Automatico</option>
+                            <option value="light">Chiaro</option>
+                            <option value="dark">Scuro</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="fontSizeSelect">Dimensione Font</label>
+                        <select id="fontSizeSelect">
+                            <option value="small">Piccolo</option>
+                            <option value="medium" selected>Medio</option>
+                            <option value="large">Grande</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h4>🔔 Notifiche</h4>
+                    <div class="setting-item">
+                        <label for="emailNotifications">Email</label>
+                        <input type="checkbox" id="emailNotifications" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="pushNotifications">Push</label>
+                        <input type="checkbox" id="pushNotifications" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="smsNotifications">SMS</label>
+                        <input type="checkbox" id="smsNotifications">
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h4>🌐 Lingua e Regione</h4>
+                    <div class="setting-item">
+                        <label for="languageSelect">Lingua</label>
+                        <select id="languageSelect">
+                            <option value="it" selected>Italiano</option>
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                            <option value="fr">Français</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="timezoneSelect">Fuso Orario</label>
+                        <select id="timezoneSelect">
+                            <option value="Europe/Rome" selected>Roma (UTC+1)</option>
+                            <option value="Europe/London">Londra (UTC+0)</option>
+                            <option value="Europe/Berlin">Berlino (UTC+1)</option>
+                            <option value="Europe/Paris">Parigi (UTC+1)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h4>📊 Privacy</h4>
+                    <div class="setting-item">
+                        <label for="dataCollection">Raccolta Dati</label>
+                        <input type="checkbox" id="dataCollection" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="analytics">Analytics</label>
+                        <input type="checkbox" id="analytics" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="personalization">Personalizzazione</label>
+                        <input type="checkbox" id="personalization" checked>
+                    </div>
+                </div>
+                
+                <button class="btn-save-settings" id="saveSettingsBtn">💾 Salva Impostazioni</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js?v=2.0.0"></script>
+    <script src="js/google-auth-demo.js?v=2.0.0"></script>
+    <script src="js/profile-manager.js?v=2.0.0"></script>
+    <script src="js/navigation.js?v=2.0.0"></script>
+    <script src="js/main.js?v=2.0.0"></script>
+</body>
+</html>

@@ -31,9 +31,9 @@ const carsDatabase = [
         posti: 2,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/mercedes-amg-gt-1.jpg",
-            "/assets/img/cars/mercedes-amg-gt-2.jpg",
-            "/assets/img/cars/mercedes-amg-gt-3.jpg"
+            "https://images.unsplash.com/photo-1618843479618-39b0b7a3b8c7?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1618843479618-39b0b7a3b8c7?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1618843479618-39b0b7a3b8c7?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/mercedes-amg-gt-360.mp4",
         dotazioni: [
@@ -78,9 +78,9 @@ const carsDatabase = [
         posti: 7,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/bmw-x7-1.jpg",
-            "/assets/img/cars/bmw-x7-2.jpg",
-            "/assets/img/cars/bmw-x7-3.jpg"
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/bmw-x7-360.mp4",
         dotazioni: [
@@ -125,9 +125,9 @@ const carsDatabase = [
         posti: 5,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/audi-rs-etron-1.jpg",
-            "/assets/img/cars/audi-rs-etron-2.jpg",
-            "/assets/img/cars/audi-rs-etron-3.jpg"
+            "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/audi-rs-etron-360.mp4",
         dotazioni: [
@@ -172,9 +172,9 @@ const carsDatabase = [
         posti: 4,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/porsche-911-1.jpg",
-            "/assets/img/cars/porsche-911-2.jpg",
-            "/assets/img/cars/porsche-911-3.jpg"
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/porsche-911-360.mp4",
         dotazioni: [
@@ -219,9 +219,9 @@ const carsDatabase = [
         posti: 2,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/ferrari-sf90-1.jpg",
-            "/assets/img/cars/ferrari-sf90-2.jpg",
-            "/assets/img/cars/ferrari-sf90-3.jpg"
+            "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/ferrari-sf90-360.mp4",
         dotazioni: [
@@ -266,9 +266,9 @@ const carsDatabase = [
         posti: 5,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/lamborghini-urus-1.jpg",
-            "/assets/img/cars/lamborghini-urus-2.jpg",
-            "/assets/img/cars/lamborghini-urus-3.jpg"
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/lamborghini-urus-360.mp4",
         dotazioni: [
@@ -313,9 +313,9 @@ const carsDatabase = [
         posti: 5,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/mercedes-s-class-1.jpg",
-            "/assets/img/cars/mercedes-s-class-2.jpg",
-            "/assets/img/cars/mercedes-s-class-3.jpg"
+            "https://images.unsplash.com/photo-1618843479618-39b0b7a3b8c7?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1618843479618-39b0b7a3b8c7?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1618843479618-39b0b7a3b8c7?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/mercedes-s-class-360.mp4",
         dotazioni: [
@@ -360,9 +360,9 @@ const carsDatabase = [
         posti: 5,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/bmw-7-series-1.jpg",
-            "/assets/img/cars/bmw-7-series-2.jpg",
-            "/assets/img/cars/bmw-7-series-3.jpg"
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/bmw-7-series-360.mp4",
         dotazioni: [
@@ -407,9 +407,9 @@ const carsDatabase = [
         posti: 5,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/tesla-model-s-1.jpg",
-            "/assets/img/cars/tesla-model-s-2.jpg",
-            "/assets/img/cars/tesla-model-s-3.jpg"
+            "https://images.unsplash.com/photo-1536700503339-1e4b06520771?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1536700503339-1e4b06520771?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1536700503339-1e4b06520771?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/tesla-model-s-360.mp4",
         dotazioni: [
@@ -454,9 +454,9 @@ const carsDatabase = [
         posti: 4,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/porsche-taycan-1.jpg",
-            "/assets/img/cars/porsche-taycan-2.jpg",
-            "/assets/img/cars/porsche-taycan-3.jpg"
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/porsche-taycan-360.mp4",
         dotazioni: [
@@ -501,9 +501,9 @@ const carsDatabase = [
         posti: 2,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/ferrari-296-1.jpg",
-            "/assets/img/cars/ferrari-296-2.jpg",
-            "/assets/img/cars/ferrari-296-3.jpg"
+            "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/ferrari-296-360.mp4",
         dotazioni: [
@@ -548,9 +548,9 @@ const carsDatabase = [
         posti: 2,
         badge: ["Nuovo"],
         immagini: [
-            "/assets/img/cars/lamborghini-revuelto-1.jpg",
-            "/assets/img/cars/lamborghini-revuelto-2.jpg",
-            "/assets/img/cars/lamborghini-revuelto-3.jpg"
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center",
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center&flip=h",
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center&flip=v"
         ],
         video360: "/assets/video/lamborghini-revuelto-360.mp4",
         dotazioni: [

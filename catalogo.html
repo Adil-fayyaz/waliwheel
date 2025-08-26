@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Auto - Wali Wheelse</title>
+    <meta name="description" content="Scopri la nostra selezione esclusiva di auto di lusso. Nuove e usate con garanzia Wali Wheelse.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css?v=2.0.0">
+    <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="css/car-detail.css">
+    <link rel="stylesheet" href="css/button-effects.css?v=2.0.0">
+    <link rel="stylesheet" href="css/glassmorphism-buttons.css?v=2.0.0">
+    <link rel="stylesheet" href="css/advanced-effects.css?v=2.0.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Glass -->
+    <header class="header-glass gpu-accelerated">
+        <nav class="nav-container">
+            <div class="nav-brand gpu-accelerated">
+                <div class="logo-glow preserve-3d">
+                    <span class="logo-text">Wali</span>
+                    <span class="logo-accent">Wheelse</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu preserve-3d">
+                <li><a href="index.html" class="nav-link preserve-3d">Home</a></li>
+                <li><a href="catalogo.html" class="nav-link active preserve-3d">Catalogo</a></li>
+                <li><a href="chi-siamo.html" class="nav-link preserve-3d">Chi Siamo</a></li>
+                <li><a href="finanziamento.html" class="nav-link preserve-3d">Finanziamento</a></li>
+                <li><a href="contatti.html" class="nav-link preserve-3d">Contatti</a></li>
+                <li><a href="demo-features.html" class="nav-link preserve-3d">Demo</a></li>
+                <li><a href="button-demo.html" class="nav-link preserve-3d">Effetti</a></li>
+                <li><a href="glassmorphism-demo.html" class="nav-link preserve-3d">Glassmorphism</a></li>
+                <li><a href="test-advanced.html" class="nav-link preserve-3d">Test Avanzato</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <!-- Carrello -->
+                <div class="cart-container">
+                    <button class="cart-btn" id="cartBtn" aria-label="Carrello">
+                        <svg class="cart-icon" viewBox="0 0 24 24">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+
+                <!-- Notifiche -->
+                <button class="notifications-btn" id="notificationsBtn" aria-label="Notifiche">
+                    <svg class="notifications-icon" viewBox="0 0 24 24">
+                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                    </svg>
+                    <span class="notifications-badge" id="notificationsBadge">0</span>
+                </button>
+
+                <!-- Confronto Auto -->
+                <button class="compare-btn" id="compareBtn" aria-label="Confronta Auto">
+                    <svg class="compare-icon" viewBox="0 0 24 24">
+                        <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                    </svg>
+                    <span class="compare-count" id="compareCount">0</span>
+                </button>
+
+                <!-- Tema -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+                    <svg class="theme-icon" viewBox="0 0 24 24">
+                        <path class="sun-path" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        <path class="moon-path" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+                
+                <!-- Autenticazione Unificata -->
+                <div class="auth-container" id="authContainer">
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn-auth-unified" id="authBtn">
+                            <svg class="auth-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span>Accedi / Registrati</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu mobile">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section Catalogo -->
+    <section class="hero-catalog preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title preserve-3d">
+                    <span class="title-line">Catalogo</span>
+                    <span class="title-accent">Auto di Lusso</span>
+                </h1>
+                <p class="hero-subtitle preserve-3d">
+                    Scopri la nostra selezione esclusiva di veicoli premium
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtri Avanzati -->
+    <section class="filters-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="advanced-filters preserve-3d">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="priceRange">Fascia Prezzo</label>
+                        <select id="priceRange" class="filter-select">
+                            <option value="">Tutti i prezzi</option>
+                            <option value="0-50000">Fino a €50.000</option>
+                            <option value="50000-100000">€50.000 - €100.000</option>
+                            <option value="100000-200000">€100.000 - €200.000</option>
+                            <option value="200000+">Oltre €200.000</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="brandFilter">Marca</label>
+                        <select id="brandFilter" class="filter-select">
+                            <option value="">Tutte le marche</option>
+                            <option value="mercedes">Mercedes-Benz</option>
+                            <option value="bmw">BMW</option>
+                            <option value="audi">Audi</option>
+                            <option value="porsche">Porsche</option>
+                            <option value="ferrari">Ferrari</option>
+                            <option value="lamborghini">Lamborghini</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="yearFilter">Anno</label>
+                        <select id="yearFilter" class="filter-select">
+                            <option value="">Tutti gli anni</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="fuelFilter">Carburante</label>
+                        <select id="fuelFilter" class="filter-select">
+                            <option value="">Tutti i carburanti</option>
+                            <option value="benzina">Benzina</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="elettrico">Elettrico</option>
+                            <option value="ibrido">Ibrido</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-actions preserve-3d">
+                    <button class="glass-button primary shimmer preserve-3d" id="applyFilters">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 17v2h6v-2H3zM3 5v2h9V5H3zm9 16v-2h9v-2h-9v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2H9v2h2v2h2v-2h9z"/>
+                        </svg>
+                        Applica Filtri
+                    </button>
+                    <button class="glass-button outline shimmer preserve-3d" id="clearFilters">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                        Cancella
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Griglia Auto -->
+    <section class="cars-grid-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="cars-grid preserve-3d" id="catalogCars">
+                <!-- Auto verranno caricate dinamicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Glass -->
+    <footer class="footer-glass preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-text">Wali</span>
+                        <span class="logo-accent">Wheelse</span>
+                    </div>
+                    <p>La tua concessionaria di fiducia per auto di lusso</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Servizi</h3>
+                    <ul>
+                        <li><a href="#">Vendita Auto</a></li>
+                        <li><a href="#">Finanziamento</a></li>
+                        <li><a href="#">Assicurazioni</a></li>
+                        <li><a href="#">Assistenza</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contatti</h3>
+                    <ul>
+                        <li>📞 +39 123 456 789</li>
+                        <li>📧 info@waliwheelse.it</li>
+                        <li>📍 Via Roma 123, Milano</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Social</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wali Wheelse. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils.js?v=2.0.0"></script>
+    <script src="js/google-auth-demo.js?v=2.0.0"></script>
+    <script src="js/navigation.js?v=2.0.0"></script>
+    <script src="js/main.js?v=2.0.0"></script>
+    
+    <!-- Google reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
+    
+    <script>
+        // Inizializza la pagina catalogo
+        document.addEventListener('DOMContentLoaded', () => {
+            // Carica le auto nel catalogo
+            if (window.autoShopApp) {
+                window.autoShopApp.loadCatalogCars();
+            }
+        });
+    </script>
+</body>
+</html>

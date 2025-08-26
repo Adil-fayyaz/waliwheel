@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannello Amministratore - Wali Wheelse</title>
+    <meta name="description" content="Dashboard amministrativa per la gestione completa del sito Wali Wheelse">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css?v=2.0.0">
+    <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="css/button-effects.css?v=2.0.0">
+    <link rel="stylesheet" href="css/glassmorphism-buttons.css?v=2.0.0">
+    <link rel="stylesheet" href="css/advanced-effects.css?v=2.0.0">
+    <link rel="stylesheet" href="css/admin.css?v=2.0.0">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="dark-theme admin-theme">
+    <!-- Sidebar Amministratore -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <div class="logo-glow">
+                    <span class="logo-text">Wali</span>
+                    <span class="logo-accent">Admin</span>
+                </div>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="dashboard">
+                    <a href="#dashboard" class="nav-link">
+                        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="cars">
+                    <a href="#cars" class="nav-link">
+                        <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13S8 13.67 8 14.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                        <span>Gestione Auto</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="users">
+                    <a href="#users" class="nav-link">
+                        <svg viewBox="0 0 24 24"><path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01 1L12 12.25V22h8zM12.5 11.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5S11 9.17 11 10s.67 1.5 1.5 1.5zM5.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm2 16v-7H9V9c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v6h1.5v7h4z"/></svg>
+                        <span>Utenti</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="orders">
+                    <a href="#orders" class="nav-link">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        <span>Ordini</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="analytics">
+                    <a href="#analytics" class="nav-link">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="settings">
+                    <a href="#settings" class="nav-link">
+                        <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                        <span>Impostazioni</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="admin-profile">
+                <img src="https://via.placeholder.com/40x40/667eea/ffffff?text=AD" alt="Admin" class="admin-avatar">
+                <div class="admin-info">
+                    <span class="admin-name">Amministratore</span>
+                    <span class="admin-role">Super Admin</span>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.39L18.17 11H8v2h10.17l-2.58 2.56L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+                <h1 class="page-title" id="pageTitle">Dashboard</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="action-btn" id="notificationsBtn">
+                        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="action-btn" id="helpBtn">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="dashboard">
+                <div class="dashboard-grid">
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13S8 13.67 8 14.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value" id="totalCars">0</h3>
+                                <p class="stat-label">Auto Totali</p>
+                            </div>
+                            <div class="stat-trend positive">
+                                <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+                                <span>+12%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01 1L12 12.25V22h8zM12.5 11.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5S11 9.17 11 10s.67 1.5 1.5 1.5zM5.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm2 16v-7H9V9c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v6h1.5v7h4z"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value" id="totalUsers">0</h3>
+                                <p class="stat-label">Utenti Registrati</p>
+                            </div>
+                            <div class="stat-trend positive">
+                                <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+                                <span>+8%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value" id="totalOrders">0</h3>
+                                <p class="stat-label">Ordini Totali</p>
+                            </div>
+                            <div class="stat-trend positive">
+                                <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+                                <span>+15%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value" id="totalRevenue">€0</h3>
+                                <p class="stat-label">Fatturato Totale</p>
+                            </div>
+                            <div class="stat-trend positive">
+                                <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+                                <span>+23%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h3>Azioni Rapide</h3>
+                        <div class="actions-grid">
+                            <button class="action-card" data-action="addCar">
+                                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                <span>Aggiungi Auto</span>
+                            </button>
+                            <button class="action-card" data-action="manageUsers">
+                                <svg viewBox="0 0 24 24"><path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01 1L12 12.25V22h8zM12.5 11.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5S11 9.17 11 10s.67 1.5 1.5 1.5zM5.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm2 16v-7H9V9c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v6h1.5v7h4z"/></svg>
+                                <span>Gestisci Utenti</span>
+                            </button>
+                            <button class="action-card" data-action="viewOrders">
+                                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                                <span>Visualizza Ordini</span>
+                            </button>
+                            <button class="action-card" data-action="analytics">
+                                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                                <span>Analytics</span>
+                            </button>
+                            <button class="action-card" data-action="testSync">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                <span>Test Sincronizzazione</span>
+                            </button>
+                            <button class="action-card" data-action="clearStorage">
+                                <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+                                <span>Pulisci Storage</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>Attività Recenti</h3>
+                        <div class="activity-list" id="activityList">
+                            <!-- Attività verranno caricate dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cars Management Section -->
+            <section class="content-section" id="cars">
+                <div class="section-header">
+                    <h2>Gestione Auto</h2>
+                    <button class="btn-primary" id="addCarBtn">
+                        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        <span>Aggiungi Nuova Auto</span>
+                    </button>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Cerca auto..." class="search-input" id="carSearch">
+                    </div>
+                    <div class="filter-group">
+                        <select class="filter-select" id="brandFilter">
+                            <option value="">Tutte le marche</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                            <option value="porsche">Porsche</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">Tutti gli stati</option>
+                            <option value="active">Attiva</option>
+                            <option value="draft">Bozza</option>
+                            <option value="archived">Archiviata</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Cars Table -->
+                <div class="table-container">
+                    <table class="admin-table" id="carsTable">
+                        <thead>
+                            <tr>
+                                <th>Immagine</th>
+                                <th>Nome</th>
+                                <th>Marca</th>
+                                <th>Prezzo</th>
+                                <th>Stato</th>
+                                <th>Data</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="carsTableBody">
+                            <!-- Auto verranno caricate dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Management Section -->
+            <section class="content-section" id="users">
+                <div class="section-header">
+                    <h2>Gestione Utenti</h2>
+                    <button class="btn-primary" id="addUserBtn">
+                        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        <span>Aggiungi Utente</span>
+                    </button>
+                </div>
+                
+                <!-- Users Table -->
+                <div class="table-container">
+                    <table class="admin-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Ruolo</th>
+                                <th>Stato</th>
+                                <th>Registrazione</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Utenti verranno caricati dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Management Section -->
+            <section class="content-section" id="orders">
+                <div class="section-header">
+                    <h2>Gestione Ordini</h2>
+                </div>
+                
+                <!-- Orders Table -->
+                <div class="table-container">
+                    <table class="admin-table" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>ID Ordine</th>
+                                <th>Cliente</th>
+                                <th>Auto</th>
+                                <th>Totale</th>
+                                <th>Stato</th>
+                                <th>Data</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Ordini verranno caricati dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="content-section" id="analytics">
+                <div class="section-header">
+                    <h2>Analytics e Statistiche</h2>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Vendite Mensili</h3>
+                        <div class="chart-placeholder" id="salesChart">
+                            <p>Grafico vendite mensili</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Auto Più Visualizzate</h3>
+                        <div class="chart-placeholder" id="viewsChart">
+                            <p>Grafico visualizzazioni auto</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Utenti per Regione</h3>
+                        <div class="chart-placeholder" id="usersChart">
+                            <p>Grafico utenti per regione</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="content-section" id="settings">
+                <div class="section-header">
+                    <h2>Impostazioni</h2>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Impostazioni Sito</h3>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label>Nome Sito</label>
+                                <input type="text" value="Wali Wheelse" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Contatto</label>
+                                <input type="email" value="info@waliwheelse.com" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input type="tel" value="+39 123 456 789" class="form-input">
+                            </div>
+                            <button type="submit" class="btn-primary">Salva Impostazioni</button>
+                        </form>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Impostazioni Notifiche</h3>
+                        <div class="settings-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Email per nuovi ordini</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Notifiche push</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span>Report settimanali</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add Car Modal -->
+    <div class="modal" id="addCarModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Aggiungi Nuova Auto</h2>
+                <button class="modal-close" id="closeAddCarModal">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="car-form" id="addCarForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome Auto *</label>
+                            <input type="text" name="carName" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Marca *</label>
+                            <select name="brand" required class="form-select">
+                                <option value="">Seleziona marca</option>
+                                <option value="bmw">BMW</option>
+                                <option value="mercedes">Mercedes-Benz</option>
+                                <option value="audi">Audi</option>
+                                <option value="porsche">Porsche</option>
+                                <option value="ferrari">Ferrari</option>
+                                <option value="lamborghini">Lamborghini</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prezzo (€) *</label>
+                            <input type="number" name="price" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Anno *</label>
+                            <input type="number" name="year" min="2000" max="2025" required class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Potenza (CV)</label>
+                            <input type="number" name="power" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Carburante</label>
+                            <select name="fuel" class="form-select">
+                                <option value="benzina">Benzina</option>
+                                <option value="diesel">Diesel</option>
+                                <option value="elettrico">Elettrico</option>
+                                <option value="ibrido">Ibrido</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Descrizione</label>
+                        <textarea name="description" rows="4" class="form-textarea"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>URL Immagine</label>
+                        <input type="url" name="imageUrl" class="form-input" placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelAddCar">Annulla</button>
+                        <button type="submit" class="btn-primary">Pubblica Auto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/admin.js?v=2.0.0"></script>
+</body>
+</html>

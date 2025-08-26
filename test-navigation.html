@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navigazione - Wali Wheelse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #0b1220;
+            color: white;
+        }
+        .test-nav {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .nav-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background: rgba(0, 209, 178, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            background: rgba(0, 209, 178, 0.4);
+        }
+        .test-result {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧭 Test Navigazione</h1>
+    
+    <div class="test-nav">
+        <h2>Link di Test</h2>
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="catalogo.html" class="nav-link">Catalogo</a>
+        <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
+        <a href="finanziamento.html" class="nav-link">Finanziamento</a>
+        <a href="contatti.html" class="nav-link">Contatti</a>
+        <a href="demo-features.html" class="nav-link">Demo</a>
+        <a href="glassmorphism-demo.html" class="nav-link">Glassmorphism</a>
+        <a href="test-advanced.html" class="nav-link">Test Avanzato</a>
+    </div>
+
+    <div class="test-result">
+        <h2>Risultati Test</h2>
+        <p>Click sui link sopra per testare la navigazione.</p>
+        <p>Se i link funzionano qui ma non nella pagina principale, il problema è nel CSS o JavaScript.</p>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                console.log('🧪 Test: Click su', link.textContent, link.href);
+            });
+        });
+    </script>
+</body>
+</html>

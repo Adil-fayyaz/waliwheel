@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esplora le Macchine - Wali Wheelse</title>
+    <meta name="description" content="Scopri la nostra collezione esclusiva di auto premium con funzionalità avanzate e design ultra-moderno">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css?v=2.0.0">
+    <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="css/button-effects.css?v=2.0.0">
+    <link rel="stylesheet" href="css/glassmorphism-buttons.css?v=2.0.0">
+    <link rel="stylesheet" href="css/advanced-effects.css?v=2.0.0">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="js/utils.js?v=2.0.0"></script>
+    <script src="js/navigation.js?v=2.0.0"></script>
+    <script src="js/main.js?v=2.0.0"></script>
+    <script src="js/analytics.js?v=2.0.0"></script>
+    <script src="js/macchine.js?v=2.0.0"></script>
+</head>
+
+<body class="dark-theme">
+    <!-- Header -->
+    <header class="header-glass">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo-glow">
+                    <span class="logo-text">Wali</span>
+                    <span class="logo-accent">Wheelse</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu preserve-3d">
+                <li><a href="index.html" class="nav-link preserve-3d">Home</a></li>
+                <li><a href="catalogo.html" class="nav-link preserve-3d">Catalogo</a></li>
+                <li><a href="chi-siamo.html" class="nav-link preserve-3d">Chi Siamo</a></li>
+                <li><a href="finanziamento.html" class="nav-link preserve-3d">Finanziamento</a></li>
+                <li><a href="contatti.html" class="nav-link preserve-3d">Contatti</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <!-- Carrello -->
+                <div class="cart-container">
+                    <button class="cart-btn" id="cartBtn" aria-label="Carrello">
+                        <svg class="cart-icon" viewBox="0 0 24 24">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+
+                <!-- Profilo Utente -->
+                <div class="auth-container" id="authContainer">
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn-auth-unified ultra-modern" id="authBtn">
+                            <div class="auth-button-content">
+                                <svg class="auth-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                <span class="auth-text">Accedi / Registrati</span>
+                                <div class="auth-button-glow"></div>
+                                <div class="auth-button-particles"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Profilo Avanzato -->
+                    <div class="user-profile hidden ultra-modern" id="userProfile">
+                        <div class="user-avatar" id="userAvatar">
+                            <div class="avatar-container">
+                                <img src="https://via.placeholder.com/40x40/667eea/ffffff?text=U" alt="Avatar utente" id="userAvatarImg">
+                                <div class="user-status online" id="userStatus"></div>
+                                <div class="avatar-glow"></div>
+                                <div class="avatar-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="user-menu ultra-modern" id="userMenu">
+                            <div class="user-info">
+                                <span class="user-name" id="userName">Mario Rossi</span>
+                                <span class="user-email" id="userEmail">mario.rossi@email.com</span>
+                                <div class="user-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-value">5</span>
+                                        <span class="stat-label">Auto Preferite</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">2</span>
+                                        <span class="stat-label">Ordini</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <button class="menu-item ultra-modern" data-action="profile">
+                                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                    <span>Il Mio Profilo</span>
+                                    <div class="menu-glow"></div>
+                                </button>
+                                <button class="menu-item ultra-modern" data-action="orders">
+                                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                                    <span>I Miei Ordini</span>
+                                    <div class="menu-glow"></div>
+                                </button>
+                                <button class="menu-item ultra-modern" data-action="favorites">
+                                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    <span>Auto Preferite</span>
+                                    <div class="menu-glow"></div>
+                                </button>
+                                <button class="menu-item ultra-modern" data-action="settings">
+                                    <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                                    <span>Impostazioni</span>
+                                    <div class="menu-glow"></div>
+                                </button>
+                                <button class="menu-item logout ultra-modern" data-action="logout">
+                                    <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.39L18.17 11H8v2h10.17l-2.58 2.56L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                                    <span>Esci</span>
+                                    <div class="menu-glow"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section Macchine -->
+    <section class="cars-hero-section preserve-3d gpu-accelerated">
+        <div class="cars-hero-background">
+            <div class="parallax-layer" data-speed="0.3">
+                <div class="bokeh-lights"></div>
+                <div class="aurora-gradient"></div>
+            </div>
+        </div>
+        
+        <div class="cars-hero-content preserve-3d">
+            <div class="cars-hero-text">
+                <h1 class="cars-hero-title preserve-3d">
+                    <span class="title-line">Scopri la nostra</span>
+                    <span class="title-accent animated-gradient">Collezione Premium</span>
+                </h1>
+                <p class="cars-hero-subtitle preserve-3d">
+                    Esplora la più esclusiva selezione di auto di lusso con tecnologie avanzate e design ultra-moderno
+                </p>
+                
+                <!-- Filtri Avanzati -->
+                <div class="advanced-filters preserve-3d">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Marca</label>
+                            <select class="glass-select" id="brandFilter">
+                                <option value="">Tutte le marche</option>
+                                <option value="bmw">BMW</option>
+                                <option value="mercedes">Mercedes-Benz</option>
+                                <option value="audi">Audi</option>
+                                <option value="porsche">Porsche</option>
+                                <option value="ferrari">Ferrari</option>
+                                <option value="lamborghini">Lamborghini</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Anno</label>
+                            <select class="glass-select" id="yearFilter">
+                                <option value="">Tutti gli anni</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Trasmissione</label>
+                            <select class="glass-select" id="transmissionFilter">
+                                <option value="">Tutte le trasmissioni</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Carburante</label>
+                            <select class="glass-select" id="fuelFilter">
+                                <option value="">Tutti i tipi</option>
+                                <option value="benzina">Benzina</option>
+                                <option value="diesel">Diesel</option>
+                                <option value="elettrico">Elettrico</option>
+                                <option value="ibrido">Ibrido</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-row">
+                        <div class="filter-group price-filter">
+                            <label>Prezzo Massimo</label>
+                            <div class="price-slider-container">
+                                <input type="range" class="glass-slider" id="priceSlider" min="0" max="500000" step="1000">
+                                <span class="price-value" id="priceValue">€500.000</span>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Ricerca</label>
+                            <input type="text" class="glass-input" id="searchInput" placeholder="Cerca auto, caratteristiche...">
+                        </div>
+                        <div class="filter-group">
+                            <label>Ordinamento</label>
+                            <select class="glass-select" id="sortSelect">
+                                <option value="relevance">Rilevanza</option>
+                                <option value="price-asc">Prezzo crescente</option>
+                                <option value="price-desc">Prezzo decrescente</option>
+                                <option value="year-desc">Anno più recente</option>
+                                <option value="power-desc">Potenza maggiore</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-row">
+                        <div class="filter-group features-filter">
+                            <label>Caratteristiche</label>
+                            <div class="features-checkboxes" id="featuresFilter">
+                                <!-- Checkbox generati dinamicamente -->
+                            </div>
+                        </div>
+                        <div class="filter-group view-toggle">
+                            <label>Visualizzazione</label>
+                            <div class="view-buttons">
+                                <button class="view-btn active" data-view="grid" id="viewToggle">
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/>
+                                    </svg>
+                                </button>
+                                <button class="view-btn" data-view="list">
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button class="glass-button secondary ultra-modern" id="resetFilters">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                            </svg>
+                            <span>Reset Filtri</span>
+                        </button>
+                        <button class="glass-button accent ultra-modern" id="refreshData">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                            </svg>
+                            <span>Aggiorna Dati</span>
+                        </button>
+                        <button class="glass-button warning ultra-modern" id="debugData" title="Debug Dati">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span>Debug</span>
+                        </button>
+                        <button class="glass-button primary ultra-modern" id="applyFilters">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <span>Cerca</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Auto Premium -->
+    <section class="premium-cars-section preserve-3d gpu-accelerated">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Auto Premium</h2>
+                <p class="section-subtitle">La nostra collezione esclusiva di veicoli di lusso</p>
+            </div>
+            
+            <!-- Conteggio Risultati -->
+            <div class="results-count">
+                <span id="resultsCount">0 auto trovate</span>
+            </div>
+            
+            <!-- Debug Temporaneo -->
+            <div style="background: #f8f9fa; padding: 15px; margin: 20px 0; border-radius: 8px; border: 2px solid #007bff;">
+                <h4 style="margin: 0 0 10px 0; color: #007bff;">🔍 Debug Sincronizzazione</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="console.log('Auto caricate:', macchinePage.cars)" class="glass-button secondary ultra-modern">
+                        📊 Log Auto
+                    </button>
+                    <button onclick="console.log('Auto filtrate:', macchinePage.filteredCars)" class="glass-button secondary ultra-modern">
+                        🔍 Log Filtrate
+                    </button>
+                    <button onclick="console.log('localStorage siteCars:', localStorage.getItem('siteCars'))" class="glass-button secondary ultra-modern">
+                        💾 Log Storage
+                    </button>
+                    <button onclick="macchinePage.quickTest()" class="glass-button warning ultra-modern">
+                        🧪 Test Rapido
+                    </button>
+                    <button onclick="macchinePage.refreshDataFromAdmin()" class="glass-button accent ultra-modern">
+                        🔄 Ricarica Dati
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Griglia Auto Ultra-Moderna -->
+            <div class="premium-cars-grid preserve-3d" id="premiumCarsGrid">
+                <!-- Le auto verranno caricate dinamicamente -->
+            </div>
+            
+            <!-- Paginazione -->
+            <div class="cars-pagination">
+                <button class="pagination-btn" id="prevPage" disabled>
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    Precedente
+                </button>
+                <div class="page-info">
+                    <span>Pagina <span id="currentPage">1</span> di <span id="totalPages">1</span></span>
+                </div>
+                <button class="pagination-btn" id="nextPage">
+                    Successiva
+                    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Dettagli Auto -->
+    <div class="car-details-modal" id="carDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalCarTitle">Dettagli Auto</h2>
+                <button class="modal-close" id="modalClose">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenuto dinamico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/data.js?v=1.3.0"></script>
+    <script src="js/auth-config.js?v=1.3.0"></script>
+    <script src="js/ui.js?v=1.3.0"></script>
+    <script src="js/gsap-animations.js?v=1.3.0"></script>
+    <script src="js/tilt.js?v=1.3.0"></script>
+    <script src="js/button-animations.js?v=1.3.0"></script>
+    <script src="js/advanced-animations.js?v=1.3.0"></script>
+    <script src="js/navigation.js?v=1.3.0"></script>
+    <script src="js/macchine.js?v=1.3.0"></script>
+</body>
+</html>

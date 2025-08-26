@@ -1,15 +1,28 @@
 # �� AutoShop Premium - Piattaforma E-commerce Auto
 
-**AutoShop Premium** è una piattaforma e-commerce moderna e completa per la vendita di auto di lusso, con design glassmorphism, autenticazione Google OAuth, sistema di pagamento integrato e interfaccia utente avanzata.
+**Wali Wheelse** è una piattaforma e-commerce ultra-moderna e completa per la vendita di auto di lusso, con design glassmorphism avanzato, effetti 3D immersivi, animazioni GSAP professionali, autenticazione Google OAuth, sistema di pagamento integrato e interfaccia utente all'avanguardia.
 
 ## ✨ Caratteristiche Principali
 
 ### 🎨 **Design & UI/UX**
 - **Glassmorphism Moderno**: Effetti glass con backdrop-filter e trasparenze
+- **3D Design Avanzato**: Effetti 3D, trasformazioni e parallax per un'esperienza immersiva
+- **GSAP Animations**: Animazioni professionali con timeline e scroll-triggered effects
 - **Neumorfismo**: Ombre sottili e effetti 3D per un look premium
 - **Dark/Light Theme**: Sistema di temi dinamico e personalizzabile
 - **Responsive Design**: Ottimizzato per tutti i dispositivi
-- **Animazioni GSAP**: Transizioni fluide e micro-interazioni
+- **Particle Effects**: Sistema di particelle dinamiche e interattive
+- **Mouse Effects**: Effetti mouse follower e trail per interazioni avanzate
+
+### 🚀 **Funzionalità Avanzate 3D & GSAP**
+- **Scroll Animations**: Animazioni scroll-triggered con GSAP ScrollTrigger
+- **3D Transformations**: Rotazioni, scale e translateZ per effetti immersivi
+- **Parallax Effects**: Movimento parallax per background e elementi
+- **Particle Systems**: Particelle dinamiche con fisica e interazioni
+- **Morphing Animations**: Cambio di forma fluido tra stati diversi
+- **Mouse 3D Effects**: Rotazione 3D degli elementi al movimento del mouse
+- **Advanced Button Effects**: 15+ effetti per bottoni ultra-moderni
+- **Performance Optimization**: GPU acceleration e will-change per fluidità
 
 ### 🛒 **Sistema E-commerce Completo**
 - **Carrello Acquisti**: Gestione completa con sidebar dedicata
@@ -36,10 +49,11 @@
 
 ### **Frontend**
 - **HTML5**: Struttura semantica e accessibile
-- **CSS3**: Grid, Flexbox, CSS Variables, Animations
+- **CSS3**: Grid, Flexbox, CSS Variables, Animations, 3D Transforms
 - **JavaScript ES6+**: Moduli, Async/Await, Classes
-- **GSAP**: Animazioni avanzate e timeline
-- **Three.js**: Effetti 3D e modelli interattivi
+- **GSAP**: Animazioni avanzate, timeline e ScrollTrigger
+- **CSS 3D**: Trasformazioni 3D, perspective e transform-style
+- **Advanced Effects**: Particle systems, mouse effects, morphing animations
 
 ### **Backend & Integrazioni**
 - **Google OAuth 2.0**: Autenticazione sicura
@@ -130,7 +144,9 @@ waliwheel/
 │   ├── utilities.css      # Variabili CSS e classi utility
 │   ├── styles.css         # Stili principali e componenti
 │   ├── car-detail.css     # Stili pagina dettaglio auto
-│   └── button-effects.css # Effetti moderni per pulsanti
+│   ├── button-effects.css # Effetti moderni per pulsanti
+│   ├── glassmorphism-buttons.css # Bottoni glassmorphism
+│   └── advanced-effects.css # Effetti 3D e GSAP avanzati
 ├── js/
 │   ├── data.js            # Database auto e configurazioni
 │   ├── auth-config.js     # Configurazione autenticazione
@@ -138,6 +154,8 @@ waliwheel/
 │   ├── gsap-animations.js # Animazioni GSAP
 │   ├── tilt.js            # Effetti tilt 3D
 │   ├── button-animations.js # Animazioni avanzate pulsanti
+│   ├── advanced-animations.js # Animazioni GSAP e 3D avanzate
+│   ├── car-images.js      # Database immagini auto
 │   ├── car-detail.js      # Logica pagina dettaglio auto
 │   └── main.js            # Logica principale dell'app
 ├── assets/                # Immagini e asset
@@ -145,6 +163,8 @@ waliwheel/
 ├── car-detail-template.html # Template pagina dettaglio auto
 ├── demo-features.html     # Demo funzionalità
 ├── button-demo.html       # Demo effetti pulsanti
+├── glassmorphism-demo.html # Demo glassmorphism
+├── test-advanced.html     # Test animazioni avanzate
 ├── test-buttons.html      # Test effetti pulsanti
 ├── README.md              # Documentazione
 ├── vercel.json            # Configurazione Vercel
@@ -162,7 +182,36 @@ Modifica le variabili CSS in `css/utilities.css`:
     --color-accent: #FF6B6B;       /* Colore accent */
     --color-bg: #0B1220;           /* Sfondo principale */
     --color-surface: rgba(26, 35, 50, 0.8); /* Superfici glass */
+    
+    /* Nuove variabili per effetti 3D */
+    --perspective: 1000px;
+    --rotate-x: 15deg;
+    --rotate-y: 15deg;
+    --translate-z: 50px;
+    --animation-duration: 0.6s;
+    --easing-3d: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+```
+
+### **Configurazione Animazioni Avanzate**
+Modifica `js/advanced-animations.js` per personalizzare le animazioni:
+
+```javascript
+// Configurazione effetti 3D
+const config3D = {
+    perspective: 1000,
+    maxRotation: 15,
+    mouseSensitivity: 0.5,
+    smoothness: 0.1
+};
+
+// Configurazione particelle
+const particleConfig = {
+    count: 50,
+    speed: 2,
+    size: { min: 2, max: 6 },
+    colors: ['#00D1B2', '#FF6B6B', '#4ECDC4']
+};
 ```
 
 ### **Aggiunta Auto al Database**
@@ -194,6 +243,40 @@ POST /api/orders
     "paymentMethod": "stripe"
 }
 ```
+
+## 🧪 Test e Debugging
+
+### **Test Locali**
+1. **Avvia Server Locale**:
+   ```bash
+   # Python 3
+   python -m http.server 8000
+   
+   # Node.js
+   npx serve .
+   
+   # PHP
+   php -S localhost:8000
+   ```
+
+2. **Verifica Funzionalità**:
+   - Apri `http://localhost:8000`
+   - Testa tutti i bottoni e interazioni
+   - Verifica responsive design
+   - Controlla console per errori
+
+### **Test Animazioni Avanzate**
+1. **Test GSAP e 3D**:
+   - Apri `test-advanced.html` per test completi
+   - Verifica caricamento librerie GSAP
+   - Testa effetti 3D e trasformazioni
+   - Controlla performance e FPS
+
+2. **Test Effetti Bottoni**:
+   - Apri `glassmorphism-demo.html`
+   - Verifica tutti gli effetti glassmorphism
+   - Testa interazioni mouse e touch
+   - Controlla animazioni e transizioni
 
 ## 🌐 Deploy in Produzione
 
@@ -340,7 +423,7 @@ Questo progetto è rilasciato sotto licenza **MIT**. Vedi il file `LICENSE` per 
 
 ## 🎯 **Pronto per il Lancio!**
 
-Il tuo sito **AutoShop Premium** è ora completamente configurato e pronto per il lancio in produzione! 
+Il tuo sito **Wali Wheelse** è ora completamente configurato e pronto per il lancio in produzione! 
 
 ### **Checklist Pre-Lancio**
 - [x] ✅ Design UI/UX moderno e responsive
@@ -348,12 +431,16 @@ Il tuo sito **AutoShop Premium** è ora completamente configurato e pronto per i
 - [x] ✅ Autenticazione Google OAuth
 - [x] ✅ Integrazione pagamenti Stripe
 - [x] ✅ Protezione reCAPTCHA
-- [x] ✅ Database auto completo
+- [x] ✅ Database auto completo con immagini HD
 - [x] ✅ Sistema carrello e checkout
-- [x] ✅ Animazioni e effetti 3D
+- [x] ✅ Animazioni GSAP avanzate e ScrollTrigger
+- [x] ✅ Effetti 3D e trasformazioni immersive
+- [x] ✅ Sistema particelle dinamiche
+- [x] ✅ Bottoni glassmorphism ultra-moderni
 - [x] ✅ Tema dark/light
 - [x] ✅ SEO ottimizzato
-- [x] ✅ Performance ottimizzate
+- [x] ✅ Performance ottimizzate con GPU acceleration
+- [x] ✅ Test animazioni avanzate completi
 
 ### **Prossimi Passi**
 1. **Configura credenziali** Google, Stripe e reCAPTCHA
@@ -363,4 +450,4 @@ Il tuo sito **AutoShop Premium** è ora completamente configurato e pronto per i
 5. **Lancia marketing** e promozioni
 6. **Monitora performance** e conversioni
 
-**🚀 Buona fortuna con il tuo nuovo business online! 🚗✨**
+**🚀 Buona fortuna con il tuo nuovo business online ultra-moderno! 🚗✨**

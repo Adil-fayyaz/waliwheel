@@ -19,13 +19,19 @@ class AutoShopApp {
         this.setupScrollEffects();
         this.setupMobileMenu();
         this.setupCart();
-        this.setupUnifiedAuth();
+        this.setupAuth();
         this.setupCheckout();
         this.setupAdvancedFilters();
         this.setupFinancingCalculator();
         this.setupCarComparison();
         this.updateCartCount();
         this.updateAuthUI();
+        this.initAdvancedAnimations();
+        
+        // Inizializza nuove funzionalità
+        this.initHeroStats();
+        this.initCategoryCards();
+        this.initEnhancedFinancing();
     }
 
     setupEventListeners() {
@@ -816,10 +822,15 @@ class AutoShopApp {
         
         if (btnText?.includes('Test Drive')) {
             this.showTestDriveModal();
-        } else if (btnText?.includes('Catalogo')) {
-            window.location.href = 'catalogo.html';
+        } else if (btnText?.includes('Macchine') || btnText?.includes('Catalogo')) {
+            this.showToast('Apertura pagina macchine...', 'info');
+            setTimeout(() => {
+                window.location.href = 'macchine.html';
+            }, 500);
         } else if (btnText?.includes('Prenota')) {
             this.showBookingModal();
+        } else if (btnText?.includes('Finanziamento')) {
+            document.getElementById('finanziamento')?.scrollIntoView({ behavior: 'smooth' });
         }
     }
 
@@ -1322,6 +1333,361 @@ class AutoShopApp {
             compareSection.scrollIntoView({ behavior: 'smooth' });
         }
     }
+
+    // ===== ANIMAZIONI AVANZATE =====
+    initAdvancedAnimations() {
+        // Inizializza le animazioni GSAP se disponibili
+        if (window.AdvancedAnimations) {
+            try {
+                this.advancedAnimations = new window.AdvancedAnimations();
+                console.log('🎬 Animazioni avanzate inizializzate con successo!');
+            } catch (error) {
+                console.warn('⚠️ Errore nell\'inizializzazione delle animazioni avanzate:', error);
+            }
+        }
+
+        // Inizializza gli effetti 3D se disponibili
+        if (window.initTiltEffects) {
+            try {
+                window.initTiltEffects();
+                console.log('🎯 Effetti 3D inizializzati con successo!');
+            } catch (error) {
+                console.warn('⚠️ Errore nell\'inizializzazione degli effetti 3D:', error);
+            }
+        }
+
+        // Inizializza le animazioni dei bottoni se disponibili
+        if (window.ButtonAnimations) {
+            try {
+                this.buttonAnimations = new window.ButtonAnimations();
+                console.log('🔘 Animazioni bottoni inizializzate con successo!');
+            } catch (error) {
+                console.warn('⚠️ Errore nell\'inizializzazione delle animazioni bottoni:', error);
+            }
+        }
+    }
+
+    // ===== CATALOGO AUTO =====
+    loadCatalogCars() {
+        const catalogContainer = document.getElementById('catalogCars');
+        if (!catalogContainer) return;
+
+        // Filtra le auto per mostrare solo quelle in evidenza
+        const featuredCars = this.cars.filter(car => car.badge.includes('Nuovo') || car.badge.includes('Offerta'));
+        
+        catalogContainer.innerHTML = featuredCars.map(car => `
+            <div class="car-card preserve-3d" data-car-id="${car.id}">
+                <div class="car-image-container">
+                    <img src="${car.immagini[0]}" alt="${car.nome}" class="car-image">
+                    <div class="car-badges">
+                        ${car.badge.map(badge => `<span class="car-badge">${badge}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-name">${car.nome}</h3>
+                    <p class="car-description">${car.descrizione}</p>
+                    <div class="car-specs">
+                        <span class="spec-item">${car.anno}</span>
+                        <span class="spec-item">${car.chilometraggio} km</span>
+                        <span class="spec-item">${car.carburante}</span>
+                    </div>
+                    <div class="car-price">€${car.prezzo.toLocaleString('it-IT')}</div>
+                    <div class="car-actions">
+                        <button class="glass-button primary shimmer" onclick="window.autoShopApp.viewCarDetails('${car.id}')">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                            <span>Dettagli</span>
+                        </button>
+                        <button class="glass-button outline shimmer" onclick="window.autoShopApp.addToCompare('${car.id}')">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+                            </svg>
+                            <span>Confronta</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Inizializza gli effetti 3D per le nuove card
+        if (window.initTiltEffects) {
+            window.initTiltEffects();
+        }
+    }
+
+    // ===== NUOVE FUNZIONALITÀ INTERATTIVE =====
+    initHeroStats() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        const animateCounter = (element, target) => {
+            const duration = 2000;
+            const start = performance.now();
+            const startValue = 0;
+            
+            const animate = (currentTime) => {
+                const elapsed = currentTime - start;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(startValue + (target - startValue) * easeOutQuart);
+                
+                element.textContent = current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            };
+            
+            requestAnimationFrame(animate);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.count);
+                    animateCounter(entry.target, target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(stat => {
+            observer.observe(stat);
+        });
+    }
+
+    initCategoryCards() {
+        const categoryCards = document.querySelectorAll('.category-card');
+        
+        categoryCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const category = card.dataset.category;
+                this.filterByCategory(category);
+            });
+
+            card.addEventListener('mouseenter', (e) => {
+                this.createCategoryParticles(card);
+            });
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const moveX = x * 0.1;
+                const moveY = y * 0.1;
+                
+                card.style.transform = `perspective(1000px) rotateX(${-moveY}deg) rotateY(${moveX}deg) translateZ(10px)`;
+            });
+
+            card.addEventListener('mouseleave', (e) => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    createCategoryParticles(card) {
+        const particleCount = 6;
+        const rect = card.getBoundingClientRect();
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: var(--color-primary);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000;
+                box-shadow: 0 0 10px var(--color-primary);
+            `;
+            
+            const x = rect.left + Math.random() * rect.width;
+            const y = rect.top + Math.random() * rect.height;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            document.body.appendChild(particle);
+            
+            particle.animate([
+                { transform: 'translate(0, 0) scale(0)', opacity: 0 },
+                { transform: `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px) scale(1)`, opacity: 1 },
+                { transform: `translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
+            }).onfinish = () => {
+                particle.remove();
+            };
+        }
+    }
+
+    filterByCategory(category) {
+        this.showToast(`Filtro applicato: ${category}`, 'success');
+        window.location.href = `catalogo.html?category=${category}`;
+    }
+
+    initEnhancedFinancing() {
+        this.setupRangeSliders();
+        this.setupRealTimeCalculation();
+        this.setupResultAnimations();
+    }
+
+    setupRangeSliders() {
+        const sliders = [
+            { range: 'carPriceRange', input: 'carPrice' },
+            { range: 'downPaymentRange', input: 'downPayment' },
+            { range: 'loanTermRange', input: 'loanTerm' },
+            { range: 'interestRateRange', input: 'interestRate' }
+        ];
+
+        sliders.forEach(({ range, input }) => {
+            const rangeElement = document.getElementById(range);
+            const inputElement = document.getElementById(input);
+            
+            if (rangeElement && inputElement) {
+                rangeElement.addEventListener('input', (e) => {
+                    inputElement.value = e.target.value;
+                    this.calculateLoanRealTime();
+                });
+
+                inputElement.addEventListener('input', (e) => {
+                    rangeElement.value = e.target.value;
+                    this.calculateLoanRealTime();
+                });
+            }
+        });
+    }
+
+    setupRealTimeCalculation() {
+        const inputs = ['carPrice', 'downPayment', 'loanTerm', 'interestRate'];
+        
+        inputs.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', () => {
+                    this.calculateLoanRealTime();
+                });
+            }
+        });
+    }
+
+    calculateLoanRealTime() {
+        const carPrice = parseFloat(document.getElementById('carPrice')?.value) || 0;
+        const downPayment = parseFloat(document.getElementById('downPayment')?.value) || 0;
+        const loanTerm = parseInt(document.getElementById('loanTerm')?.value) || 36;
+        const interestRate = parseFloat(document.getElementById('interestRate')?.value) || 3.9;
+
+        if (carPrice > 0) {
+            const loanAmount = carPrice - downPayment;
+            const monthlyRate = interestRate / 100 / 12;
+            const numPayments = loanTerm;
+
+            let monthlyPayment = 0;
+            if (monthlyRate > 0) {
+                monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                                (Math.pow(1 + monthlyRate, numPayments) - 1);
+            } else {
+                monthlyPayment = loanAmount / numPayments;
+            }
+
+            const totalPayment = monthlyPayment * numPayments;
+            const totalInterest = totalPayment - loanAmount;
+
+            this.updateLoanResults({
+                monthlyPayment,
+                totalLoan: loanAmount,
+                totalInterest,
+                totalPayment,
+                term: loanTerm
+            });
+        }
+    }
+
+    updateLoanResults(results) {
+        const elements = {
+            monthlyPayment: document.getElementById('monthlyPayment'),
+            totalLoan: document.getElementById('totalLoan'),
+            totalInterest: document.getElementById('totalInterest'),
+            totalPayment: document.getElementById('totalPayment'),
+            resultTerm: document.getElementById('resultTerm'),
+            affordabilityProgress: document.getElementById('affordabilityProgress')
+        };
+
+        if (elements.monthlyPayment) {
+            this.animateValue(elements.monthlyPayment, results.monthlyPayment, '€');
+        }
+        
+        if (elements.totalLoan) {
+            this.animateValue(elements.totalLoan, results.totalLoan, '€');
+        }
+        
+        if (elements.totalInterest) {
+            this.animateValue(elements.totalInterest, results.totalInterest, '€');
+        }
+        
+        if (elements.totalPayment) {
+            this.animateValue(elements.totalPayment, results.totalPayment, '€');
+        }
+
+        if (elements.resultTerm) {
+            elements.resultTerm.textContent = results.term;
+        }
+
+        if (elements.affordabilityProgress) {
+            const affordability = Math.min((results.monthlyPayment / 2000) * 100, 100);
+            elements.affordabilityProgress.style.width = affordability + '%';
+            
+            if (affordability < 30) {
+                elements.affordabilityProgress.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+            } else if (affordability < 60) {
+                elements.affordabilityProgress.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+            } else {
+                elements.affordabilityProgress.style.background = 'linear-gradient(90deg, #ef4444, #f87171)';
+            }
+        }
+    }
+
+    animateValue(element, targetValue, prefix = '') {
+        const startValue = parseFloat(element.textContent.replace(/[€,]/g, '')) || 0;
+        const duration = 800;
+        const startTime = performance.now();
+
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+            const currentValue = startValue + (targetValue - startValue) * easeOutCubic;
+            
+            element.textContent = prefix + Math.round(currentValue).toLocaleString();
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+
+        requestAnimationFrame(animate);
+    }
+
+    setupResultAnimations() {
+        const resultElements = document.querySelectorAll('.result-card, .detail-item');
+        
+        resultElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                element.style.transform = 'translateY(-5px) scale(1.02)';
+                element.style.boxShadow = '0 20px 40px rgba(0, 209, 178, 0.2)';
+            });
+
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = '';
+                element.style.boxShadow = '';
+            });
+        });
+    }
 }
 
 // Inizializza l'app quando il DOM è pronto
@@ -1339,7 +1705,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.initTiltEffects();
     }
     
-    console.log('🚗 AutoShop Premium - App inizializzata con successo!');
+    // Inizializza le animazioni avanzate se disponibili
+    if (window.AdvancedAnimations) {
+        try {
+            window.advancedAnimations = new window.AdvancedAnimations();
+            console.log('🎬 Animazioni avanzate inizializzate con successo!');
+        } catch (error) {
+            console.warn('⚠️ Errore nell\'inizializzazione delle animazioni avanzate:', error);
+        }
+    }
+    
+    console.log('🚗 Wali Wheelse - App inizializzata con successo!');
 });
 
 // Utility functions globali

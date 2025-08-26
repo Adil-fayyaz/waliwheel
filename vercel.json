@@ -6,9 +6,27 @@
       "use": "@vercel/static"
     }
   ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false,
   "env": {
     "NODE_ENV": "production"
-  }
+  },
+  "functions": {},
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
 }

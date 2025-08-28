@@ -1,551 +1,508 @@
 /**
- * Pannello Amministratore Wali Wheelse
- * Gestione completa del sito con funzionalità avanzate
+ * Admin Panel - Wali Wheels
+ * Sistema completo di gestione amministrativa per concessionaria auto
+ * Versione 3.0 - CRUD Completo + Dashboard + Sicurezza + Gestione Utenti + Analytics + Settings
  */
 
 class AdminPanel {
     constructor() {
-        this.currentSection = 'dashboard';
+        this.currentUser = null;
         this.cars = [];
         this.users = [];
-        this.orders = [];
+        this.stats = {};
+        this.currentFilter = 'all';
+        this.searchQuery = '';
+        
         this.init();
     }
 
     init() {
-        this.bindEvents();
-        this.loadDashboardData();
-        this.showSection('dashboard');
-        this.initSidebarToggle();
-        this.initMobileMenu();
+        console.log('🚀 AdminPanel inizializzato');
+        this.checkAuth();
+        this.loadData();
+        this.setupEventListeners();
+        this.setupImageInputs();
+        this.renderDashboard();
+        this.renderCarsTable();
+        this.updateStats();
     }
-
-    bindEvents() {
-        // Navigazione sidebar
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
+    
+    // ===== SICUREZZA E AUTENTICAZIONE =====
+    
+    checkAuth() {
+        // Simula controllo autenticazione (in produzione usare JWT/sessioni)
+        const adminToken = localStorage.getItem('admin_token');
+        if (!adminToken) {
+            this.showLoginModal();
+        } else {
+            this.currentUser = {
+                id: 'admin_001',
+                name: 'Amministratore',
+                role: 'super_admin',
+                email: 'admin@waliwheels.it'
+            };
+            this.updateUserInfo();
+        }
+    }
+    
+    showLoginModal() {
+        const loginHTML = `
+            <div class="modal-overlay active" id="loginModal">
+                <div class="modal-content" style="max-width: 400px;">
+                    <div class="modal-header">
+                        <h2>🔐 Accesso Admin</h2>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="adminEmail">Email</label>
+                                <input type="email" id="adminEmail" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="adminPassword">Password</label>
+                                <input type="password" id="adminPassword" class="form-input" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="filter-btn primary">Accedi</button>
+                            </div>
+                        </form>
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                💡 <strong>Demo:</strong> admin@waliwheels.it / admin123
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', loginHTML);
+        
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                const section = item.dataset.section;
-                this.showSection(section);
-                this.updateActiveNav(item);
-            });
+            this.handleLogin();
         });
-
-        // Toggle sidebar
-        document.getElementById('sidebarToggle')?.addEventListener('click', () => {
-            this.toggleSidebar();
-        });
-
-        // Menu toggle mobile
-        document.getElementById('menuToggle')?.addEventListener('click', () => {
-            this.toggleMobileMenu();
-        });
-
-        // Logout
-        document.getElementById('logoutBtn')?.addEventListener('click', () => {
-            this.logout();
-        });
-
-        // Azioni rapide
-        document.querySelectorAll('.action-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const action = card.dataset.action;
-                this.handleQuickAction(action);
-            });
-        });
-
-        // Form aggiungi auto
-        document.getElementById('addCarBtn')?.addEventListener('click', () => {
-            this.showAddCarModal();
-        });
-
-        document.getElementById('closeAddCarModal')?.addEventListener('click', () => {
-            this.hideAddCarModal();
-        });
-
-        document.getElementById('cancelAddCar')?.addEventListener('click', () => {
-            this.hideAddCarModal();
-        });
-
-        document.getElementById('addCarForm')?.addEventListener('submit', (e) => {
+    }
+    
+    handleLogin() {
+        const email = document.getElementById('adminEmail').value;
+        const password = document.getElementById('adminPassword').value;
+        
+        // Simula autenticazione (in produzione usare API sicura)
+        if (email === 'admin@waliwheels.it' && password === 'admin123') {
+            localStorage.setItem('admin_token', 'demo_token_123');
+            this.currentUser = {
+                id: 'admin_001',
+                name: 'Amministratore',
+                role: 'super_admin',
+                email: email
+            };
+            
+            document.getElementById('loginModal').remove();
+            this.updateUserInfo();
+            this.showToast('✅ Accesso effettuato con successo!', 'success');
+        } else {
+            this.showToast('❌ Credenziali non valide!', 'error');
+        }
+    }
+    
+    logout() {
+        localStorage.removeItem('admin_token');
+        this.currentUser = null;
+        this.showToast('👋 Logout effettuato', 'info');
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
+    
+    updateUserInfo() {
+        const userElement = document.querySelector('.user-name');
+        if (userElement && this.currentUser) {
+            userElement.textContent = this.currentUser.name;
+        }
+    }
+    
+    // ===== GESTIONE DATI =====
+    
+    loadData() {
+        this.loadCars();
+        this.loadUsers();
+        this.loadStats();
+    }
+    
+    loadCars() {
+        try {
+            const storedCars = localStorage.getItem('waliwheels_cars');
+            this.cars = storedCars ? JSON.parse(storedCars) : [];
+        } catch (e) {
+            console.error('Errore caricamento auto:', e);
+            this.cars = [];
+        }
+    }
+    
+    loadUsers() {
+        try {
+            const storedUsers = localStorage.getItem('waliwheels_users');
+            this.users = storedUsers ? JSON.parse(storedUsers) : [
+                {
+                    id: 'admin_001',
+                    name: 'Amministratore',
+                    email: 'admin@waliwheels.it',
+                    role: 'admin',
+                    status: 'active',
+                    createdAt: '2024-01-01'
+                }
+            ];
+        } catch (e) {
+            console.error('Errore caricamento utenti:', e);
+            this.users = [];
+        }
+    }
+    
+    loadStats() {
+        this.stats = {
+            totalCars: this.cars.length,
+            activeCars: this.cars.filter(car => car.status === 'active').length,
+            featuredCars: this.cars.filter(car => car.featured).length,
+            totalUsers: this.users.length,
+            totalViews: Math.floor(Math.random() * 10000) + 1000,
+            monthlyRevenue: Math.floor(Math.random() * 100000) + 50000
+        };
+    }
+    
+    // ===== EVENT LISTENERS =====
+    
+    setupEventListeners() {
+        // Form aggiunta auto
+        const addCarForm = document.getElementById('addCarForm');
+        if (addCarForm) {
+            addCarForm.addEventListener('submit', (e) => {
             e.preventDefault();
             this.handleAddCar();
         });
+        }
 
-        // Filtri auto
-        document.getElementById('carSearch')?.addEventListener('input', (e) => {
-            this.filterCars(e.target.value);
+        // Form aggiunta utente
+        const addUserForm = document.getElementById('addUserForm');
+        if (addUserForm) {
+            addUserForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleAddUser();
+            });
+        }
+
+        // Form modifica auto
+        const editCarForm = document.getElementById('editCarForm');
+        if (editCarForm) {
+            editCarForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleEditCar();
+            });
+        }
+        
+        // Ricerca e filtri
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                this.searchQuery = e.target.value;
+                this.renderCarsTable();
+            });
+        }
+        
+        // Menu utente
+        const adminUser = document.querySelector('.admin-user');
+        if (adminUser) {
+            adminUser.addEventListener('click', () => this.toggleUserMenu());
+        }
+        
+        // Click fuori per chiudere menu
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.admin-user')) {
+                this.closeUserMenu();
+            }
         });
 
-        document.getElementById('brandFilter')?.addEventListener('change', (e) => {
-            this.filterCarsByBrand(e.target.value);
-        });
-
-        document.getElementById('statusFilter')?.addEventListener('change', (e) => {
-            this.filterCarsByStatus(e.target.value);
-        });
-
-        // Notifiche e help
-        document.getElementById('notificationsBtn')?.addEventListener('click', () => {
-            this.showNotifications();
-        });
-
-        document.getElementById('helpBtn')?.addEventListener('click', () => {
-            this.showHelp();
+        // Click fuori per chiudere modali
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         });
     }
 
+    // ===== GESTIONE SEZIONI =====
+
     showSection(sectionName) {
         // Nascondi tutte le sezioni
-        document.querySelectorAll('.content-section').forEach(section => {
+        document.querySelectorAll('.admin-section').forEach(section => {
+            section.style.display = 'none';
             section.classList.remove('active');
         });
 
         // Mostra la sezione selezionata
-        const targetSection = document.getElementById(sectionName);
+        const targetSection = document.getElementById(sectionName + 'Section');
         if (targetSection) {
+            targetSection.style.display = 'block';
             targetSection.classList.add('active');
-            this.currentSection = sectionName;
-            this.updatePageTitle(sectionName);
-            this.loadSectionData(sectionName);
         }
-    }
-
-    updateActiveNav(activeItem) {
-        // Rimuovi classe active da tutti gli elementi
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
+        
+        // Aggiorna i pulsanti di navigazione
+        document.querySelectorAll('.nav-item').forEach(btn => {
+            btn.classList.remove('active');
         });
-
-        // Aggiungi classe active all'elemento selezionato
-        activeItem.classList.add('active');
-    }
-
-    updatePageTitle(sectionName) {
-        const titles = {
-            dashboard: 'Dashboard',
-            cars: 'Gestione Auto',
-            users: 'Gestione Utenti',
-            orders: 'Gestione Ordini',
-            analytics: 'Analytics',
-            settings: 'Impostazioni'
-        };
-
-        const pageTitle = document.getElementById('pageTitle');
-        if (pageTitle && titles[sectionName]) {
-            pageTitle.textContent = titles[sectionName];
+        
+        const activeBtn = document.querySelector(`[onclick="adminPanel.showSection('${sectionName}')"]`);
+        if (activeBtn) {
+            activeBtn.classList.add('active');
         }
-    }
-
-    loadSectionData(sectionName) {
+        
+        // Carica i dati specifici della sezione
         switch (sectionName) {
-            case 'dashboard':
-                this.loadDashboardData();
-                break;
             case 'cars':
-                this.loadCarsData();
+                this.renderCarsTable();
                 break;
             case 'users':
-                this.loadUsersData();
-                break;
-            case 'orders':
-                this.loadOrdersData();
+                this.renderUsersTable();
                 break;
             case 'analytics':
-                this.loadAnalyticsData();
+                this.renderAnalytics();
                 break;
             case 'settings':
-                this.loadSettingsData();
+                this.renderSettings();
                 break;
         }
     }
 
-    // === DASHBOARD ===
-    loadDashboardData() {
-        this.updateDashboardStats();
-        this.loadRecentActivity();
-    }
-
-    updateDashboardStats() {
-        // Simula dati reali (in produzione verrebbero da un'API)
-        const stats = {
-            totalCars: 156,
-            totalUsers: 2847,
-            totalOrders: 892,
-            totalRevenue: 1547500
+    // ===== GESTIONE AUTO (CRUD) =====
+    
+    handleAddCar() {
+        const formData = new FormData(document.getElementById('addCarForm'));
+        
+        // Raccogli tutti i dati del form
+        const carData = {
+            id: Date.now().toString(),
+            brand: formData.get('brand') || document.getElementById('brand').value,
+            model: formData.get('model') || document.getElementById('model').value,
+            year: parseInt(formData.get('year') || document.getElementById('year').value),
+            price: parseInt(formData.get('price') || document.getElementById('price').value),
+            type: formData.get('type') || document.getElementById('type').value,
+            color: formData.get('color') || document.getElementById('color').value,
+            fuel: formData.get('fuel') || document.getElementById('fuel').value,
+            km: parseInt(formData.get('km') || document.getElementById('km').value) || 0,
+            engine: parseInt(formData.get('engine') || document.getElementById('engine').value) || 0,
+            power: parseInt(formData.get('power') || document.getElementById('power').value) || 0,
+            transmission: formData.get('transmission') || document.getElementById('transmission').value,
+            doors: parseInt(formData.get('doors') || document.getElementById('doors').value) || 0,
+            seats: parseInt(formData.get('seats') || document.getElementById('seats').value) || 0,
+            description: formData.get('description') || document.getElementById('description').value,
+            featured: formData.get('featured') === 'on' || document.getElementById('featured').checked,
+            status: 'active',
+            createdAt: new Date().toISOString(),
+            views: 0,
+            favorites: 0
         };
 
-        document.getElementById('totalCars').textContent = stats.totalCars;
-        document.getElementById('totalUsers').textContent = stats.totalUsers;
-        document.getElementById('totalOrders').textContent = stats.totalOrders;
-        document.getElementById('totalRevenue').textContent = `€${stats.totalRevenue.toLocaleString()}`;
-    }
-
-    loadRecentActivity() {
-        const activities = [
-            {
-                type: 'car_added',
-                message: 'Nuova BMW X5 aggiunta al catalogo',
-                time: '2 ore fa',
-                icon: '🚗'
-            },
-            {
-                type: 'order_completed',
-                message: 'Ordine #1234 completato - Mercedes C200',
-                time: '4 ore fa',
-                icon: '✅'
-            },
-            {
-                type: 'user_registered',
-                message: 'Nuovo utente registrato: Mario Rossi',
-                time: '6 ore fa',
-                icon: '👤'
-            },
-            {
-                type: 'payment_received',
-                message: 'Pagamento ricevuto per Audi A4 - €45,000',
-                time: '8 ore fa',
-                icon: '💰'
-            }
-        ];
-
-        const activityList = document.getElementById('activityList');
-        if (activityList) {
-            activityList.innerHTML = activities.map(activity => `
-                <div class="activity-item" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--admin-surface-hover); border-radius: 8px;">
-                    <span style="font-size: 1.2rem;">${activity.icon}</span>
-                    <div style="flex: 1;">
-                        <p style="margin: 0; color: var(--admin-text); font-size: 0.9rem;">${activity.message}</p>
-                        <small style="color: var(--admin-text-muted);">${activity.time}</small>
-                    </div>
-                </div>
-            `).join('');
-        }
-    }
-
-    // === GESTIONE AUTO ===
-    loadCarsData() {
-        // Prova a caricare auto da localStorage (pubblicate dall'admin)
-        const savedCars = localStorage.getItem('publishedCars');
+        // Raccogli le immagini
+        const imageInputs = document.querySelectorAll('.image-url-input');
+        const images = [];
         
-        if (savedCars) {
-            this.cars = JSON.parse(savedCars);
-            this.showToast('Auto caricate dal database locale', 'info');
-        } else {
-            // Dati di esempio se non ci sono auto salvate
-            this.cars = [
-                {
-                    id: 1,
-                    name: 'BMW X5 xDrive40i',
-                    brand: 'BMW',
-                    model: 'X5',
-                    year: 2024,
-                    price: 85000,
-                    fuel: 'benzina',
-                    transmission: 'automatico',
-                    power: 340,
-                    mileage: 15000,
-                    color: 'Alpine White',
-                    description: 'SUV di lusso con prestazioni eccezionali e comfort superiore',
-                    features: ['Navigazione', 'Cruise Control', 'Sedili Riscaldati', 'Sistema Audio Premium'],
-                    images: [
-                        'https://via.placeholder.com/400x300/667eea/ffffff?text=BMW+X5+1',
-                        'https://via.placeholder.com/400x300/667eea/ffffff?text=BMW+X5+2'
-                    ],
-                    mainImage: 'https://via.placeholder.com/400x300/667eea/ffffff?text=BMW+X5',
-                    status: 'active',
-                    date: '2024-01-15',
-                    location: 'Milano',
-                    dealer: 'BMW Milano Centro'
-                },
-                {
-                    id: 2,
-                    name: 'Mercedes-Benz C200 AMG',
-                    brand: 'Mercedes',
-                    model: 'C200',
-                    year: 2023,
-                    price: 52000,
-                    fuel: 'benzina',
-                    transmission: 'automatico',
-                    power: 204,
-                    mileage: 25000,
-                    color: 'Obsidian Black',
-                    description: 'Berlina elegante con finiture AMG e tecnologia all\'avanguardia',
-                    features: ['AMG Package', 'LED Intelligent Light', 'MBUX', 'Sensori di Parcheggio'],
-                    images: [
-                        'https://via.placeholder.com/400x300/10b981/ffffff?text=MERC+C200+1',
-                        'https://via.placeholder.com/400x300/10b981/ffffff?text=MERC+C200+2'
-                    ],
-                    mainImage: 'https://via.placeholder.com/400x300/10b981/ffffff?text=MERC+C200',
-                    status: 'active',
-                    date: '2024-01-14',
-                    location: 'Roma',
-                    dealer: 'Mercedes Roma'
-                },
-                {
-                    id: 3,
-                    name: 'Audi A4 2.0 TDI',
-                    brand: 'Audi',
-                    model: 'A4',
-                    year: 2023,
-                    price: 45000,
-                    fuel: 'diesel',
-                    transmission: 'automatico',
-                    power: 190,
-                    mileage: 30000,
-                    color: 'Daytona Gray',
-                    description: 'Berlina compatta con motore diesel efficiente e design moderno',
-                    features: ['Virtual Cockpit', 'MMI Navigation', 'LED Matrix', 'Sensori di Parcheggio'],
-                    images: [
-                        'https://via.placeholder.com/400x300/f59e0b/ffffff?text=AUDI+A4+1',
-                        'https://via.placeholder.com/400x300/f59e0b/ffffff?text=AUDI+A4+2'
-                    ],
-                    mainImage: 'https://via.placeholder.com/400x300/f59e0b/ffffff?text=AUDI+A4',
-                    status: 'active',
-                    date: '2024-01-13',
-                    location: 'Milano',
-                    dealer: 'Audi Milano'
-                },
-                {
-                    id: 4,
-                    name: 'Porsche 911 Carrera',
-                    brand: 'Porsche',
-                    model: '911',
-                    year: 2023,
-                    price: 125000,
-                    fuel: 'benzina',
-                    transmission: 'automatico',
-                    power: 450,
-                    mileage: 5000,
-                    color: 'GT Silver Metallic',
-                    description: 'Iconica sportiva con prestazioni da supercar e finiture di lusso',
-                    features: ['Sport Chrono Package', 'PASM', 'Porsche Communication Management', 'Sistema Audio Bose'],
-                    images: [
-                        'https://via.placeholder.com/400x300/ef4444/ffffff?text=PORSCHE+911+1',
-                        'https://via.placeholder.com/400x300/ef4444/ffffff?text=PORSCHE+911+2'
-                    ],
-                    mainImage: 'https://via.placeholder.com/400x300/ef4444/ffffff?text=PORSCHE+911',
-                    status: 'draft',
-                    date: '2024-01-12',
-                    location: 'Milano',
-                    dealer: 'Porsche Milano'
-                }
-            ];
-            
-            // Salva le auto di esempio
-            this.saveCarsToStorage();
+        imageInputs.forEach((input, index) => {
+            if (input.value.trim()) {
+                images.push(input.value.trim());
+            }
+        });
+
+        // Validazione: richiedi almeno 5 immagini
+        if (images.length < 5) {
+            this.showToast('⚠️ Inserisci almeno 5 immagini per ogni auto!', 'error');
+            return;
         }
 
+        carData.images = images;
+        carData.image = images[0]; // Prima immagine come immagine principale
+
+        // Validazione base
+        if (!carData.brand || !carData.model || !carData.year || !carData.price) {
+            this.showToast('⚠️ Compila tutti i campi obbligatori!', 'error');
+            return;
+        }
+
+        // Aggiungi l'auto
+        this.addCar(carData);
+        
+        // Chiudi il modal
+        this.closeModal('addCarModal');
+        
+        // Reset del form
+        document.getElementById('addCarForm').reset();
+        
+        // Reset delle anteprime immagini
+        this.resetImagePreviews();
+        
+        this.showToast('✅ Auto aggiunta con successo!', 'success');
+    }
+
+    handleEditCar() {
+        const form = document.getElementById('editCarForm');
+        const carId = form.dataset.carId;
+        
+        if (!carId) return;
+        
+        const formData = new FormData(form);
+        const updatedData = {
+            brand: formData.get('editBrand'),
+            model: formData.get('editModel'),
+            year: parseInt(formData.get('editYear')),
+            price: parseInt(formData.get('editPrice')),
+            type: formData.get('editType'),
+            color: formData.get('editColor'),
+            fuel: formData.get('editFuel'),
+            km: parseInt(formData.get('editKm')) || 0,
+            engine: parseInt(formData.get('editEngine')) || 0,
+            power: parseInt(formData.get('editPower')) || 0,
+            transmission: formData.get('editTransmission'),
+            doors: parseInt(formData.get('editDoors')) || 0,
+            seats: parseInt(formData.get('editSeats')) || 0,
+            description: formData.get('editDescription'),
+            featured: formData.get('editFeatured') === 'on',
+            status: formData.get('editStatus'),
+            updatedAt: new Date().toISOString()
+        };
+        
+        this.updateCar(carId, updatedData);
+        this.closeModal('editCarModal');
+    }
+
+    handleAddUser() {
+        const formData = new FormData(document.getElementById('addUserForm'));
+        
+        // Raccogli i permessi selezionati
+        const permissions = [];
+        document.querySelectorAll('input[name="permissions"]:checked').forEach(checkbox => {
+            permissions.push(checkbox.value);
+        });
+        
+        const userData = {
+            name: formData.get('userName'),
+            email: formData.get('userEmail'),
+            role: formData.get('userRole'),
+            status: formData.get('userStatus') || 'active',
+            permissions: permissions
+        };
+        
+        // Validazione
+        if (!userData.name || !userData.email || !userData.role) {
+            this.showToast('⚠️ Compila tutti i campi obbligatori!', 'error');
+            return;
+        }
+        
+        // Verifica email unica
+        if (this.users.some(user => user.email === userData.email)) {
+            this.showToast('⚠️ Email già esistente!', 'error');
+            return;
+        }
+        
+        this.addUser(userData);
+        
+        // Reset form
+        document.getElementById('addUserForm').reset();
+    }
+    
+    addCar(carData) {
+        this.cars.push(carData);
+        this.saveCars();
         this.renderCarsTable();
+        this.updateStats();
+        this.renderDashboard();
+    }
+    
+    updateCar(carId, updatedData) {
+        const index = this.cars.findIndex(c => c.id === carId);
+        if (index !== -1) {
+            this.cars[index] = { ...this.cars[index], ...updatedData };
+            this.saveCars();
+            this.renderCarsTable();
+            this.updateStats();
+            this.showToast('✅ Auto aggiornata con successo!', 'success');
+        }
+    }
+    
+    deleteCar(carId) {
+        if (confirm('⚠️ Sei sicuro di voler eliminare questa auto?')) {
+            this.cars = this.cars.filter(c => c.id !== carId);
+            this.saveCars();
+            this.renderCarsTable();
+            this.updateStats();
+            this.renderDashboard();
+            this.showToast('🗑️ Auto eliminata con successo!', 'success');
+        }
+    }
+    
+    saveCars() {
+        localStorage.setItem('waliwheels_cars', JSON.stringify(this.cars));
     }
 
-    renderCarsTable() {
-        const tbody = document.getElementById('carsTableBody');
+    // ===== GESTIONE UTENTI =====
+    
+    renderUsersTable() {
+        const tbody = document.getElementById('usersTableBody');
         if (!tbody) return;
 
-        tbody.innerHTML = this.cars.map(car => `
-            <tr>
-                <td>
-                    <img src="${car.mainImage || car.image || `https://via.placeholder.com/80x60/667eea/ffffff?text=${car.brand.toUpperCase()}`}" alt="${car.name}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px;">
-                </td>
-                <td>
-                    <strong>${car.name}</strong>
-                    ${car.model ? `<br><small style="color: var(--admin-text-muted);">${car.model}</small>` : ''}
-                </td>
-                <td>
-                    <span style="text-transform: capitalize;">${car.brand}</span>
-                </td>
-                <td>
-                    <strong>€${car.price.toLocaleString()}</strong>
-                    ${car.year ? `<br><small style="color: var(--admin-text-muted);">${car.year}</small>` : ''}
-                </td>
-                <td>
-                    <span class="status-badge ${car.status}" style="
-                        padding: 4px 12px; 
-                        border-radius: 20px; 
-                        font-size: 0.8rem; 
-                        font-weight: 600;
-                        background: ${car.status === 'active' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)'};
-                        color: ${car.status === 'active' ? '#10b981' : '#f59e0b'};
-                        border: 1px solid ${car.status === 'active' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.3)'};
-                    ">
-                        ${car.status === 'active' ? 'Attiva' : 'Bozza'}
-                    </span>
-                </td>
-                <td>${new Date(car.date).toLocaleDateString('it-IT')}</td>
-                <td>
-                    <div class="table-actions">
-                        <button class="action-icon" onclick="adminPanel.editCar(${car.id})" title="Modifica">
-                            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button class="action-icon" onclick="adminPanel.deleteCar(${car.id})" title="Elimina">
-                            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    filterCars(searchTerm) {
-        const filteredCars = this.cars.filter(car => 
-            car.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            car.brand.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        this.renderFilteredCars(filteredCars);
-    }
-
-    filterCarsByBrand(brand) {
-        if (!brand) {
-            this.renderCarsTable();
-            return;
-        }
-        const filteredCars = this.cars.filter(car => car.brand.toLowerCase() === brand.toLowerCase());
-        this.renderFilteredCars(filteredCars);
-    }
-
-    filterCarsByStatus(status) {
-        if (!status) {
-            this.renderCarsTable();
-            return;
-        }
-        const filteredCars = this.cars.filter(car => car.status === status);
-        this.renderFilteredCars(filteredCars);
-    }
-
-    renderFilteredCars(filteredCars) {
-        const tbody = document.getElementById('carsTableBody');
-        if (!tbody) return;
-
-        if (filteredCars.length === 0) {
+        if (this.users.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="7" style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
-                        Nessuna auto trovata con i filtri selezionati
+                    <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <div style="opacity: 0.7;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 48px; height: 48px; margin-bottom: 1rem;">
+                                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H5V21H19V9Z"/>
+                            </svg>
+                            <p>Nessun utente presente nel sistema</p>
+                            <button class="filter-btn primary" onclick="adminPanel.openModal('addUserModal')" style="margin-top: 1rem;">
+                                Aggiungi Primo Utente
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `;
             return;
         }
 
-        tbody.innerHTML = filteredCars.map(car => `
-            <tr>
-                <td>
-                    <img src="${car.mainImage || car.image || `https://via.placeholder.com/80x60/667eea/ffffff?text=${car.brand.toUpperCase()}`}" alt="${car.name}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px;">
-                </td>
-                <td>
-                    <strong>${car.name}</strong>
-                    ${car.model ? `<br><small style="color: var(--admin-text-muted);">${car.model}</small>` : ''}
-                </td>
-                <td>
-                    <span style="text-transform: capitalize;">${car.brand}</span>
-                </td>
-                <td>
-                    <strong>€${car.price.toLocaleString()}</strong>
-                    ${car.year ? `<br><small style="color: var(--admin-text-muted);">${car.year}</small>` : ''}
-                </td>
-                <td>
-                    <span class="status-badge ${car.status}" style="
-                        padding: 4px 12px; 
-                        border-radius: 20px; 
-                        font-size: 0.8rem; 
-                        font-weight: 600;
-                        background: ${car.status === 'active' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)'};
-                        color: ${car.status === 'active' ? '#10b981' : '#f59e0b'};
-                        border: 1px solid ${car.status === 'active' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.3)'};
-                    ">
-                        ${car.status === 'active' ? 'Attiva' : 'Bozza'}
-                    </span>
-                </td>
-                <td>${new Date(car.date).toLocaleDateString('it-IT')}</td>
-                <td>
-                    <div class="table-actions">
-                        <button class="action-icon" onclick="adminPanel.editCar(${car.id})" title="Modifica">
-                            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button class="action-icon" onclick="adminPanel.deleteCar(${car.id})" title="Elimina">
-                            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    // === GESTIONE UTENTI ===
-    loadUsersData() {
-        // Simula dati utenti
-        this.users = [
-            {
-                id: 1,
-                name: 'Mario Rossi',
-                email: 'mario.rossi@email.com',
-                role: 'user',
-                status: 'active',
-                avatar: 'https://via.placeholder.com/40x40/667eea/ffffff?text=MR',
-                registration: '2024-01-10'
-            },
-            {
-                id: 2,
-                name: 'Giulia Bianchi',
-                email: 'giulia.bianchi@email.com',
-                role: 'admin',
-                status: 'active',
-                avatar: 'https://via.placeholder.com/40x40/10b981/ffffff?text=GB',
-                registration: '2024-01-08'
-            }
-        ];
-
-        this.renderUsersTable();
-    }
-
-    renderUsersTable() {
-        const tbody = document.getElementById('usersTableBody');
-        if (!tbody) return;
-
         tbody.innerHTML = this.users.map(user => `
             <tr>
                 <td>
-                    <img src="${user.avatar}" alt="${user.name}" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <div class="user-info" style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="user-avatar" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; background: linear-gradient(135deg, ${this.getRandomColor()}, ${this.getRandomColor()});">
+                            ${user.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="user-details">
+                            <div class="user-name" style="font-weight: 600; color: var(--text-color);">${user.name}</div>
+                            <div class="user-id" style="font-size: 0.8rem; color: var(--text-secondary);">#${user.id}</div>
+                        </div>
+                    </div>
                 </td>
+                <td style="color: var(--text-color);">${user.email}</td>
                 <td>
-                    <strong>${user.name}</strong>
-                </td>
-                <td>${user.email}</td>
-                <td>
-                    <span class="role-badge ${user.role}" style="
-                        padding: 4px 12px; 
-                        border-radius: 20px; 
-                        font-size: 0.8rem; 
-                        font-weight: 600;
-                        background: ${user.role === 'admin' ? 'rgba(102, 126, 234, 0.1)' : 'rgba(16, 185, 129, 0.1)'};
-                        color: ${user.role === 'admin' ? '#667eea' : '#10b981'};
-                        border: 1px solid ${user.role === 'admin' ? 'rgba(102, 126, 234, 0.3)' : 'rgba(16, 185, 129, 0.3)'};
-                    ">
-                        ${user.role === 'admin' ? 'Amministratore' : 'Utente'}
+                    <span class="role-badge" style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: rgba(0, 255, 136, 0.2); color: var(--primary-color);">
+                        ${this.formatRole(user.role)}
                     </span>
                 </td>
                 <td>
-                    <span class="status-badge ${user.status}" style="
-                        padding: 4px 12px; 
-                        border-radius: 20px; 
-                        font-size: 0.8rem; 
-                        font-weight: 600;
-                        background: rgba(16, 185, 129, 0.1);
-                        color: #10b981;
-                        border: 1px solid rgba(16, 185, 129, 0.3);
-                    ">
-                        Attivo
+                    <span class="status-badge status-${user.status}" style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: ${user.status === 'active' ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255, 107, 53, 0.2)'}; color: ${user.status === 'active' ? 'var(--primary-color)' : '#ff6b35'};">
+                        ${this.formatStatus(user.status)}
                     </span>
                 </td>
-                <td>${new Date(user.registration).toLocaleDateString('it-IT')}</td>
                 <td>
-                    <div class="table-actions">
-                        <button class="action-icon" onclick="adminPanel.editUser(${user.id})" title="Modifica">
-                            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    <div class="action-buttons" style="display: flex; gap: 0.5rem;">
+                        <button class="action-btn edit" onclick="adminPanel.editUser('${user.id}')" title="Modifica" style="background: rgba(255, 255, 255, 0.1); border: none; padding: 0.5rem; border-radius: 8px; color: var(--text-color); cursor: pointer; transition: all 0.3s ease;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                            </svg>
                         </button>
-                        <button class="action-icon" onclick="adminPanel.deleteUser(${user.id})" title="Elimina">
-                            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        <button class="action-btn delete" onclick="adminPanel.deleteUser('${user.id}')" title="Elimina" style="background: rgba(255, 107, 53, 0.2); border: none; padding: 0.5rem; border-radius: 8px; color: #ff6b35; cursor: pointer; transition: all 0.3s ease;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                            </svg>
                         </button>
                     </div>
                 </td>
@@ -553,392 +510,501 @@ class AdminPanel {
         `).join('');
     }
 
-    // === GESTIONE ORDINI ===
-    loadOrdersData() {
-        // Simula dati ordini
-        this.orders = [
-            {
-                id: 'ORD-001',
-                customer: 'Mario Rossi',
-                car: 'BMW X5 xDrive40i',
-                total: 85000,
-                status: 'completed',
-                date: '2024-01-15'
-            },
-            {
-                id: 'ORD-002',
-                customer: 'Giulia Bianchi',
-                car: 'Mercedes-Benz C200 AMG',
-                total: 52000,
-                status: 'pending',
-                date: '2024-01-14'
-            }
-        ];
-
-        this.renderOrdersTable();
-    }
-
-    renderOrdersTable() {
-        const tbody = document.getElementById('ordersTableBody');
-        if (!tbody) return;
-
-        tbody.innerHTML = this.orders.map(order => `
-            <tr>
-                <td>
-                    <strong>${order.id}</strong>
-                </td>
-                <td>${order.customer}</td>
-                <td>${order.car}</td>
-                <td>
-                    <strong>€${order.total.toLocaleString()}</strong>
-                </td>
-                <td>
-                    <span class="status-badge ${order.status}" style="
-                        padding: 4px 12px; 
-                        border-radius: 20px; 
-                        font-size: 0.8rem; 
-                        font-weight: 600;
-                        background: ${order.status === 'completed' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)'};
-                        color: ${order.status === 'completed' ? '#10b981' : '#f59e0b'};
-                        border: 1px solid ${order.status === 'completed' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.3)'};
-                    ">
-                        ${order.status === 'completed' ? 'Completato' : 'In attesa'}
-                    </span>
-                </td>
-                <td>${new Date(order.date).toLocaleDateString('it-IT')}</td>
-                <td>
-                    <div class="table-actions">
-                        <button class="action-icon" onclick="adminPanel.viewOrder('${order.id}')" title="Visualizza">
-                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                        </button>
-                        <button class="action-icon" onclick="adminPanel.editOrder('${order.id}')" title="Modifica">
-                            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    // === ANALYTICS ===
-    loadAnalyticsData() {
-        // Placeholder per i grafici
-        console.log('Caricamento analytics...');
-    }
-
-    // === SETTINGS ===
-    loadSettingsData() {
-        // Placeholder per le impostazioni
-        console.log('Caricamento impostazioni...');
-    }
-
-    // === MODAL AGGIUNGI AUTO ===
-    showAddCarModal() {
-        const modal = document.getElementById('addCarModal');
-        if (modal) {
-            modal.classList.add('active');
-        }
-    }
-
-    hideAddCarModal() {
-        const modal = document.getElementById('addCarModal');
-        if (modal) {
-            modal.classList.remove('active');
-            // Reset form
-            document.getElementById('addCarForm')?.reset();
-        }
-    }
-
-    handleAddCar() {
-        const form = document.getElementById('addCarForm');
-        if (!form) return;
-
-        const formData = new FormData(form);
-        const carData = {
-            name: formData.get('carName'),
-            brand: formData.get('brand'),
-            price: parseFloat(formData.get('price')),
-            year: parseInt(formData.get('year')),
-            power: formData.get('power') ? parseInt(formData.get('power')) : null,
-            fuel: formData.get('fuel'),
-            description: formData.get('description'),
-            imageUrl: formData.get('imageUrl')
+    addUser(userData) {
+        const newUser = {
+            id: Date.now().toString(),
+            ...userData,
+            createdAt: new Date().toISOString()
         };
-
-        // Validazione
-        if (!carData.name || !carData.brand || !carData.price || !carData.year) {
-            this.showToast('Compila tutti i campi obbligatori', 'error');
-            return;
-        }
-
-        // Crea nuova auto con tutti i campi necessari per il sito
-        const newCar = {
-            id: Date.now(), // ID univoco basato su timestamp
-            name: carData.name,
-            brand: carData.brand,
-            model: carData.name.split(' ').slice(1).join(' ') || carData.brand, // Estrae il modello dal nome
-            year: carData.year,
-            price: carData.price,
-            fuel: carData.fuel,
-            transmission: 'automatico', // Default
-            power: carData.power || 150, // Default se non specificato
-            mileage: 0, // Nuova auto
-            color: 'Non specificato',
-            description: carData.description || 'Auto di qualità con prestazioni eccellenti',
-            features: ['Navigazione', 'Cruise Control', 'Sistema Audio'], // Caratteristiche base
-            images: [
-                carData.imageUrl || `https://via.placeholder.com/400x300/667eea/ffffff?text=${carData.brand.toUpperCase()}`
-            ],
-            mainImage: carData.imageUrl || `https://via.placeholder.com/400x300/667eea/ffffff?text=${carData.brand.toUpperCase()}`,
-            status: 'active', // Cambiato da 'available' a 'active' per essere visibile sul sito
-            date: new Date().toISOString().split('T')[0],
-            location: 'Milano', // Default
-            dealer: 'Wali Wheelse'
-        };
-
-        // Aggiungi alla lista locale
-        this.cars.unshift(newCar);
         
-        // Salva in localStorage per sincronizzazione con il sito
-        this.saveCarsToStorage();
+        this.users.push(newUser);
+        localStorage.setItem('waliwheels_users', JSON.stringify(this.users));
         
-        // Aggiorna l'interfaccia
-        this.renderCarsTable();
-        this.hideAddCarModal();
-        this.showToast('Auto pubblicata con successo! Ora è visibile nel catalogo del sito!', 'success');
-        this.updateDashboardStats();
-    }
-
-    saveCarsToStorage() {
-        console.log('=== SALVATAGGIO AUTO IN STORAGE ===');
-        console.log('Auto totali nell\'admin:', this.cars);
-        console.log('Auto con status active/available:', this.cars.filter(car => car.status === 'active' || car.status === 'available'));
-        
-        // Salva le auto in localStorage per sincronizzazione con il sito principale
-        localStorage.setItem('publishedCars', JSON.stringify(this.cars));
-        console.log('✅ Salvato in publishedCars:', this.cars.length, 'auto');
-        
-        // Salva le auto disponibili per il catalogo (sia 'active' che 'available')
-        const siteCars = this.cars.filter(car => car.status === 'active' || car.status === 'available');
-        console.log('✅ Salvo in siteCars:', siteCars.length, 'auto con status active/available');
-        console.log('Dettagli auto salvate in siteCars:', siteCars);
-        localStorage.setItem('siteCars', JSON.stringify(siteCars));
-        
-        // Verifica che sia stato salvato correttamente
-        const savedSiteCars = localStorage.getItem('siteCars');
-        console.log('✅ Verifica - siteCars salvato:', savedSiteCars);
-        
-        try {
-            const parsedCars = JSON.parse(savedSiteCars);
-            console.log('✅ Verifica - siteCars parsato:', parsedCars);
-            console.log('✅ Verifica - Numero auto parsate:', parsedCars.length);
-        } catch (e) {
-            console.error('❌ Errore parsing siteCars salvato:', e);
-        }
-        
-        this.showToast('Auto sincronizzate con il sito principale!', 'info');
-        
-        // Test immediato di sincronizzazione
-        this.testSynchronization();
-    }
-
-    testSynchronization() {
-        console.log('=== TEST SINCRONIZZAZIONE ===');
-        console.log('Auto totali nell\'admin:', this.cars.length);
-        console.log('Auto con status active/available:', this.cars.filter(car => car.status === 'active' || car.status === 'available').length);
-        console.log('Contenuto di publishedCars:', localStorage.getItem('publishedCars'));
-        console.log('Contenuto di siteCars:', localStorage.getItem('siteCars'));
-        
-        // Forza la sincronizzazione
-        this.saveCarsToStorage();
-        
-        this.showToast('Test di sincronizzazione completato! Controlla la console per i dettagli.', 'info');
-    }
-
-    clearStorageAndReset() {
-        console.log('=== PULIZIA STORAGE E RESET ===');
-        
-        // Pulisci localStorage
-        localStorage.removeItem('publishedCars');
-        localStorage.removeItem('siteCars');
-        
-        // Ricarica i dati di esempio
-        this.loadCarsData();
-        
-        this.showToast('Storage pulito e dati di esempio ricaricati!', 'info');
-    }
-
-    // === AZIONI RAPIDE ===
-    handleQuickAction(action) {
-        switch (action) {
-            case 'addCar':
-                this.showAddCarModal();
-                break;
-            case 'manageUsers':
-                this.showSection('users');
-                break;
-            case 'viewOrders':
-                this.showSection('orders');
-                break;
-            case 'analytics':
-                this.showSection('analytics');
-                break;
-            case 'testSync':
-                this.testSynchronization();
-                break;
-            case 'clearStorage':
-                this.clearStorageAndReset();
-                break;
-        }
-    }
-
-    // === SIDEBAR TOGGLE ===
-    toggleSidebar() {
-        const sidebar = document.querySelector('.admin-sidebar');
-        if (sidebar) {
-            sidebar.classList.toggle('collapsed');
-        }
-    }
-
-    initSidebarToggle() {
-        // Toggle automatico su schermi piccoli
-        if (window.innerWidth <= 1200) {
-            const sidebar = document.querySelector('.admin-sidebar');
-            if (sidebar) {
-                sidebar.classList.add('collapsed');
-            }
-        }
-    }
-
-    // === MOBILE MENU ===
-    toggleMobileMenu() {
-        const sidebar = document.querySelector('.admin-sidebar');
-        if (sidebar) {
-            sidebar.classList.toggle('mobile-open');
-        }
-    }
-
-    initMobileMenu() {
-        // Chiudi menu mobile quando si clicca fuori
-        document.addEventListener('click', (e) => {
-            const sidebar = document.querySelector('.admin-sidebar');
-            const menuToggle = document.getElementById('menuToggle');
-            
-            if (sidebar && menuToggle && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                sidebar.classList.remove('mobile-open');
-            }
-        });
-    }
-
-    // === FUNZIONI UTILITY ===
-    editCar(carId) {
-        const car = this.cars.find(c => c.id === carId);
-        if (car) {
-            this.showToast(`Modifica auto: ${car.name}`, 'info');
-            // Qui si aprirebbe un modal di modifica
-        }
-    }
-
-    deleteCar(carId) {
-        const car = this.cars.find(c => c.id === carId);
-        if (car && confirm(`Sei sicuro di voler eliminare ${car.name}?`)) {
-            this.cars = this.cars.filter(c => c.id !== carId);
-            
-            // Aggiorna localStorage
-            this.saveCarsToStorage();
-            
-            this.renderCarsTable();
-            this.showToast('Auto eliminata con successo e rimossa dal catalogo del sito', 'success');
-            this.updateDashboardStats();
-        }
+        this.showToast('✅ Utente aggiunto con successo!', 'success');
+        this.renderUsersTable();
+        this.closeModal('addUserModal');
     }
 
     editUser(userId) {
         const user = this.users.find(u => u.id === userId);
-        if (user) {
-            this.showToast(`Modifica utente: ${user.name}`, 'info');
-        }
+        if (!user) return;
+        
+        // Implementazione modal di modifica utente
+        console.log('Modifica utente:', user);
+        this.showToast('🔧 Funzionalità in sviluppo!', 'info');
     }
 
     deleteUser(userId) {
-        const user = this.users.find(u => u.id === userId);
-        if (user && confirm(`Sei sicuro di voler eliminare ${user.name}?`)) {
+        if (confirm('Sei sicuro di voler eliminare questo utente?')) {
             this.users = this.users.filter(u => u.id !== userId);
-            this.renderUsersTable();
-            this.showToast('Utente eliminato con successo', 'success');
+            localStorage.setItem('waliwheels_users', JSON.stringify(this.users));
+            
+            this.showToast('🗑️ Utente eliminato con successo!', 'success');
+        this.renderUsersTable();
         }
     }
 
-    viewOrder(orderId) {
-        this.showToast(`Visualizza ordine: ${orderId}`, 'info');
+    // ===== ANALYTICS =====
+    
+    renderAnalytics() {
+        // Aggiorna le statistiche
+        document.getElementById('totalViews').textContent = this.stats.totalViews?.toLocaleString() || '0';
+        document.getElementById('monthlyRevenue').textContent = `€${this.stats.monthlyRevenue?.toLocaleString() || '0'}`;
+        document.getElementById('totalCarsAnalytics').textContent = this.cars.length;
+        document.getElementById('featuredCarsAnalytics').textContent = this.cars.filter(car => car.featured).length;
+        document.getElementById('totalUsersAnalytics').textContent = this.users.length;
+        document.getElementById('activeUsers').textContent = this.users.filter(user => user.status === 'active').length;
     }
 
-    editOrder(orderId) {
-        this.showToast(`Modifica ordine: ${orderId}`, 'info');
+    // ===== SETTINGS =====
+    
+    renderSettings() {
+        // Carica le impostazioni salvate
+        const settings = JSON.parse(localStorage.getItem('waliwheels_settings') || '{}');
+        
+        // Applica le impostazioni ai controlli
+        Object.keys(settings).forEach(key => {
+            const element = document.getElementById(key);
+            if (element) {
+                if (element.type === 'checkbox') {
+                    element.checked = settings[key];
+                } else {
+                    element.value = settings[key];
+                }
+            }
+        });
     }
 
-    showNotifications() {
-        this.showToast('Hai 3 notifiche non lette', 'info');
+    saveSettings() {
+        const settings = {};
+        const settingsInputs = document.querySelectorAll('#settingsSection input, #settingsSection select');
+        
+        settingsInputs.forEach(input => {
+            if (input.type === 'checkbox') {
+                settings[input.id] = input.checked;
+            } else {
+                settings[input.id] = input.value;
+            }
+        });
+        
+        localStorage.setItem('waliwheels_settings', JSON.stringify(settings));
+        this.showToast('✅ Impostazioni salvate con successo!', 'success');
     }
 
-    showHelp() {
-        this.showToast('Centro assistenza aperto', 'info');
+    // ===== DASHBOARD E TABELLA AUTO =====
+    
+    renderDashboard() {
+        this.updateStats();
+        
+        // Aggiorna numeri dashboard
+        const totalCarsElement = document.getElementById('totalCars');
+        const activeCarsElement = document.getElementById('activeCars');
+        
+        if (totalCarsElement) totalCarsElement.textContent = this.stats.totalCars;
+        if (activeCarsElement) activeCarsElement.textContent = this.stats.activeCars;
+    }
+    
+    updateStats() {
+        this.stats = {
+            totalCars: this.cars.length,
+            activeCars: this.cars.filter(car => car.status === 'active').length,
+            featuredCars: this.cars.filter(car => car.featured).length,
+            totalUsers: this.users.length,
+            totalViews: Math.floor(Math.random() * 10000) + 1000,
+            monthlyRevenue: Math.floor(Math.random() * 100000) + 50000
+        };
+    }
+    
+    renderCarsTable() {
+        const tbody = document.getElementById('carsTableBody');
+        if (!tbody) return;
+
+        let filteredCars = this.cars;
+        
+        // Applica filtri
+        if (this.currentFilter !== 'all') {
+            filteredCars = filteredCars.filter(car => {
+                if (this.currentFilter === 'active') return car.status === 'active';
+                if (this.currentFilter === 'draft') return car.status === 'draft';
+                if (this.currentFilter === 'featured') return car.featured;
+                return true;
+            });
+        }
+        
+        // Applica ricerca
+        if (this.searchQuery) {
+            const query = this.searchQuery.toLowerCase();
+            filteredCars = filteredCars.filter(car => 
+                car.brand.toLowerCase().includes(query) ||
+                car.model.toLowerCase().includes(query) ||
+                (car.description && car.description.toLowerCase().includes(query))
+            );
+        }
+        
+        if (filteredCars.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <div style="opacity: 0.7;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 64px; height: 64px; margin-bottom: 1rem;">
+                                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01ZM6.5 16C5.67 16 5 15.33 5 14.5S5.67 13 6.5 13 8 13.67 8 14.5 7.33 16 6.5 16ZM17.5 16C16.67 16 16 15.33 16 14.5S16.67 13 17.5 13 19 13.67 19 14.5 18.33 16 17.5 16ZM5 11L6.5 6.5H17.5L19 11H5Z"/>
+                            </svg>
+                            <h3>Nessuna auto trovata</h3>
+                            <p>${this.searchQuery ? 'Prova a modificare i criteri di ricerca.' : 'Inizia aggiungendo la tua prima auto!'}</p>
+                            ${!this.searchQuery ? `<button class="filter-btn primary" onclick="adminPanel.openModal('addCarModal')" style="margin-top: 1rem;">Aggiungi Prima Auto</button>` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        
+        tbody.innerHTML = filteredCars.map(car => `
+            <tr>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="car-image-thumb" style="width: 60px; height: 45px; border-radius: 8px; overflow: hidden; background: rgba(255, 255, 255, 0.1);">
+                            ${car.image ? `<img src="${car.image}" alt="${car.brand} ${car.model}" style="width: 100%; height: 100%; object-fit: cover;">` : '<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 1.5rem;">🚗</div>'}
+                        </div>
+                        <div>
+                            <div class="car-brand-model" style="font-weight: 600; color: var(--text-color); margin-bottom: 0.25rem;">${car.brand} ${car.model}</div>
+                            <div class="car-details-small" style="font-size: 0.8rem; color: var(--text-secondary);">
+                                ${car.year} • ${car.km ? car.km.toLocaleString() + ' km' : '0 km'}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="price-amount" style="font-weight: 600; color: var(--primary-color); font-size: 1.1rem;">€${car.price.toLocaleString()}</div>
+                    ${car.featured ? '<div class="featured-badge" style="font-size: 0.8rem; color: var(--secondary-color);">⭐ In Evidenza</div>' : ''}
+                </td>
+                <td>
+                    <span class="type-badge" style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: rgba(102, 126, 234, 0.2); color: #667eea;">
+                        ${car.type}
+                    </span>
+                </td>
+                <td>
+                    <span class="status-badge ${car.status}" style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: ${car.status === 'active' ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255, 107, 53, 0.2)'}; color: ${car.status === 'active' ? 'var(--primary-color)' : '#ff6b35'};">
+                        ${car.status === 'active' ? 'Attiva' : 'Bozza'}
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons" style="display: flex; gap: 0.5rem;">
+                        <button class="action-btn view" onclick="adminPanel.viewCar('${car.id}')" title="Visualizza" style="background: rgba(255, 255, 255, 0.1); border: none; padding: 0.5rem; border-radius: 8px; color: var(--text-color); cursor: pointer; transition: all 0.3s ease;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                        </button>
+                        <button class="action-btn edit" onclick="adminPanel.editCar('${car.id}')" title="Modifica" style="background: rgba(255, 255, 255, 0.1); border: none; padding: 0.5rem; border-radius: 8px; color: var(--text-color); cursor: pointer; transition: all 0.3s ease;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                            </svg>
+                        </button>
+                        <button class="action-btn delete" onclick="adminPanel.deleteCar('${car.id}')" title="Elimina" style="background: rgba(255, 107, 53, 0.2); border: none; padding: 0.5rem; border-radius: 8px; color: #ff6b35; cursor: pointer; transition: all 0.3s ease;">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
     }
 
-    logout() {
-        if (confirm('Sei sicuro di voler effettuare il logout?')) {
-            this.showToast('Logout effettuato', 'info');
-            // Qui si reindirizzerebbe alla pagina di login
+    // ===== GESTIONE AUTO - MODALI =====
+    
+    editCar(carId) {
+        const car = this.cars.find(c => c.id === carId);
+        if (!car) return;
+        
+        // Popola il modal di modifica con i dati dell'auto
+        const fields = ['Brand', 'Model', 'Year', 'Price', 'Type', 'Color', 'Fuel', 'Km', 'Engine', 'Power', 'Transmission', 'Doors', 'Seats', 'Description', 'Status'];
+        
+        fields.forEach(field => {
+            const input = document.getElementById('edit' + field);
+            if (input && car[field.toLowerCase()]) {
+                if (input.type === 'checkbox') {
+                    input.checked = car[field.toLowerCase()];
+                } else {
+                    input.value = car[field.toLowerCase()];
+                }
+            }
+        });
+        
+        // Gestisci featured separatamente
+        const featuredInput = document.getElementById('editFeatured');
+        if (featuredInput) {
+            featuredInput.checked = car.featured || false;
+        }
+        
+        // Salva l'ID dell'auto in modifica
+        document.getElementById('editCarForm').dataset.carId = carId;
+        this.openModal('editCarModal');
+    }
+
+    viewCar(carId) {
+        const car = this.cars.find(c => c.id === carId);
+        if (!car) return;
+        
+        const content = document.getElementById('viewCarContent');
+        content.innerHTML = `
+            <div class="car-details-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="car-images">
+                    <div class="main-image" style="margin-bottom: 1rem;">
+                        <img src="${car.images ? car.images[0] : car.image}" alt="${car.brand} ${car.model}" style="width: 100%; height: 250px; object-fit: cover; border-radius: 15px;" />
+                    </div>
+                    ${car.images && car.images.length > 1 ? `
+                        <div class="image-thumbnails" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                            ${car.images.slice(1, 4).map(img => `
+                                <img src="${img}" alt="Thumbnail" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px;" />
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="car-info">
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem; font-size: 1.5rem;">${car.brand} ${car.model}</h3>
+                    <p class="car-price" style="color: var(--primary-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem;">€${car.price.toLocaleString()}</p>
+                    <div class="car-specs" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="spec-item" style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span class="spec-label" style="color: var(--text-secondary);">Anno:</span>
+                            <span class="spec-value" style="color: var(--text-color); font-weight: 500;">${car.year}</span>
+                        </div>
+                        <div class="spec-item" style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span class="spec-label" style="color: var(--text-secondary);">Tipo:</span>
+                            <span class="spec-value" style="color: var(--text-color); font-weight: 500;">${car.type}</span>
+                        </div>
+                        <div class="spec-item" style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span class="spec-label" style="color: var(--text-secondary);">Carburante:</span>
+                            <span class="spec-value" style="color: var(--text-color); font-weight: 500;">${car.fuel || 'N/A'}</span>
+                        </div>
+                        <div class="spec-item" style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span class="spec-label" style="color: var(--text-secondary);">Chilometri:</span>
+                            <span class="spec-value" style="color: var(--text-color); font-weight: 500;">${car.km?.toLocaleString() || 'N/A'} km</span>
+                        </div>
+                    </div>
+                    <div class="car-description">
+                        <h4 style="color: var(--text-color); margin-bottom: 0.5rem;">Descrizione</h4>
+                        <p style="color: var(--text-secondary); line-height: 1.6;">${car.description || 'Nessuna descrizione disponibile.'}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        this.openModal('viewCarModal');
+    }
+
+    // ===== GESTIONE IMMAGINI =====
+    
+    setupImageInputs() {
+        const imageInputs = document.querySelectorAll('.image-url-input');
+        
+        imageInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                this.handleImageInput(e.target, index);
+            });
+            
+            input.addEventListener('blur', (e) => {
+                this.validateImageInput(e.target, index);
+            });
+        });
+    }
+    
+    handleImageInput(input, index) {
+        const url = input.value.trim();
+        const preview = document.getElementById(`preview${index}`);
+        
+        if (url) {
+            // Mostra loading
+            preview.classList.add('loading');
+            preview.innerHTML = '<div class="placeholder-text">⏳</div>';
+            
+            // Simula caricamento immagine
             setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
+                if (this.isValidImageUrl(url)) {
+                    preview.innerHTML = `<img src="${url}" alt="Anteprima ${index + 1}" onerror="this.parentElement.innerHTML='<div class=\'placeholder-text\'>❌</div>'">`;
+                    preview.classList.remove('loading');
+                } else {
+                    preview.innerHTML = '<div class="placeholder-text">❌</div>';
+                    preview.classList.remove('loading');
+                }
+            }, 500);
+        } else {
+            preview.innerHTML = '<div class="placeholder-text">+</div>';
+            preview.classList.remove('loading');
+        }
+    }
+    
+    validateImageInput(input, index) {
+        const url = input.value.trim();
+        
+        if (url && !this.isValidImageUrl(url)) {
+            input.setCustomValidity('Inserisci un URL immagine valido');
+            this.showToast('⚠️ URL immagine non valido!', 'error');
+        } else {
+            input.setCustomValidity('');
+        }
+    }
+    
+    isValidImageUrl(url) {
+        try {
+            const urlObj = new URL(url);
+            const extension = urlObj.pathname.split('.').pop().toLowerCase();
+            const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            return validExtensions.includes(extension);
+        } catch {
+            return false;
+        }
+    }
+    
+    resetImagePreviews() {
+        for (let i = 0; i < 5; i++) {
+            const preview = document.getElementById(`preview${i}`);
+            if (preview) {
+                preview.innerHTML = '<div class="placeholder-text">+</div>';
+            }
         }
     }
 
+    // ===== UTILITY METHODS =====
+    
+    getRandomColor() {
+        const colors = ['#00ff88', '#667eea', '#ff6b35', '#f093fb', '#4facfe', '#43e97b'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    formatRole(role) {
+        const roles = {
+            admin: 'Amministratore',
+            manager: 'Manager',
+            editor: 'Editor',
+            viewer: 'Visualizzatore'
+        };
+        return roles[role] || role;
+    }
+
+    formatStatus(status) {
+        const statuses = {
+            active: 'Attivo',
+            inactive: 'Inattivo',
+            pending: 'In Attesa'
+        };
+        return statuses[status] || status;
+    }
+    
+    // ===== GESTIONE MODALI =====
+    
+    openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    toggleUserMenu() {
+        const menu = document.getElementById('userMenu');
+        if (menu) {
+            menu.classList.toggle('active');
+        }
+    }
+    
+    closeUserMenu() {
+        const menu = document.getElementById('userMenu');
+        if (menu) {
+            menu.classList.remove('active');
+        }
+    }
+    
     showToast(message, type = 'info') {
-        // Crea un toast temporaneo
+        const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) return;
+        
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
-        toast.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#667eea'};
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 500;
-            z-index: 10001;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+        toast.innerHTML = `
+            <div class="toast-content">
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+            </div>
         `;
-        toast.textContent = message;
-
-        document.body.appendChild(toast);
-
-        // Anima l'entrata
+        
+        toastContainer.appendChild(toast);
+        
+        // Mostra il toast
+        setTimeout(() => toast.classList.add('show'), 100);
+        
+        // Rimuovi automaticamente dopo 5 secondi
         setTimeout(() => {
-            toast.style.transform = 'translateX(0)';
-        }, 100);
-
-        // Rimuovi dopo 3 secondi
-        setTimeout(() => {
-            toast.style.transform = 'translateX(100%)';
-            setTimeout(() => {
-                document.body.removeChild(toast);
-            }, 300);
-        }, 3000);
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+    
+    // ===== FILTRI E RICERCA =====
+    
+    filterCars(filter) {
+        this.currentFilter = filter;
+        
+        // Aggiorna bottoni filtri
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+            
+            this.renderCarsTable();
     }
 }
 
-// Inizializza il pannello amministratore quando la pagina è caricata
+// ===== FUNZIONI GLOBALI =====
+
+let adminPanel;
+
+// Inizializzazione quando il DOM è pronto
 document.addEventListener('DOMContentLoaded', () => {
-    window.adminPanel = new AdminPanel();
+    adminPanel = new AdminPanel();
 });
 
-// Gestione responsive
-window.addEventListener('resize', () => {
-    if (window.adminPanel) {
-        adminPanel.initSidebarToggle();
+// Funzioni globali per i pulsanti HTML
+function openModal(modalId) {
+    if (adminPanel) {
+        adminPanel.openModal(modalId);
     }
-});
+}
+
+function closeModal(modalId) {
+    if (adminPanel) {
+        adminPanel.closeModal(modalId);
+    }
+}
+
+function filterCars(filter) {
+    if (adminPanel) {
+        adminPanel.filterCars(filter);
+    }
+}
+
+function showSection(sectionName) {
+    if (adminPanel) {
+        adminPanel.showSection(sectionName);
+    }
+}
+
+function toggleUserMenu() {
+    if (adminPanel) {
+        adminPanel.toggleUserMenu();
+    }
+}
+
+function logout() {
+    if (adminPanel) {
+        adminPanel.logout();
+    }
+}

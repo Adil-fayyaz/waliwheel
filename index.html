@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wali Wheelse - Concessionaria Auto di Lusso</title>
-    <meta name="description" content="Scopri la nostra selezione di auto di lusso nuove e usate. Prenota un test drive e trova la tua prossima auto.">
+    <title>Wali Wheels - Concessionaria Auto di Lusso</title>
+    <meta name="description" content="Wali Wheels - La tua concessionaria di fiducia per auto di lusso e prestazioni. Scopri la nostra selezione di auto nuove e usate.">
     
     <!-- Schema.org markup -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "AutoDealer",
-        "name": "Wali Wheelse",
+        "name": "Wali Wheels",
         "description": "Concessionaria auto di lusso con sede a Milano",
         "address": {
             "@type": "PostalAddress",
@@ -21,7 +21,7 @@
             "addressCountry": "IT"
         },
         "telephone": "+39 02 1234567",
-        "email": "info@autoshop.it"
+        "email": "info@walwheels.it"
     }
     </script>
     
@@ -42,12 +42,10 @@
     <link rel="stylesheet" href="css/reset.css?v=2.0.0">
     <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
     <link rel="stylesheet" href="css/styles.css?v=2.0.0">
-    <link rel="stylesheet" href="css/button-effects.css?v=2.0.0">
-    <link rel="stylesheet" href="css/glassmorphism-buttons.css?v=2.0.0">
-    <link rel="stylesheet" href="css/advanced-effects.css?v=2.0.0">
-    <link rel="stylesheet" href="css/chatbot.css?v=2.0.0">
-    <link rel="stylesheet" href="css/test-drive-booking.css?v=2.0.0">
-    <link rel="stylesheet" href="css/advanced-features.css?v=2.0.0">
+
+
+
+
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
@@ -66,6 +64,8 @@
             <ul class="nav-menu preserve-3d">
                 <li><a href="index.html" class="nav-link active preserve-3d">Home</a></li>
                 <li><a href="catalogo.html" class="nav-link preserve-3d">Catalogo</a></li>
+                <li><a href="esplora-macchine.html" class="nav-link preserve-3d">Esplora Macchine</a></li>
+                <li><a href="admin.html" class="nav-link preserve-3d">Admin Panel</a></li>
                 <li><a href="chi-siamo.html" class="nav-link preserve-3d">Chi Siamo</a></li>
                 <li><a href="finanziamento.html" class="nav-link preserve-3d">Finanziamento</a></li>
                 <li><a href="contatti.html" class="nav-link preserve-3d">Contatti</a></li>
@@ -108,59 +108,7 @@
                 
                 <!-- Autenticazione Unificata -->
                 <div class="auth-container" id="authContainer">
-                    <!-- Stato non autenticato -->
-                    <div class="auth-buttons" id="authButtons">
-                        <button class="btn-auth-unified ultra-modern" id="authBtn">
-                            <div class="auth-button-content">
-                                <svg class="auth-icon" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                                <span class="auth-text">Accedi / Registrati</span>
-                                <div class="auth-button-glow"></div>
-                                <div class="auth-button-particles"></div>
-                            </div>
-                        </button>
-                    </div>
-
-                    <!-- Stato autenticato -->
-                    <div class="user-profile hidden ultra-modern" id="userProfile">
-                        <div class="user-avatar" id="userAvatar">
-                            <div class="avatar-container">
-                                <img src="" alt="Avatar utente" id="userAvatarImg">
-                                <div class="user-status" id="userStatus"></div>
-                                <div class="avatar-glow"></div>
-                                <div class="avatar-pulse"></div>
-                            </div>
-                        </div>
-                        <div class="user-menu ultra-modern" id="userMenu">
-                            <div class="user-info">
-                                <span class="user-name" id="userName">Nome Utente</span>
-                                <span class="user-email" id="userEmail">email@example.com</span>
-                            </div>
-                            <div class="user-actions">
-                                <button class="menu-item" data-action="profile">
-                                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                    Profilo
-                                </button>
-                                <button class="menu-item" data-action="orders">
-                                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                                    I Miei Ordini
-                                </button>
-                                <button class="menu-item" data-action="favorites">
-                                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                                    Preferiti
-                                </button>
-                                <button class="menu-item" data-action="settings">
-                                    <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
-                                    Impostazioni
-                                </button>
-                                <button class="menu-item logout" data-action="logout">
-                                    <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.39L18.17 11H8v2h10.17l-2.58 2.56L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
-                                    Esci
-                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="btn btn-outline" onclick="openAuthModal()">Accedi/Registrati</button>
                 </div>
                 
                 <button class="mobile-menu-toggle glass-button" id="mobileMenuToggle" aria-label="Menu mobile">
@@ -189,7 +137,7 @@
                 </h1>
                 <p class="hero-subtitle preserve-3d hero-typewriter">
                     Scopri la nostra selezione esclusiva di auto di lusso, 
-                    nuove e usate, con la garanzia Wali Wheelse
+                    nuove e usate, con la garanzia Wali Wheels
                 </p>
                 
                 <!-- Stats animati -->
@@ -209,7 +157,7 @@
                 </div>
                 
                 <div class="hero-cta-group preserve-3d">
-                    <button class="glass-button primary large shimmer magnetic preserve-3d ultra-modern" id="heroExplore">
+                    <button class="glass-button primary large shimmer magnetic preserve-3d ultra-modern" id="heroExplore" onclick="openExploreCars()">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
@@ -274,19 +222,7 @@
         </div>
     </section>
 
-    <!-- Sezione Novità con Glass Cards -->
-    <section class="section-novita preserve-3d gpu-accelerated">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Auto in Evidenza</h2>
-                <p class="section-subtitle">Le ultime novità della nostra concessionaria</p>
-            </div>
-            
-            <div class="cars-grid preserve-3d" id="featuredCars">
-                <!-- Auto verranno caricate dinamicamente -->
-            </div>
-        </div>
-    </section>
+
 
     <!-- Sezione Categorie con Glass Pills -->
     <section class="section-categorie preserve-3d gpu-accelerated">
@@ -453,351 +389,69 @@
         </div>
     </section>
 
-    <!-- Sezione Finanziamento e Calcolatore -->
-    <section class="section-financing preserve-3d gpu-accelerated">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Finanziamento e Pagamenti</h2>
-                <p class="section-subtitle">Calcola la rata mensile e scopri le opzioni di finanziamento personalizzate</p>
+    <!-- Modal di Autenticazione -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h2>Accedi o Registrati</h2>
+                <button class="modal-close" onclick="closeAuthModal()">&times;</button>
             </div>
             
-            <!-- Opzioni di Finanziamento -->
-            <div class="financing-options preserve-3d">
-                <div class="financing-option featured preserve-3d">
-                    <div class="option-badge">Più Popolare</div>
-                    <div class="option-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <h3>Finanziamento Premium</h3>
-                    <div class="option-rate">2.9% TAN</div>
-                    <ul class="option-features">
-                        <li>✓ Tasso fisso garantito</li>
-                        <li>✓ Nessuna penale estinzione anticipata</li>
-                        <li>✓ Approvazione in 24h</li>
-                        <li>✓ Assicurazione inclusa</li>
-                    </ul>
-                    <button class="glass-button primary large shimmer preserve-3d">
-                        <span>Scegli Premium</span>
-                    </button>
-                </div>
-                
-                <div class="financing-option preserve-3d">
-                    <div class="option-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                    <h3>Finanziamento Standard</h3>
-                    <div class="option-rate">3.9% TAN</div>
-                    <ul class="option-features">
-                        <li>✓ Rate flessibili</li>
-                        <li>✓ Durata fino a 84 mesi</li>
-                        <li>✓ Approvazione rapida</li>
-                        <li>✓ Supporto dedicato</li>
-                    </ul>
-                    <button class="glass-button secondary large pulse preserve-3d">
-                        <span>Scegli Standard</span>
-                    </button>
-                </div>
-                
-                <div class="financing-option preserve-3d">
-                    <div class="option-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M14.69 2.21L4.33 11.49c-.64.58-.28 1.65.58 1.73L13 14l-4.85 6.76c-.22.31-.04.74.31.74.13 0 .26-.05.35-.15L18.15 13.71c.58-.64.22-1.66-.58-1.73L10 11l4.85-8.79c.22-.31.04-.74-.31-.74-.13 0-.26.05-.35.15z"/>
-                        </svg>
-                    </div>
-                    <h3>Leasing Operativo</h3>
-                    <div class="option-rate">Da €299/mese</div>
-                    <ul class="option-features">
-                        <li>✓ Nessun acconto richiesto</li>
-                        <li>✓ Manutenzione inclusa</li>
-                        <li>✓ Auto sempre nuova</li>
-                        <li>✓ Deducibilità fiscale</li>
-                    </ul>
-                    <button class="glass-button accent large glow preserve-3d">
-                        <span>Scegli Leasing</span>
-                    </button>
-                </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Accedi</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Registrati</button>
             </div>
             
-            <div class="financing-calculator preserve-3d">
-                <div class="calculator-header">
-                    <h3>Calcolatore Finanziamento Interattivo</h3>
-                    <p>Personalizza la tua rata in tempo reale</p>
+            <!-- Form Login -->
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
                 </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Accedi</button>
                 
-                <div class="calculator-content">
-                    <div class="calculator-form preserve-3d">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="carPrice">Prezzo Auto</label>
-                                <div class="input-with-icon glass-input">
-                                    <span class="input-icon">€</span>
-                                    <input type="range" id="carPriceRange" min="10000" max="200000" value="50000" class="range-slider">
-                                    <input type="number" id="carPrice" placeholder="50000" min="0" class="glass-field">
-                                </div>
-                                <div class="range-labels">
-                                    <span>€10.000</span>
-                                    <span>€200.000</span>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="downPayment">Acconto</label>
-                                <div class="input-with-icon glass-input">
-                                    <span class="input-icon">€</span>
-                                    <input type="range" id="downPaymentRange" min="0" max="50000" value="10000" class="range-slider">
-                                    <input type="number" id="downPayment" placeholder="10000" min="0" class="glass-field">
-                                </div>
-                                <div class="range-labels">
-                                    <span>€0</span>
-                                    <span id="maxDownPayment">€50.000</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="loanTerm">Durata Prestito</label>
-                                <input type="range" id="loanTermRange" min="12" max="84" value="36" step="12" class="range-slider">
-                                <select id="loanTerm" class="glass-select">
-                                    <option value="12">12 mesi</option>
-                                    <option value="24">24 mesi</option>
-                                    <option value="36" selected>36 mesi</option>
-                                    <option value="48">48 mesi</option>
-                                    <option value="60">60 mesi</option>
-                                    <option value="72">72 mesi</option>
-                                    <option value="84">84 mesi</option>
-                                </select>
-                                <div class="range-labels">
-                                    <span>12 mesi</span>
-                                    <span>84 mesi</span>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="interestRate">Tasso di Interesse</label>
-                                <div class="input-with-icon glass-input">
-                                    <span class="input-icon">%</span>
-                                    <input type="range" id="interestRateRange" min="1.9" max="8.9" value="3.9" step="0.1" class="range-slider">
-                                    <input type="number" id="interestRate" placeholder="3.9" min="0" step="0.1" class="glass-field">
-                                </div>
-                                <div class="range-labels">
-                                    <span>1.9%</span>
-                                    <span>8.9%</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="glass-button primary large shimmer preserve-3d" id="calculateLoan">
-                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
-                            </svg>
-                            <span>Calcola Rata</span>
-                            <div class="button-particles"></div>
+                <div class="social-auth">
+                    <p>Oppure accedi con:</p>
+                    <div class="social-buttons">
+                        <button type="button" class="btn btn-google" onclick="signInWithGoogle()">
+                            <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                            Google
+                        </button>
+                        <button type="button" class="btn btn-microsoft" onclick="signInWithMicrosoft()">
+                            <svg viewBox="0 0 24 24"><path d="M11.5 2.75h-8a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75h8a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75zm-8 1.5h6.5v6h-6.5v-6zm8.5 1.5h8a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75h-8a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75zm8 1.5h-6.5v6h6.5v-6zm-8.5 8.5h8a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75h-8a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75zm8 1.5h-6.5v6h6.5v-6zm-8.5 8.5h8a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75h-8a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75zm8 1.5h-6.5v6h6.5v-6z"/></svg>
+                            Microsoft
                         </button>
                     </div>
-                    
-                    <div class="calculator-results preserve-3d">
-                        <div class="result-card main-result preserve-3d">
-                            <div class="result-header">
-                                <h3>Rata Mensile</h3>
-                                <div class="result-badge">Personalizzata</div>
-                            </div>
-                            <div class="result-amount" id="monthlyPayment">€0</div>
-                            <p>Per <span id="resultTerm">36</span> mesi</p>
-                            <div class="result-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" id="affordabilityProgress"></div>
-                                </div>
-                                <span class="progress-label">Sostenibilità rata</span>
-                            </div>
-                        </div>
-                        
-                        <div class="result-details preserve-3d">
-                            <div class="detail-item">
-                                <div class="detail-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                    </svg>
-                                </div>
-                                <div class="detail-content">
-                                    <span class="detail-label">Prestito Totale</span>
-                                    <span class="detail-value" id="totalLoan">€0</span>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-                                    </svg>
-                                </div>
-                                <div class="detail-content">
-                                    <span class="detail-label">Interessi Totali</span>
-                                    <span class="detail-value" id="totalInterest">€0</span>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                </div>
-                                <div class="detail-content">
-                                    <span class="detail-label">Pagamento Totale</span>
-                                    <span class="detail-value" id="totalPayment">€0</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="result-actions preserve-3d">
-                            <button class="glass-button secondary large pulse preserve-3d" id="requestQuote">
-                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                                </svg>
-                                <span>Richiedi Preventivo</span>
-                            </button>
-                            <button class="glass-button accent large glow preserve-3d" id="applyFinancing">
-                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span>Richiedi Finanziamento</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </form>
             
-            <!-- Vantaggi del Finanziamento -->
-            <div class="financing-benefits preserve-3d">
-                <h3>Perché Scegliere il Nostro Finanziamento</h3>
-                <div class="benefits-grid">
-                    <div class="benefit-item preserve-3d">
-                        <div class="benefit-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 1L3 5v6c0 5.55 3.84 10 9 11 5.16-1 9-5.45 9-11V5l-9-4z"/>
-                            </svg>
-                        </div>
-                        <h4>Sicurezza Garantita</h4>
-                        <p>Tassi fissi e condizioni trasparenti senza sorprese</p>
-                    </div>
-                    
-                    <div class="benefit-item preserve-3d">
-                        <div class="benefit-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/>
-                            </svg>
-                        </div>
-                        <h4>Flessibilità Totale</h4>
-                        <p>Rate personalizzabili e possibilità di rimborso anticipato</p>
-                    </div>
-                    
-                    <div class="benefit-item preserve-3d">
-                        <div class="benefit-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
-                        </div>
-                        <h4>Approvazione Rapida</h4>
-                        <p>Risposta in 24 ore con documentazione minima</p>
-                    </div>
-                    
-                    <div class="benefit-item preserve-3d">
-                        <div class="benefit-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                            </svg>
-                        </div>
-                        <h4>Supporto Dedicato</h4>
-                        <p>Consulenti esperti ti seguono in ogni fase</p>
-                    </div>
+            <!-- Form Registrazione -->
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Nome completo" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Conferma Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrati</button>
+            </form>
         </div>
-    </section>
-
-    <!-- Sezione Confronto Auto -->
-    <section class="section-compare" id="compareSection" style="display: none;">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Confronta Auto</h2>
-                <p class="section-subtitle">Confronta le caratteristiche delle auto selezionate</p>
             </div>
-            
-            <div class="compare-container">
-                <div class="compare-cars" id="compareCars">
-                    <!-- Auto di confronto verranno caricate dinamicamente -->
-                </div>
-                
-                <div class="compare-actions">
-                    <button class="btn-compare-clear" id="clearCompare">
-                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                        Cancella Confronto
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Banner Test Drive Glass -->
-    <section class="banner-test-drive preserve-3d gpu-accelerated">
-        <div class="container">
-            <div class="banner-content">
-                <div class="banner-text">
-                    <h3>Prenota il tuo Test Drive</h3>
-                    <p>Vivi l'esperienza di guida che meriti. Prenota ora e ricevi un omaggio esclusivo.</p>
-                </div>
-                <div class="banner-cta">
-                    <button class="glass-button accent large neon floating preserve-3d" onclick="window.testDriveBooking?.openModal()">
-                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <span>Prenota Ora</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sezione Brand con Glass Logos -->
-    <section class="section-brands">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">I Nostri Brand</h2>
-                <p class="section-subtitle">Le migliori case automobilistiche del mondo</p>
-            </div>
-            
-            <div class="brands-grid">
-                <div class="brand-logo glass">
-                    <img src="assets/img/brands/mercedes.svg" alt="Mercedes-Benz" loading="lazy">
-                </div>
-                <div class="brand-logo glass">
-                    <img src="assets/img/brands/bmw.svg" alt="BMW" loading="lazy">
-                </div>
-                <div class="brand-logo glass">
-                    <img src="assets/img/brands/audi.svg" alt="Audi" loading="lazy">
-                </div>
-                <div class="brand-logo glass">
-                    <img src="assets/img/brands/porsche.svg" alt="Porsche" loading="lazy">
-                </div>
-                <div class="brand-logo glass">
-                    <img src="assets/img/brands/ferrari.svg" alt="Ferrari" loading="lazy">
-                </div>
-                <div class="brand-logo glass">
-                    <img src="assets/img/brands/lamborghini.svg" alt="Lamborghini" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer Glass -->
     <footer class="footer-glass preserve-3d gpu-accelerated">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Wali Wheelse</h4>
+                    <h4>Wali Wheels</h4>
                     <p>La tua concessionaria di fiducia per auto di lusso e prestazioni.</p>
                     <div class="social-links">
                         <a href="#" class="social-link" aria-label="Facebook">
@@ -826,7 +480,7 @@
                     <h4>Contatti</h4>
                     <ul>
                         <li>📞 +39 02 1234567</li>
-                        <li>📧 info@autoshop.it</li>
+                        <li>📧 info@walwheels.it</li>
                         <li>📍 Via Roma 123, Milano</li>
                         <li>🕒 Lun-Ven: 9:00-19:00</li>
                     </ul>
@@ -843,11 +497,11 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 AutoShop Premium. Tutti i diritti riservati.</p>
+                <p>&copy; 2024 Wali Wheels. Tutti i diritti riservati. Creato da Adil Fayyaz</p>
                 <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Termini e Condizioni</a>
-                    <a href="#">Cookie Policy</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="termini-condizioni.html">Termini e Condizioni</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
                 </div>
             </div>
         </div>
@@ -856,7 +510,7 @@
     <!-- Cookie Banner Glass -->
     <div class="cookie-banner glass" id="cookieBanner">
         <div class="cookie-content">
-            <p>Utilizziamo i cookie per migliorare la tua esperienza. Continuando a navigare accetti la nostra <a href="#">Cookie Policy</a>.</p>
+            <p>Utilizziamo i cookie per migliorare la tua esperienza. Continuando a navigare accetti la nostra <a href="cookie-policy.html">Cookie Policy</a>.</p>
             <button class="btn-accept" id="acceptCookies">Accetta</button>
         </div>
     </div>
@@ -864,278 +518,32 @@
     <!-- Toast Notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Carrello Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Carrello Acquisti</h3>
-            <button class="cart-close" id="cartClose">
-                <svg viewBox="0 0 24 24">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                </svg>
-            </button>
-        </div>
-        
-        <div class="cart-content">
-            <div class="cart-items" id="cartItems">
-                <!-- Elementi del carrello verranno inseriti qui -->
-            </div>
-            
-            <div class="cart-empty" id="cartEmpty">
-                <svg class="cart-empty-icon" viewBox="0 0 24 24">
-                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                </svg>
-                <p>Il tuo carrello è vuoto</p>
-                <span>Inizia ad aggiungere auto per vedere i prezzi</span>
-            </div>
-        </div>
-        
-        <div class="cart-footer">
-            <div class="cart-summary">
-                <div class="cart-total">
-                    <span>Totale:</span>
-                    <span class="cart-total-price" id="cartTotalPrice">€0</span>
-                </div>
-                <div class="cart-savings" id="cartSavings">
-                    <span>Risparmi:</span>
-                    <span class="savings-amount">€0</span>
-                </div>
-            </div>
-            
-            <div class="cart-actions">
-                <button class="btn-cart-secondary" id="clearCartBtn">
-                    Svuota Carrello
-                </button>
-                <button class="btn-cart-primary" id="checkoutBtn" disabled>
-                    Procedi all'Acquisto
-                </button>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Overlay Carrello -->
-    <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- Modale Login/Registrazione -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-modal-content">
-            <div class="auth-modal-header">
-                <h2 id="authModalTitle">Accedi</h2>
-                <button class="auth-modal-close" id="authModalClose">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                    </svg>
-                </button>
-            </div>
-            
-            <div class="auth-modal-body">
-                <!-- Form Login -->
-                <form class="auth-form login-form" id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" required>
-                    </div>
-                    <button type="submit" class="btn-auth-primary">Accedi</button>
-                </form>
-                
-                <!-- Form Registrazione -->
-                <form class="auth-form register-form hidden" id="registerForm">
-                    <div class="form-group">
-                        <label for="registerName">Nome Completo</label>
-                        <input type="text" id="registerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerConfirmPassword">Conferma Password</label>
-                        <input type="password" id="registerConfirmPassword" required>
-                    </div>
-                    <button type="submit" class="btn-auth-primary">Registrati</button>
-                </form>
-                
-                <!-- Google OAuth -->
-                <div class="auth-divider">
-                    <span>oppure</span>
-                </div>
-                
-                <button class="btn-google-auth" id="googleAuthBtn">
-                    <svg class="google-icon" viewBox="0 0 24 24">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
-                    Continua con Google
-                </button>
-            </div>
-            
-            <div class="auth-modal-footer">
-                <p id="authModalFooterText">
-                    Non hai un account? 
-                    <button class="auth-switch" id="authSwitchToRegister">Registrati</button>
-                </p>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modale Checkout -->
-    <div class="checkout-modal" id="checkoutModal">
-        <div class="checkout-modal-content">
-            <div class="checkout-modal-header">
-                <h2>Completa l'Acquisto</h2>
-                <button class="checkout-modal-close" id="checkoutModalClose">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                    </svg>
-                </button>
-            </div>
-            
-            <div class="checkout-modal-body">
-                <div class="checkout-steps">
-                    <div class="step active" data-step="1">
-                        <span class="step-number">1</span>
-                        <span class="step-title">Dati Personali</span>
-                    </div>
-                    <div class="step" data-step="2">
-                        <span class="step-number">2</span>
-                        <span class="step-title">Pagamento</span>
-                    </div>
-                    <div class="step" data-step="3">
-                        <span class="step-number">3</span>
-                        <span class="step-title">Conferma</span>
-                    </div>
-                </div>
-                
-                <!-- Step 1: Dati Personali -->
-                <div class="checkout-step-content" id="checkoutStep1">
-                    <form class="checkout-form" id="checkoutForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="checkoutFirstName">Nome</label>
-                                <input type="text" id="checkoutFirstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="checkoutLastName">Cognome</label>
-                                <input type="text" id="checkoutLastName" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="checkoutEmail">Email</label>
-                            <input type="email" id="checkoutEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="checkoutPhone">Telefono</label>
-                            <input type="tel" id="checkoutPhone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="checkoutAddress">Indirizzo</label>
-                            <input type="text" id="checkoutAddress" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="checkoutCity">Città</label>
-                                <input type="text" id="checkoutCity" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="checkoutZip">CAP</label>
-                                <input type="text" id="checkoutZip" required>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                
-                <!-- Step 2: Pagamento -->
-                <div class="checkout-step-content hidden" id="checkoutStep2">
-                    <div class="payment-methods">
-                        <div class="payment-method active" data-method="card">
-                            <input type="radio" name="paymentMethod" value="card" checked>
-                            <label>Carta di Credito</label>
-                        </div>
-                        <div class="payment-method" data-method="bank">
-                            <input type="radio" name="paymentMethod" value="bank">
-                            <label>Bonifico Bancario</label>
-                        </div>
-                    </div>
-                    
-                    <div class="payment-form" id="cardPaymentForm">
-                        <div class="form-group">
-                            <label for="cardNumber">Numero Carta</label>
-                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="cardExpiry">Scadenza</label>
-                                <input type="text" id="cardExpiry" placeholder="MM/AA">
-                            </div>
-                            <div class="form-group">
-                                <label for="cardCvv">CVV</label>
-                                <input type="text" id="cardCvv" placeholder="123">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 3: Conferma -->
-                <div class="checkout-step-content hidden" id="checkoutStep3">
-                    <div class="order-summary">
-                        <h3>Riepilogo Ordine</h3>
-                        <div class="order-items" id="orderSummaryItems">
-                            <!-- Riepilogo ordine -->
-                        </div>
-                        <div class="order-total">
-                            <span>Totale:</span>
-                            <span id="orderTotalPrice">€0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checkout-modal-footer">
-                <button class="btn-checkout-secondary" id="checkoutPrevBtn" style="display: none;">
-                    Indietro
-                </button>
-                <button class="btn-checkout-primary" id="checkoutNextBtn">
-                    Avanti
-                </button>
-                <button class="btn-checkout-confirm hidden" id="checkoutConfirmBtn">
-                    Conferma Acquisto
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Overlay Modali -->
-    <div class="modal-overlay" id="modalOverlay"></div>
+
+
+                
+
+
+
 
     <!-- JavaScript -->
     <script src="js/utils.js?v=2.0.0"></script>
-    <script src="js/dynamic-modals.js?v=2.0.0"></script>
     <script src="js/navigation.js?v=2.0.0"></script>
     <script src="js/main.js?v=2.0.0"></script>
+    <script src="js/auth.js?v=2.0.0"></script>
     
     <!-- Nuove funzionalità avanzate -->
-    <script src="js/chatbot.js?v=2.0.0"></script>
-    <script src="js/test-drive-booking.js?v=2.0.0"></script>
-    <script src="js/pdf-generator.js?v=2.0.0"></script>
-    <script src="js/google-maps-integration.js?v=2.0.0"></script>
-    
-    <!-- Google reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
-    
-    <!-- Stripe.js per i pagamenti -->
-    <script src="https://js.stripe.com/v3/"></script>
-    
-    <!-- Firebase (opzionale per autenticazione avanzata) -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script> -->
+    <script>
+        // Funzione per aprire la pagina esplora macchine
+        function openExploreCars() {
+            window.location.href = 'esplora-macchine.html';
+        }
+    </script>
+
 </body>
 </html>

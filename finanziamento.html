@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanziamento - Wali Wheelse</title>
+    <title>Finanziamento - Wali Wheels</title>
     <meta name="description" content="Soluzioni di finanziamento personalizzate per l'acquisto della tua auto di lusso. Calcola la rata e richiedi un preventivo.">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/reset.css?v=2.0.0">
     <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
     <link rel="stylesheet" href="css/styles.css?v=2.0.0">
-    <link rel="stylesheet" href="css/button-effects.css?v=2.0.0">
-    <link rel="stylesheet" href="css/glassmorphism-buttons.css?v=2.0.0">
-    <link rel="stylesheet" href="css/advanced-effects.css?v=2.0.0">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
@@ -29,7 +26,7 @@
             <div class="nav-brand gpu-accelerated">
                 <div class="logo-glow preserve-3d">
                     <span class="logo-text">Wali</span>
-                    <span class="logo-accent">Wheelse</span>
+                    <span class="logo-accent">Wheels</span>
                 </div>
             </div>
             
@@ -42,32 +39,6 @@
             </ul>
             
             <div class="nav-actions">
-                <!-- Carrello -->
-                <div class="cart-container">
-                    <button class="cart-btn" id="cartBtn" aria-label="Carrello">
-                        <svg class="cart-icon" viewBox="0 0 24 24">
-                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                        </svg>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                </div>
-
-                <!-- Notifiche -->
-                <button class="notifications-btn" id="notificationsBtn" aria-label="Notifiche">
-                    <svg class="notifications-icon" viewBox="0 0 24 24">
-                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                    </svg>
-                    <span class="notifications-badge" id="notificationsBadge">0</span>
-                </button>
-
-                <!-- Confronto Auto -->
-                <button class="compare-btn" id="compareBtn" aria-label="Confronta Auto">
-                    <svg class="compare-icon" viewBox="0 0 24 24">
-                        <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
-                    </svg>
-                    <span class="compare-count" id="compareCount">0</span>
-                </button>
-
                 <!-- Tema -->
                 <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
                     <svg class="theme-icon" viewBox="0 0 24 24">
@@ -75,47 +46,6 @@
                         <path class="moon-path" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                     </svg>
                 </button>
-                
-                <!-- Autenticazione Unificata -->
-                <div class="auth-container" id="authContainer">
-                    <div class="auth-buttons" id="authButtons">
-                        <button class="btn-auth-unified" id="authBtn">
-                            <svg class="auth-icon" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
-                            <span>Accedi / Registrati</span>
-                        </button>
-                    </div>
-
-                    <!-- Stato autenticato -->
-                    <div class="user-profile hidden ultra-modern" id="userProfile">
-                        <div class="profile-info">
-                            <div class="profile-avatar">
-                                <img src="assets/images/default-avatar.png" alt="Avatar utente" id="userAvatar">
-                            </div>
-                            <div class="profile-details">
-                                <span class="user-name" id="userName">Nome Utente</span>
-                                <span class="user-email" id="userEmail">email@example.com</span>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-actions">
-                            <button class="profile-btn ultra-modern" id="profileBtn" title="Profilo">
-                                <svg class="profile-icon" viewBox="0 0 24 24">
-                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                                </svg>
-                                <span>Profilo</span>
-                            </button>
-                            
-                            <button class="logout-btn ultra-modern" id="logoutBtn" title="Logout">
-                                <svg class="logout-icon" viewBox="0 0 24 24">
-                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
-                                </svg>
-                                <span>Logout</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 
                 <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu mobile">
                     <span></span>
@@ -304,16 +234,16 @@
                 <div class="footer-section footer-brand">
                     <div class="footer-logo">
                         <span class="logo-text">Wali</span>
-                        <span class="logo-accent">Wheelse</span>
+                        <span class="logo-accent">Wheels</span>
                     </div>
-                    <p>La tua concessionaria di fiducia per auto di lusso</p>
+                    <p>La tua concessionaria di fiducia per auto di lusso e prestazioni</p>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Servizi</h3>
                     <ul>
-                        <li><a href="#">Vendita Auto</a></li>
-                        <li><a href="#">Finanziamento</a></li>
+                        <li><a href="catalogo.html">Catalogo Auto</a></li>
+                        <li><a href="finanziamento.html">Finanziamento</a></li>
                         <li><a href="#">Assicurazioni</a></li>
                         <li><a href="#">Assistenza</a></li>
                     </ul>
@@ -322,25 +252,32 @@
                 <div class="footer-section">
                     <h3>Contatti</h3>
                     <ul>
-                        <li>📞 +39 123 456 789</li>
-                        <li>📧 info@waliwheelse.it</li>
+                        <li>📞 +39 02 1234567</li>
+                        <li>📧 info@walwheels.it</li>
                         <li>📍 Via Roma 123, Milano</li>
+                        <li>🕒 Lun-Ven: 9:00-19:00</li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Social</h3>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📷</a>
-                        <a href="#" aria-label="Twitter">🐦</a>
-                        <a href="#" aria-label="YouTube">📺</a>
+                    <h3>Newsletter</h3>
+                    <div class="newsletter-form">
+                        <p>Rimani aggiornato sulle nostre offerte</p>
+                        <div class="newsletter-input">
+                            <input type="email" placeholder="La tua email" class="newsletter-email">
+                            <button class="newsletter-btn">Iscriviti</button>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Wali Wheelse. Tutti i diritti riservati.</p>
+                <p>&copy; 2024 Wali Wheels. Creato da Adil Fayyaz. Tutti i diritti riservati.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="termini-condizioni.html">Termini e Condizioni</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -349,9 +286,6 @@
     <script src="js/utils.js?v=2.0.0"></script>
     <script src="js/navigation.js?v=2.0.0"></script>
     <script src="js/main.js?v=2.0.0"></script>
-    
-    <!-- Google reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
     
     <script>
         // Calcolatore finanziamento

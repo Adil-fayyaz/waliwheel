@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esplora Macchine - Wali Wheels</title>
+    <link rel="stylesheet" href="css/car-explorer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-glass">
+        <div class="nav-content">
+            <div class="nav-brand">
+                <span class="brand-text">Wali Wheels</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="esplora-macchine.html" class="nav-link active">Esplora Macchine</a>
+                <a href="admin.html" class="nav-link">Admin Panel</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-background">
+            <div class="aurora-bg"></div>
+            <div class="bokeh-container">
+                <div class="bokeh"></div>
+                <div class="bokeh"></div>
+                <div class="bokeh"></div>
+                <div class="bokeh"></div>
+                <div class="bokeh"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Scopri la Tua <span class="gradient-text">Auto Perfetta</span>
+            </h1>
+            <p class="hero-subtitle">
+                Esplora la nostra collezione esclusiva di veicoli premium e di lusso
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalCarsCount">0</div>
+                    <div class="stat-label">Auto Disponibili</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="brandsCount">0</div>
+                    <div class="stat-label">Marchi Premium</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="avgPrice">€0</div>
+                    <div class="stat-label">Prezzo Medio</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <h2 class="section-title">Filtra la Tua Ricerca</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="brandFilter">🏷️ Marca</label>
+                    <select id="brandFilter" class="filter-select">
+                        <option value="">Tutte le marche</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="typeFilter">🚙 Tipo</label>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="">Tutti i tipi</option>
+                        <option value="suv">SUV</option>
+                        <option value="berlina">Berlina</option>
+                        <option value="sportiva">Sportiva</option>
+                        <option value="elettrica">Elettrica</option>
+                        <option value="ibrida">Ibrida</option>
+                        <option value="cabrio">Cabrio</option>
+                        <option value="station-wagon">Station Wagon</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="priceFilter">💰 Fascia di Prezzo</label>
+                    <select id="priceFilter" class="filter-select">
+                        <option value="">Tutte le fasce</option>
+                        <option value="0-30000">€0 - €30.000</option>
+                        <option value="30000-60000">€30.000 - €60.000</option>
+                        <option value="60000-100000">€60.000 - €100.000</option>
+                        <option value="100000+">€100.000+</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="yearFilter">📅 Anno</label>
+                    <select id="yearFilter" class="filter-select">
+                        <option value="">Tutti gli anni</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="filter-btn secondary" onclick="clearFilters()">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                    Pulisci Filtri
+                </button>
+                <button class="filter-btn primary" onclick="applyFilters()">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                    Applica Filtri
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cars Section -->
+    <section class="cars-section">
+        <div class="cars-container">
+            <div class="section-header">
+                <h2 class="section-title">Le Nostre Auto</h2>
+                <div class="sort-controls">
+                    <label for="sortSelect">Ordina per:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="newest">Più Recenti</option>
+                        <option value="price-asc">Prezzo Crescente</option>
+                        <option value="price-desc">Prezzo Decrescente</option>
+                        <option value="year-desc">Anno Decrescente</option>
+                        <option value="km-asc">Chilometri Crescenti</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cars-grid" id="carsGrid">
+                <!-- Le auto verranno caricate dinamicamente -->
+            </div>
+            <div class="load-more-container">
+                <button class="load-more" id="loadMoreBtn" style="display: none;">
+                    Carica Altre Auto
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Car Details Modal -->
+    <div class="modal-overlay" id="carDetailsModal">
+        <div class="car-details-modal">
+            <div class="modal-header">
+                <h2 id="detailCarTitle">Dettagli Auto</h2>
+                <button class="modal-close" onclick="closeCarDetailsModal()">&times;</button>
+            </div>
+            <div class="car-details-content">
+                <div class="car-details-image">
+                    <img id="detailCarImage" src="" alt="Auto">
+                    <div class="gallery-controls">
+                        <button class="gallery-btn prev" onclick="window.carExplorer.changeGalleryImage(-1)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            </svg>
+                        </button>
+                        <button class="gallery-btn next" onclick="window.carExplorer.changeGalleryImage(1)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="gallery-thumbnails" id="galleryThumbnails">
+                        <!-- Le miniature verranno generate dinamicamente -->
+                    </div>
+                </div>
+                <div class="car-details-info">
+                    <div class="car-price-large">
+                        <span id="detailCarPrice">€0</span>
+                    </div>
+                    <div class="car-specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-icon">📅</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Anno</div>
+                                <div class="spec-value" id="detailCarYear">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🚙</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Tipo</div>
+                                <div class="spec-value" id="detailCarType">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🎨</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Colore</div>
+                                <div class="spec-value" id="detailCarColor">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">⛽</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Carburante</div>
+                                <div class="spec-value" id="detailCarFuel">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🛣️</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Chilometri</div>
+                                <div class="spec-value" id="detailCarKm">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🔧</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Motore</div>
+                                <div class="spec-value" id="detailCarEngine">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">⚡</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Potenza</div>
+                                <div class="spec-value" id="detailCarPower">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">⚙️</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Trasmissione</div>
+                                <div class="spec-value" id="detailCarTransmission">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🚪</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Porte</div>
+                                <div class="spec-value" id="detailCarDoors">-</div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">💺</div>
+                            <div class="spec-content">
+                                <div class="spec-label">Posti</div>
+                                <div class="spec-value" id="detailCarSeats">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="car-description-section">
+                        <h3>Descrizione</h3>
+                        <p id="detailCarDescription">Nessuna descrizione disponibile.</p>
+                    </div>
+                    <div class="car-actions-modal">
+                        <button class="car-action-btn primary" onclick="window.carExplorer.contactAboutCar()">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            Contattaci per Info
+                        </button>
+                        <button class="car-action-btn secondary" onclick="window.carExplorer.addToFavorites()">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            Aggiungi ai Preferiti
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Wali Wheels</h4>
+                <p>La tua concessionaria di fiducia per auto di lusso e prestazioni.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Servizi</h4>
+                <ul>
+                    <li><a href="esplora-macchine.html">Catalogo Auto</a></li>
+                    <li><a href="#contatti">Finanziamento</a></li>
+                    <li><a href="#contatti">Assicurazioni</a></li>
+                    <li><a href="#contatti">Assistenza</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contatti</h4>
+                <ul>
+                    <li>📞 +39 02 1234567</li>
+                    <li>📧 info@waliwheels.it</li>
+                    <li>📍 Via Roma 123, Milano</li>
+                    <li>🕒 Lun-Ven: 9:00-19:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Wali Wheels. Tutti i diritti riservati.</p>
+            <p>Creato da Adil Fayyaz</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/car-explorer.js"></script>
+    <script>
+        // Funzioni globali per il modal
+        function closeCarDetailsModal() {
+            const modal = document.getElementById('carDetailsModal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('brandFilter').value = '';
+            document.getElementById('typeFilter').value = '';
+            document.getElementById('priceFilter').value = '';
+            document.getElementById('yearFilter').value = '';
+            if (window.carExplorer) {
+                window.carExplorer.applyFilters();
+            }
+        }
+
+        function applyFilters() {
+            if (window.carExplorer) {
+                window.carExplorer.applyFilters();
+            }
+        }
+
+        // Chiudi modal cliccando fuori
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeCarDetailsModal();
+            }
+        });
+
+        // Chiudi modal con ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCarDetailsModal();
+            }
+        });
+    </script>
+</body>
+</html>

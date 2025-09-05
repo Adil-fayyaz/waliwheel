@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/reset.css?v=2.0.0">
     <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
     <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="css/ultra-modern-buttons.css">
+    <link rel="stylesheet" href="css/site-optimizations.css">
+    <link rel="stylesheet" href="css/auth-modal.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
@@ -39,6 +42,28 @@
             </ul>
             
             <div class="nav-actions">
+                <!-- Autenticazione Unificata -->
+                <div class="auth-container" id="authContainer"></div>
+
+                <!-- Profilo Utente -->
+                <div class="profile-menu" id="profileMenu" style="display: none;">
+                    <button class="profile-btn" id="profileBtn" onclick="toggleProfileMenu()">
+                        <span class="profile-avatar" id="profileAvatar">👤</span>
+                        <span class="profile-name" id="profileName">Utente</span>
+                        <span class="profile-arrow">▼</span>
+                    </button>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="profilo.html" class="profile-link">
+                            <span class="link-icon">👤</span>
+                            Profilo
+                        </a>
+                        <button class="profile-link" onclick="performLogout()">
+                            <span class="link-icon">🚪</span>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Tema -->
                 <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
                     <svg class="theme-icon" viewBox="0 0 24 24">
@@ -282,10 +307,14 @@
         </div>
     </footer>
 
+    <!-- Modal injected globally by js/auth-modal.js -->
+
     <!-- Scripts -->
-    <script src="js/utils.js?v=2.0.0"></script>
-    <script src="js/navigation.js?v=2.0.0"></script>
-    <script src="js/main.js?v=2.0.0"></script>
+    <script src="js/unified-auth-profile.js"></script>
+    <script src="js/auth-modal.js"></script>
+    <script src="js/ultra-modern-buttons.js"></script>
+    <script src="js/site-optimizer.js"></script>
+    <script src="js/cookie-manager.js"></script>
     
     <script>
         // Calcolatore finanziamento
@@ -317,6 +346,7 @@
             const totalInterest = totalCost - loanAmount;
 
             // Aggiorna i risultati
+            document.getElementById('loanAmount').textContent = `€${loanAmount.toLocaleString('it-IT')}`;
             document.getElementById('loanAmount').textContent = `€${loanAmount.toLocaleString('it-IT')}`;
             document.getElementById('monthlyPayment').textContent = `€${Math.round(monthlyPayment).toLocaleString('it-IT')}`;
             document.getElementById('totalInterest').textContent = `€${Math.round(totalInterest).toLocaleString('it-IT')}`;

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Auto - Wali Wheels</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/ultra-modern-buttons.css">
+    <link rel="stylesheet" href="css/site-optimizations.css">
+    <link rel="stylesheet" href="css/car-explorer.css">
+</head>
+<body>
+    <section class="cars-grid-glass preserve-3d" style="max-width: 1100px; margin: 2rem auto;">
+        <a href="esplora-macchine.html" class="glass-button" style="margin-bottom: 1rem; display:inline-flex;">⬅ Torna all'esplora</a>
+        <div class="car-details-content preserve-3d">
+            <div class="car-details-image">
+                <img id="detailImage" src="" alt="Immagine Auto" loading="lazy">
+            </div>
+            <div class="car-details-info preserve-3d">
+                <h1 id="detailTitle" class="car-title-large"></h1>
+                <div id="detailPrice" class="car-price-large"></div>
+                <div class="car-specs-grid preserve-3d">
+                    <div class="spec-item preserve-3d"><span class="spec-label">Anno:</span><span class="spec-value" id="detailYear"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Tipo:</span><span class="spec-value" id="detailType"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Colore:</span><span class="spec-value" id="detailColor"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Carburante:</span><span class="spec-value" id="detailFuel"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Chilometri:</span><span class="spec-value" id="detailKm"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Motore:</span><span class="spec-value" id="detailEngine"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Potenza:</span><span class="spec-value" id="detailPower"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Trasmissione:</span><span class="spec-value" id="detailTransmission"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Porte:</span><span class="spec-value" id="detailDoors"></span></div>
+                    <div class="spec-item preserve-3d"><span class="spec-label">Posti:</span><span class="spec-value" id="detailSeats"></span></div>
+                </div>
+                <div class="car-description-large preserve-3d"><h4>Descrizione</h4><p id="detailDescription"></p></div>
+                <div class="car-actions-large preserve-3d">
+                    <a href="mailto:info@waliwheels.it?subject=Richiesta%20info" class="glass-button primary shimmer magnetic">Contattaci</a>
+                </div>
+            </div>
+        </div>
+        <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:2rem;"></div>
+    </section>
+
+    <script src="js/car-detail.js"></script>
+    <script src="js/ultra-modern-buttons.js"></script>
+    <script src="js/site-optimizer.js"></script>
+</body>
+</html>
+

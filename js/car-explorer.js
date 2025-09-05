@@ -1,6 +1,6 @@
 /**
  * Car Explorer - Sistema di gestione auto con design glassmorphism
- * Versione 4.0 - SOLO auto dall'admin panel + Galleria Immagini
+ * Versione 4.0 - SOLO auto dall'admin panel
  * Mostra esclusivamente le auto aggiunte tramite il pannello di amministrazione
  */
 
@@ -9,9 +9,7 @@ class CarExplorer {
         this.cars = [];
         this.filteredCars = [];
         this.currentPage = 1;
-        this.carsPerPage = 6;
-        this.currentCarImages = [];
-        this.currentImageIndex = 0;
+        this.carsPerPage = 50; // Aumentato da 6 a 50 per mostrare più auto
         this.filters = {
             brand: '',
             price: '',
@@ -23,7 +21,6 @@ class CarExplorer {
     }
     
     init() {
-        console.log('🚀 CarExplorer inizializzato');
         this.loadCarsFromAdmin();
         this.bindEvents();
         this.renderCars();
@@ -39,7 +36,26 @@ class CarExplorer {
         // Mostra solo le auto aggiunte dall'admin
         this.cars = savedCars;
         this.filteredCars = [...this.cars];
-        console.log('📊 Auto caricate:', this.cars.length);
+        
+        // Log per debug
+        console.log(`🚗 Caricate ${this.cars.length} auto dall'admin panel`);
+        
+        // Verifica se ci sono limiti del localStorage
+        this.checkStorageLimits();
+    }
+
+    checkStorageLimits() {
+        try {
+            const storageSize = new Blob([JSON.stringify(this.cars)]).size;
+            const storageSizeMB = (storageSize / 1024 / 1024).toFixed(2);
+            console.log(`💾 Dimensione dati auto: ${storageSizeMB} MB`);
+            
+            if (storageSize > 50 * 1024 * 1024) { // 50MB
+                console.warn('⚠️ Attenzione: I dati delle auto stanno raggiungendo i limiti del localStorage');
+            }
+        } catch (error) {
+            console.error('Errore nel controllo limiti storage:', error);
+        }
     }
 
     loadCarsFromStorage() {
@@ -188,9 +204,8 @@ class CarExplorer {
         const carsGrid = document.getElementById('carsGrid');
         if (!carsGrid) return;
         
-        const startIndex = (this.currentPage - 1) * this.carsPerPage;
-        const endIndex = startIndex + this.carsPerPage;
-        const carsToShow = this.filteredCars.slice(startIndex, endIndex);
+        // Mostra tutte le auto filtrate senza limiti di paginazione
+        const carsToShow = this.filteredCars;
         
         if (this.filteredCars.length === 0) {
             carsGrid.innerHTML = `
@@ -201,11 +216,59 @@ class CarExplorer {
                 </div>
             `;
         } else {
-            carsGrid.innerHTML = carsToShow.map(car => this.createCarCard(car)).join('');
+            // Ottimizzazione per grandi quantità di auto
+            this.renderCarsOptimized(carsGrid, carsToShow);
         }
         
         this.updateCarsCount();
         this.updateLoadMoreButton();
+    }
+
+    renderCarsOptimized(container, cars) {
+        // Usa DocumentFragment per migliori prestazioni
+        const fragment = document.createDocumentFragment();
+        
+        // Mostra notifica di caricamento
+        this.showToast(`Caricamento di ${cars.length} auto in corso...`, 'info');
+        
+        // Rendering in batch per evitare reflow continui
+        const batchSize = 100;
+        let currentBatch = 0;
+        
+        const renderBatch = () => {
+            const start = currentBatch * batchSize;
+            const end = Math.min(start + batchSize, cars.length);
+            
+            for (let i = start; i < end; i++) {
+                const carCard = this.createCarCardElement(cars[i]);
+                fragment.appendChild(carCard);
+            }
+            
+            currentBatch++;
+            
+            if (end < cars.length) {
+                // Continua con il prossimo batch
+                requestAnimationFrame(renderBatch);
+            } else {
+                // Tutti i batch completati, aggiungi al DOM
+                container.innerHTML = '';
+                container.appendChild(fragment);
+                
+                // Notifica completamento
+                this.showToast(`✅ ${cars.length} auto caricate con successo!`, 'success');
+            }
+        };
+        
+        // Inizia il rendering
+        renderBatch();
+    }
+
+    createCarCardElement(car) {
+        const carCard = document.createElement('div');
+        carCard.className = 'car-card preserve-3d';
+        carCard.dataset.carId = car.id;
+        carCard.innerHTML = this.createCarCard(car);
+        return carCard;
     }
     
     createCarCard(car) {
@@ -273,12 +336,12 @@ class CarExplorer {
                     ${car.description ? `<p class="car-description">${car.description}</p>` : ''}
                     
                     <div class="car-actions">
-                        <button class="car-action-btn primary" onclick="viewCarDetails('${car.id}')">
+                        <a class="car-action-btn primary" href="dettagli-macchina.html?id=${encodeURIComponent(car.id)}">
                             <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
                             </svg>
                             <span>Dettagli</span>
-                        </button>
+                        </a>
                         <button class="car-action-btn secondary" onclick="contactAboutCar('${car.id}')">
                             <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
@@ -359,115 +422,14 @@ class CarExplorer {
     updateLoadMoreButton() {
         const loadMoreBtn = document.querySelector('.load-more');
         if (loadMoreBtn) {
-            const hasMoreCars = this.currentPage * this.carsPerPage < this.filteredCars.length;
-            loadMoreBtn.style.display = hasMoreCars ? 'block' : 'none';
+            // Nascondi il pulsante dato che ora mostriamo tutte le auto
+            loadMoreBtn.style.display = 'none';
         }
     }
     
     viewCarDetails(carId) {
-        console.log('🔍 viewCarDetails chiamata con ID:', carId);
-        const car = this.cars.find(c => c.id === carId);
-        console.log('🚗 Auto trovata:', car);
-        if (car) {
-            console.log('✅ Apro il modal per:', car.brand, car.model);
-            this.openCarDetailsModal(car);
-        } else {
-            console.error('❌ Auto non trovata con ID:', carId);
-        }
-    }
-
-    openCarDetailsModal(car) {
-        console.log('🚀 openCarDetailsModal chiamata per:', car.brand, car.model);
-        
-        // Prepara le immagini per la galleria
-        this.currentCarImages = car.images && car.images.length >= 5 ? car.images : [
-            car.image || 'https://via.placeholder.com/800x600/1a1a1a/00ff88?text=Immagine+Principale',
-            'https://via.placeholder.com/800x600/1a1a1a/00cc6a?text=Vista+Laterale',
-            'https://via.placeholder.com/800x600/1a1a1a/ff6b35?text=Interno',
-            'https://via.placeholder.com/800x600/1a1a1a/f7931e?text=Motore',
-            'https://via.placeholder.com/800x600/1a1a1a/00ff88?text=Retro'
-        ];
-        
-        this.currentImageIndex = 0;
-        
-        // Popola il modal con i dettagli dell'auto
-        const imageElement = document.getElementById('detailCarImage');
-        const titleElement = document.getElementById('detailCarTitle');
-        const priceElement = document.getElementById('detailCarPrice');
-        
-        console.log('🔍 Elementi del modal trovati:', {
-            image: imageElement,
-            title: titleElement,
-            price: priceElement
-        });
-        
-        if (imageElement) imageElement.src = this.currentCarImages[0];
-        if (titleElement) titleElement.textContent = `${car.brand} ${car.model}`;
-        if (priceElement) priceElement.textContent = `€${car.price.toLocaleString()}`;
-        
-        document.getElementById('detailCarYear').textContent = car.year || 'N/A';
-        document.getElementById('detailCarType').textContent = this.getTypeLabel(car.type) || 'N/A';
-        document.getElementById('detailCarColor').textContent = car.color || 'N/A';
-        document.getElementById('detailCarFuel').textContent = this.getFuelLabel(car.fuel) || 'N/A';
-        document.getElementById('detailCarKm').textContent = car.km ? `${car.km.toLocaleString()} km` : 'N/A';
-        document.getElementById('detailCarEngine').textContent = car.engine ? `${car.engine}cc` : 'N/A';
-        document.getElementById('detailCarPower').textContent = car.power ? `${car.power} CV` : 'N/A';
-        document.getElementById('detailCarTransmission').textContent = car.transmission || 'N/A';
-        document.getElementById('detailCarDoors').textContent = car.doors || 'N/A';
-        document.getElementById('detailCarSeats').textContent = car.seats || 'N/A';
-        document.getElementById('detailCarDescription').textContent = car.description || 'Nessuna descrizione disponibile.';
-
-        // Aggiorna la galleria
-        this.updateGallery();
-
-        // Mostra il modal
-        const modal = document.getElementById('carDetailsModal');
-        console.log('🔍 Modal trovato:', modal);
-        
-        if (modal) {
-            console.log('✅ Modal trovato, lo apro...');
-            modal.style.display = 'flex';
-            modal.classList.add('active');
-            console.log('✅ Modal aperto!');
-        } else {
-            console.error('❌ Modal non trovato!');
-        }
-        
-        this.showToast(`Visualizzando ${car.brand} ${car.model}`, 'info');
-    }
-
-    updateGallery() {
-        // Aggiorna immagine principale
-        const mainImage = document.getElementById('detailCarImage');
-        if (mainImage && this.currentCarImages.length > 0) {
-            mainImage.src = this.currentCarImages[this.currentImageIndex];
-        }
-
-        // Aggiorna miniature
-        const thumbnailContainer = document.getElementById('galleryThumbnails');
-        if (thumbnailContainer) {
-            thumbnailContainer.innerHTML = this.currentCarImages.map((img, index) => `
-                <div class="gallery-thumbnail ${index === this.currentImageIndex ? 'active' : ''}" 
-                     onclick="window.carExplorer.changeImage(${index})">
-                    <img src="${img}" alt="Miniatura ${index + 1}" loading="lazy">
-                </div>
-            `).join('');
-        }
-    }
-
-    changeImage(index) {
-        if (index >= 0 && index < this.currentCarImages.length) {
-            this.currentImageIndex = index;
-            this.updateGallery();
-        }
-    }
-
-    changeGalleryImage(direction) {
-        const newIndex = this.currentImageIndex + direction;
-        if (newIndex >= 0 && newIndex < this.currentCarImages.length) {
-            this.currentImageIndex = newIndex;
-            this.updateGallery();
-        }
+        // Reindirizza alla pagina di dettaglio
+        window.location.href = `dettagli-macchina.html?id=${encodeURIComponent(carId)}`;
     }
     
     contactAboutCar(carId) {
@@ -497,7 +459,7 @@ class CarExplorer {
 
 // Inizializzazione quando il DOM è pronto
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('📄 DOM caricato, inizializzo CarExplorer...');
+    console.log('🚀 CarExplorer inizializzato');
     window.carExplorer = new CarExplorer();
 });
 
@@ -521,11 +483,11 @@ function loadMoreCars() {
 }
 
 function viewCarDetails(carId) {
-    console.log('🌐 Funzione globale viewCarDetails chiamata con ID:', carId);
+    console.log('🔍 viewCarDetails chiamata con ID:', carId);
     if (window.carExplorer) {
         window.carExplorer.viewCarDetails(carId);
     } else {
-        console.error('❌ carExplorer non inizializzato!');
+        console.error('❌ carExplorer non trovato!');
     }
 }
 
@@ -535,28 +497,4 @@ function contactAboutCar(carId) {
     }
 }
 
-function closeCarDetailsModal() {
-    console.log('🔒 Chiudo il modal...');
-    const modal = document.getElementById('carDetailsModal');
-    if (modal) {
-        modal.style.display = 'none';
-        modal.classList.remove('active');
-        console.log('✅ Modal chiuso!');
-    } else {
-        console.error('❌ Modal non trovato per la chiusura!');
-    }
-}
-
-function contactAboutCarFromModal() {
-    // Chiudi il modal e mostra il toast
-    closeCarDetailsModal();
-    if (window.carExplorer) {
-        window.carExplorer.showToast('Contattaci per maggiori informazioni! 📞', 'info');
-    }
-}
-
-function changeGalleryImage(direction) {
-    if (window.carExplorer) {
-        window.carExplorer.changeGalleryImage(direction);
-    }
-}
+// Rimosse funzioni modal / debug

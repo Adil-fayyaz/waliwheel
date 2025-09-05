@@ -4,103 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Wali Wheels</title>
-    <link rel="stylesheet" href="css/admin.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Pannello di amministrazione per gestire le auto del sito Wali Wheels">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css?v=2.0.0">
+    <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="css/admin.css?v=2.0.0">
+    <link rel="stylesheet" href="css/auth-modal.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
 </head>
 <body>
-    <!-- Header Glass -->
-    <header class="header-glass">
-        <nav class="nav-container">
-            <div class="nav-brand">
-                <span class="logo-glow">Wali Wheels</span>
-                <span class="admin-badge">ADMIN</span>
-            </div>
-            
-            <ul class="nav-menu">
-                <li><a href="#" class="nav-link active" onclick="showSection('dashboard')">Dashboard</a></li>
-                <li><a href="#" class="nav-link" onclick="showSection('cars')">Gestione Auto</a></li>
-                <li><a href="#" class="nav-link" onclick="showSection('analytics')">Analytics</a></li>
-                <li><a href="#" class="nav-link" onclick="showSection('settings')">Impostazioni</a></li>
-            </ul>
-            
-            <div class="nav-actions">
-                <div class="admin-user" onclick="toggleUserMenu()">
-                    <div class="user-avatar">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
-                    </div>
-                    <span class="user-name">Admin</span>
-                </div>
-                
-                <div class="user-menu" id="userMenu">
-                    <div class="user-info">
-                        <div class="user-role">Amministratore</div>
-                        <div class="user-email">admin@waliwheels.it</div>
-                    </div>
-                    <div class="menu-actions">
-                        <button class="menu-item">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                            Profilo
-                        </button>
-                        <button class="menu-item">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-                            </svg>
-                            Impostazioni
-                        </button>
-                        <button class="menu-item">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
-                            </svg>
-                            Logout
-                        </button>
+    <!-- Main Admin Content (accessibile direttamente) -->
+    <div id="adminContent" class="admin-content">
+        <!-- Header Glass (similar to index.html but with admin badge) -->
+        <header class="header-glass gpu-accelerated">
+            <nav class="nav-container">
+                <div class="nav-brand gpu-accelerated">
+                    <div class="logo-glow preserve-3d">
+                        <span class="logo-text">Wali</span>
+                        <span class="logo-accent">Wheels</span>
+                        <span class="admin-badge">Admin</span>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+                <ul class="nav-menu preserve-3d">
+                    <li><a href="index.html" class="nav-link preserve-3d">Home</a></li>
+                    <li><a href="esplora-macchine.html" class="nav-link preserve-3d">Esplora Macchine</a></li>
+                    <li><a href="admin.html" class="nav-link active preserve-3d">Admin Panel</a></li>
+                    <li><a href="chi-siamo.html" class="nav-link preserve-3d">Chi Siamo</a></li>
+                    <li><a href="contatti.html" class="nav-link preserve-3d">Contatti</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="glass-button primary shimmer magnetic preserve-3d" onclick="openAddCarModal()">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        <span>+ Nuova Auto</span>
+                    </button>
+                    <div class="auth-container" id="authContainer"></div>
+                    <div class="admin-user preserve-3d">
+                        <div class="user-avatar">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <span class="user-name">Super Admin</span>
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <div class="user-role">Super Admin</div>
+                                <div class="user-email">admin@waliwheels.it</div>
+                            </div>
+                            <div class="menu-actions">
+                                <button onclick="showProfileSettings()" class="menu-item">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                    Profilo
+                                </button>
+                                <button onclick="showSecuritySettings()" class="menu-item">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                                    Sicurezza
+                                </button>
+                                <button onclick="showSystemInfo()" class="menu-item">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                    Sistema
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-    <!-- Admin Content -->
-    <main class="admin-content">
-        <!-- Hero Section -->
-        <section class="admin-hero">
+        <!-- Admin Hero Section (similar to index.html hero) -->
+        <section class="admin-hero preserve-3d gpu-accelerated">
             <div class="hero-background">
-                <div class="parallax-layer">
-                    <div class="bokeh-lights"></div>
-                </div>
-                <div class="parallax-layer" data-speed="0.3">
-                    <div class="aurora-gradient"></div>
-                </div>
+                <div class="parallax-layer bokeh-lights" data-speed="0.3"></div>
+                <div class="parallax-layer aurora-gradient" data-speed="0.5"></div>
             </div>
-            
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Pannello</span>
-                        <span class="title-accent">Amministrazione</span>
+                        <span class="title-line">Pannello di</span>
+                        <span class="title-line title-accent">Amministrazione</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Gestisci il catalogo auto, monitora le performance e controlla tutti gli aspetti del tuo business automotive
+                        Gestisci il tuo catalogo auto con strumenti professionali e interfaccia moderna
                     </p>
-                    
-                    <div class="admin-stats">
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalCars">0</div>
-                            <div class="stat-label">Auto Totali</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="activeCars">0</div>
-                            <div class="stat-label">Auto Attive</div>
-                        </div>
+                </div>
+                
+                <div class="admin-stats">
+                    <div class="stat-item preserve-3d">
+                        <div class="stat-number" id="totalCars" data-count="0">0</div>
+                        <div class="stat-label">Auto Totali</div>
+                    </div>
+                    <div class="stat-item preserve-3d">
+                        <div class="stat-number" id="activeCars" data-count="0">0</div>
+                        <div class="stat-label">Auto Attive</div>
+                    </div>
+                    <div class="stat-item preserve-3d">
+                        <div class="stat-number" id="totalBrands" data-count="0">0</div>
+                        <div class="stat-label">Brand</div>
+                    </div>
+                    <div class="stat-item preserve-3d">
+                        <div class="stat-number" id="totalUsers" data-count="0">0</div>
+                        <div class="stat-label">Utenti</div>
                     </div>
                 </div>
                 
                 <div class="hero-visual">
                     <div class="admin-dashboard-preview">
-                        <div class="dashboard-mockup">
+                        <div class="dashboard-mockup preserve-3d">
                             <div class="mockup-header">
                                 <div class="mockup-dots">
                                     <span></span>
@@ -122,17 +130,17 @@
             </div>
         </section>
 
-        <!-- Quick Actions -->
-        <section class="quick-actions">
+        <!-- Quick Actions Section -->
+        <section class="quick-actions preserve-3d gpu-accelerated">
             <div class="actions-grid">
-                <div class="action-card primary" onclick="openModal('addCarModal')">
+                <div class="action-card primary preserve-3d" onclick="openAddCarModal()">
                     <div class="action-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                         </svg>
                     </div>
                     <h3>Aggiungi Auto</h3>
-                    <p>Inserisci una nuova auto nel catalogo con tutte le specifiche e immagini</p>
+                    <p>Inserisci una nuova auto nel catalogo con tutte le specifiche tecniche</p>
                     <div class="action-arrow">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
@@ -140,14 +148,14 @@
                     </div>
                 </div>
                 
-                <div class="action-card secondary" onclick="openModal('bulkUploadModal')">
+                <div class="action-card secondary preserve-3d" onclick="openBulkUploadModal()">
                     <div class="action-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
                         </svg>
                     </div>
-                    <h3>Upload Massivo</h3>
-                    <p>Carica più auto contemporaneamente tramite file CSV o Excel</p>
+                    <h3>Caricamento Massivo</h3>
+                    <p>Importa multiple auto da file CSV per un inserimento rapido</p>
                     <div class="action-arrow">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
@@ -155,14 +163,14 @@
                     </div>
                 </div>
                 
-                <div class="action-card accent" onclick="showSection('analytics')">
+                <div class="action-card accent preserve-3d" onclick="openAnalyticsModal()">
                     <div class="action-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                         </svg>
                     </div>
                     <h3>Analytics</h3>
-                    <p>Monitora le performance del catalogo e le statistiche di visualizzazione</p>
+                    <p>Visualizza statistiche e performance del tuo catalogo auto</p>
                     <div class="action-arrow">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
@@ -170,14 +178,14 @@
                     </div>
                 </div>
                 
-                <div class="action-card info" onclick="showSection('settings')">
+                <div class="action-card info preserve-3d" onclick="openSettingsModal()">
                     <div class="action-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92-3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
                         </svg>
                     </div>
                     <h3>Impostazioni</h3>
-                    <p>Configura le opzioni del sistema e personalizza l'esperienza amministrativa</p>
+                    <p>Configura le preferenze e le opzioni del pannello admin</p>
                     <div class="action-arrow">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
@@ -187,11 +195,11 @@
             </div>
         </section>
 
-        <!-- Cars Management -->
-        <section class="cars-management" id="carsSection">
+        <!-- Cars Management Section (table for cars) -->
+        <section class="cars-management preserve-3d gpu-accelerated">
             <div class="section-header">
                 <h2 class="section-title">Gestione Auto</h2>
-                <p class="section-subtitle">Gestisci il catalogo auto, modifica le informazioni e monitora lo stato</p>
+                <p class="section-subtitle">Visualizza, modifica e gestisci tutte le auto del catalogo</p>
             </div>
             
             <div class="search-filters">
@@ -199,22 +207,24 @@
                     <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     </svg>
-                    <input type="text" class="search-input" placeholder="Cerca auto per marca, modello..." id="searchInput">
+                    <input type="text" id="searchCars" class="search-input" placeholder="Cerca per marca, modello, descrizione...">
                 </div>
                 
                 <div class="filter-buttons">
-                    <button class="filter-btn active" onclick="filterCars('all')">Tutte</button>
-                    <button class="filter-btn" onclick="filterCars('active')">Attive</button>
-                    <button class="filter-btn" onclick="filterCars('draft')">Bozze</button>
-                    <button class="filter-btn" onclick="filterCars('featured')">In Evidenza</button>
+                    <button class="filter-btn active" data-filter="all">Tutte</button>
+                    <button class="filter-btn" data-filter="active">Attive</button>
+                    <button class="filter-btn" data-filter="draft">Bozze</button>
+                    <button class="filter-btn" data-filter="archived">Archiviate</button>
                 </div>
             </div>
             
             <div class="cars-table-container">
-                <table class="cars-table" id="carsTable">
+                <table class="cars-table">
                     <thead>
                         <tr>
+                            <th>Immagine</th>
                             <th>Auto</th>
+                            <th>Anno</th>
                             <th>Prezzo</th>
                             <th>Tipo</th>
                             <th>Stato</th>
@@ -222,433 +232,288 @@
                         </tr>
                     </thead>
                     <tbody id="carsTableBody">
-                        <!-- Le auto verranno caricate dinamicamente -->
+                        <!-- Le righe delle auto verranno generate dinamicamente -->
                     </tbody>
                 </table>
+                
+                <div id="noCarsMessage" class="no-cars-message" style="display: none;">
+                    <div class="no-cars-content">
+                        <div class="no-cars-icon">🚗</div>
+                        <h3>Nessuna auto trovata</h3>
+                        <p>Aggiungi la tua prima auto per iniziare a popolare il catalogo!</p>
+                        <button class="glass-button primary" onclick="openAddCarModal()">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Aggiungi Prima Auto
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
 
-    <!-- Footer Glass -->
-    <footer class="footer-glass">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Wali Wheels</h4>
-                <p>La tua concessionaria di fiducia per auto di lusso e prestazioni</p>
-            </div>
-            <div class="footer-section">
-                <h4>Admin Panel</h4>
-                <ul>
-                    <li>Gestione Auto</li>
-                    <li>Analytics</li>
-                    <li>Impostazioni</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Supporto</h4>
-                <ul>
-                    <li>Documentazione</li>
-                    <li>FAQ</li>
-                    <li>Contatti</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Wali Wheels. Tutti i diritti riservati.</p>
-            <p>Creato da Adil Fayyaz</p>
-        </div>
-    </footer>
-
-    <!-- Modals -->
-    
-    <!-- Add Car Modal -->
-    <div class="modal-overlay" id="addCarModal">
-        <div class="modal-content add-car-modal">
-            <div class="modal-header">
-                <h2>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                    </svg>
-                    Aggiungi Nuova Auto
-                </h2>
-                <button class="modal-close" onclick="closeModal('addCarModal')">&times;</button>
-            </div>
-            
-            <form class="add-car-form" id="addCarForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="brand">🏷️ Marca *</label>
-                        <input type="text" id="brand" name="brand" class="form-input" placeholder="es. BMW, Mercedes, Audi" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="model">🚗 Modello *</label>
-                        <input type="text" id="model" name="model" class="form-input" placeholder="es. X5, Classe S, Q7" required>
-                    </div>
+        <!-- Modal Aggiungi Auto -->
+        <div id="addCarModal" class="modal-overlay glass">
+            <div class="modal-content add-car-modal">
+                <div class="modal-header">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px; margin-right: 10px;">
+                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13S8 13.67 8 14.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                        </svg>
+                        Aggiungi Nuova Auto
+                    </h2>
+                    <button class="modal-close" onclick="closeAddCarModal()">&times;</button>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="year">📅 Anno *</label>
-                        <input type="number" id="year" name="year" class="form-input" placeholder="2024" min="1990" max="2030" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="price">💰 Prezzo *</label>
-                        <input type="number" id="price" name="price" class="form-input" placeholder="50000" min="0" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="type">🚙 Tipo *</label>
-                        <select id="type" name="type" class="form-input" required>
-                            <option value="">Seleziona tipo</option>
-                            <option value="suv">SUV</option>
-                            <option value="berlina">Berlina</option>
-                            <option value="sportiva">Sportiva</option>
-                            <option value="elettrica">Elettrica</option>
-                            <option value="ibrida">Ibrida</option>
-                            <option value="cabrio">Cabrio</option>
-                            <option value="station-wagon">Station Wagon</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="color">🎨 Colore</label>
-                        <input type="text" id="color" name="color" class="form-input" placeholder="es. Bianco, Nero, Rosso">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="fuel">⛽ Carburante</label>
-                        <select id="fuel" name="fuel" class="form-input">
-                            <option value="">Seleziona carburante</option>
-                            <option value="benzina">Benzina</option>
-                            <option value="diesel">Diesel</option>
-                            <option value="elettrico">Elettrico</option>
-                            <option value="ibrido">Ibrido</option>
-                            <option value="gpl">GPL</option>
-                            <option value="metano">Metano</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="km">🛣️ Chilometri</label>
-                        <input type="number" id="km" name="km" class="form-input" placeholder="0" min="0">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="engine">🔧 Cilindrata (cc)</label>
-                        <input type="number" id="engine" name="engine" class="form-input" placeholder="2000" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="power">⚡ Potenza (CV)</label>
-                        <input type="number" id="power" name="power" class="form-input" placeholder="150" min="0">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="transmission">⚙️ Trasmissione</label>
-                        <select id="transmission" name="transmission" class="form-input">
-                            <option value="">Seleziona trasmissione</option>
-                            <option value="manuale">Manuale</option>
-                            <option value="automatica">Automatica</option>
-                            <option value="robotizzata">Robotizzata</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="doors">🚪 Numero Porte</label>
-                        <input type="number" id="doors" name="doors" class="form-input" placeholder="5" min="2" max="6">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="seats">💺 Posti a Sedere</label>
-                        <input type="number" id="seats" name="seats" class="form-input" placeholder="5" min="2" max="9">
-                    </div>
-                    <div class="form-group">
-                        <label for="featured">⭐ In Evidenza</label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="featured" name="featured" class="form-checkbox">
-                            <label for="featured" class="checkbox-label">Mostra in evidenza</label>
+                <form id="addCarForm" class="add-car-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carBrand" class="form-label">Marca *</label>
+                            <input type="text" id="carBrand" class="form-input" required placeholder="es. BMW, Mercedes, Audi...">
+                        </div>
+                        <div class="form-group">
+                            <label for="carModel" class="form-label">Modello *</label>
+                            <input type="text" id="carModel" class="form-input" required placeholder="es. X5, AMG GT, RS e-tron...">
                         </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="description">📝 Descrizione</label>
-                    <textarea id="description" name="description" class="form-input" rows="4" placeholder="Descrivi l'auto, le sue caratteristiche e i vantaggi..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="carImages">🖼️ Immagini Auto (Minimo 5)</label>
-                    <div class="images-input-container">
-                        <div class="images-grid" id="imagesGrid">
-                            <div class="image-input-item">
-                                <input type="url" class="image-url-input" placeholder="URL Immagine 1" data-index="0" required>
-                                <div class="image-preview" id="preview0">
-                                    <div class="placeholder-text">+</div>
-                                </div>
-                            </div>
-                            <div class="image-input-item">
-                                <input type="url" class="image-url-input" placeholder="URL Immagine 2" data-index="1" required>
-                                <div class="image-preview" id="preview1">
-                                    <div class="placeholder-text">+</div>
-                                </div>
-                            </div>
-                            <div class="image-input-item">
-                                <input type="url" class="image-url-input" placeholder="URL Immagine 3" data-index="2" required>
-                                <div class="image-preview" id="preview2">
-                                    <div class="placeholder-text">+</div>
-                                </div>
-                            </div>
-                            <div class="image-input-item">
-                                <input type="url" class="image-url-input" placeholder="URL Immagine 4" data-index="3" required>
-                                <div class="image-preview" id="preview3">
-                                    <div class="placeholder-text">+</div>
-                                </div>
-                            </div>
-                            <div class="image-input-item">
-                                <input type="url" class="image-url-input" placeholder="URL Immagine 5" data-index="4" required>
-                                <div class="image-url-input" placeholder="URL Immagine 5" data-index="4" required>
-                                <div class="image-preview" id="preview4">
-                                    <div class="placeholder-text">+</div>
-                                </div>
-                            </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carYear" class="form-label">Anno *</label>
+                            <input type="number" id="carYear" class="form-input" required min="1900" max="2030" placeholder="2024">
                         </div>
-                        <div class="images-help">
-                            <p>⚠️ <strong>Obbligatorio:</strong> Inserisci almeno 5 immagini per ogni auto</p>
-                            <p>💡 <strong>Suggerimento:</strong> Usa immagini di alta qualità (800x600px o superiori)</p>
+                        <div class="form-group">
+                            <label for="carPrice" class="form-label">Prezzo (€) *</label>
+                            <input type="number" id="carPrice" class="form-input" required min="0" placeholder="150000">
                         </div>
                     </div>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="button" class="filter-btn secondary" onclick="closeModal('addCarModal')">Annulla</button>
-                    <button type="submit" class="filter-btn primary">Aggiungi Auto</button>
-                </div>
-            </form>
-        </div>
-    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carType" class="form-label">Tipo *</label>
+                            <select id="carType" class="form-input" required>
+                                <option value="">Seleziona tipo</option>
+                                <option value="berlina">Berlina</option>
+                                <option value="suv">SUV</option>
+                                <option value="sportiva">Sportiva</option>
+                                <option value="elettrica">Elettrica</option>
+                                <option value="ibrida">Ibrida</option>
+                                <option value="cabrio">Cabrio</option>
+                                <option value="station-wagon">Station Wagon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="carColor" class="form-label">Colore</label>
+                            <input type="text" id="carColor" class="form-input" placeholder="es. Nero Metallic, Bianco Iridium...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carKm" class="form-label">Chilometri</label>
+                            <input type="number" id="carKm" class="form-input" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="carFuel" class="form-label">Carburante</label>
+                            <select id="carFuel" class="form-input">
+                                <option value="benzina">Benzina</option>
+                                <option value="diesel">Diesel</option>
+                                <option value="elettrico">Elettrico</option>
+                                <option value="ibrido">Ibrido</option>
+                                <option value="gpl">GPL</option>
+                                <option value="metano">Metano</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carEngine" class="form-label">Motore (cc)</label>
+                            <input type="number" id="carEngine" class="form-input" min="0" placeholder="es. 2000, 3000...">
+                        </div>
+                        <div class="form-group">
+                            <label for="carPower" class="form-label">Potenza (CV)</label>
+                            <input type="number" id="carPower" class="form-input" min="0" placeholder="es. 150, 300...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carTransmission" class="form-label">Cambio</label>
+                            <select id="carTransmission" class="form-input">
+                                <option value="manuale">Manuale</option>
+                                <option value="automatico">Automatico</option>
+                                <option value="robotizzato">Robotizzato</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="carDoors" class="form-label">Porte</label>
+                            <select id="carDoors" class="form-input">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carSeats" class="form-label">Posti</label>
+                            <select id="carSeats" class="form-input">
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="carStatus" class="form-label">Stato</label>
+                            <select id="carStatus" class="form-input">
+                                <option value="active">Attiva</option>
+                                <option value="draft">Bozza</option>
+                                <option value="archived">Archiviata</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <label for="carDescription" class="form-label">Descrizione</label>
+                            <textarea id="carDescription" class="form-input" rows="4" placeholder="Descrivi le caratteristiche dell'auto, le opzioni, la storia..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <label for="carImages" class="form-label">Foto Auto (almeno 6) *</label>
+                            <input type="file" id="carImages" class="form-input" accept="image/*" multiple>
+                            <small style="color:#b8b8b8;display:block;margin-top:6px;">Seleziona almeno 6 foto dal tuo computer. Verrà usata la prima come immagine principale.</small>
+                            <div id="carImagesPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:10px;"></div>
+                        </div>
+                    </div>
 
-    <!-- Bulk Upload Modal -->
-    <div class="modal-overlay" id="bulkUploadModal">
-        <div class="modal-content bulk-upload-modal">
-            <div class="modal-header">
-                <h2>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
-                    </svg>
-                    Upload Massivo Auto
-                </h2>
-                <button class="modal-close" onclick="closeModal('bulkUploadModal')">&times;</button>
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <label for="carImage" class="form-label">URL Immagine</label>
+                            <input type="url" id="carImage" class="form-input" placeholder="https://esempio.com/immagine-auto.jpg">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="carFeatured" class="form-checkbox">
+                                <label for="carFeatured" class="checkbox-label">Mostra in evidenza</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="glass-button secondary" onclick="closeAddCarModal()">Annulla</button>
+                        <button type="submit" class="glass-button primary">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            ✓ Aggiungi Auto
+                        </button>
+                    </div>
+                </form>
             </div>
-            
-            <div class="bulk-upload-content">
-                <div class="upload-instructions">
-                    <h3>Come procedere:</h3>
-                    <ol>
-                        <li>Prepara un file CSV o Excel con le colonne: Marca, Modello, Anno, Prezzo, Tipo, Colore, Carburante, Chilometri, Motore, Potenza, Trasmissione, Porte, Posti, Descrizione, Immagini (separate da virgola)</li>
-                        <li>Assicurati che ogni auto abbia almeno 5 immagini valide</li>
-                        <li>Carica il file e verifica l'anteprima</li>
-                        <li>Conferma l'importazione</li>
-                    </ol>
+        </div>
+
+        <!-- Modal Caricamento Massivo -->
+        <div id="bulkUploadModal" class="modal-overlay glass">
+            <div class="modal-content bulk-upload-modal">
+                <div class="modal-header">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px; margin-right: 10px;">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                        </svg>
+                        Caricamento Massivo CSV
+                    </h2>
+                    <button class="modal-close" onclick="closeBulkUploadModal()">&times;</button>
                 </div>
                 
-                <div class="upload-actions">
-                    <div class="file-upload">
-                        <input type="file" class="file-input" id="bulkFileInput" accept=".csv,.xlsx,.xls">
-                        <button type="button" class="filter-btn primary">Scegli File</button>
+                <div class="bulk-upload-content">
+                    <div class="upload-instructions">
+                        <h3>Come preparare il file CSV:</h3>
+                        <ol>
+                            <li>Scarica il template CSV per vedere la struttura richiesta</li>
+                            <li>Compila il file con i dati delle auto (marca, modello, anno, prezzo, tipo, colore, km, carburante, descrizione, immagine)</li>
+                            <li>Carica il file completato</li>
+                            <li>Verifica l'anteprima e conferma l'importazione</li>
+                        </ol>
                     </div>
-                    <button type="button" class="filter-btn secondary" onclick="processBulkUpload()">Processa File</button>
-                </div>
-                
-                <div class="upload-preview" id="uploadPreview" style="display: none;">
-                    <h4>Anteprima Importazione</h4>
-                    <div class="preview-table" id="previewTable">
-                        <!-- L'anteprima verrà generata dinamicamente -->
+                    
+                    <div class="upload-actions">
+                        <button class="glass-button secondary" onclick="downloadCSVTemplate()">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                            Scarica Template CSV
+                        </button>
+                        
+                        <div class="file-upload">
+                            <button type="button" class="glass-button primary" onclick="document.getElementById('csvFile').click()">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                                Scegli File CSV
+                            </button>
+                            <input type="file" id="csvFile" class="file-input" accept=".csv" style="display: none;">
+                        </div>
                     </div>
-                    <button type="button" class="filter-btn primary" onclick="confirmBulkUpload()">Conferma Importazione</button>
+                    
+                    <div id="uploadPreview" class="upload-preview" style="display: none;">
+                        <h4>Anteprima Importazione:</h4>
+                        <div id="previewTable" class="preview-table"></div>
+                        <button id="confirmUpload" class="glass-button primary" onclick="confirmBulkUpload()" disabled>
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Conferma Importazione
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer Glass -->
+        <footer class="footer-glass preserve-3d gpu-accelerated">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Wali Wheels</h4>
+                    <p>La tua concessionaria di fiducia per auto di lusso e prestazioni.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Servizi</h4>
+                    <ul>
+                        <li><a href="esplora-macchine.html">Catalogo Auto</a></li>
+                        <li><a href="finanziamento.html">Finanziamento</a></li>
+                        <li><a href="contatti.html">Assistenza</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contatti</h4>
+                    <p>📞 +39 02 1234567</p>
+                    <p>📧 info@waliwheels.it</p>
+                    <p>📍 Via Roma 123, Milano</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Orari</h4>
+                    <p>🕒 Lun-Ven: 9:00-19:00</p>
+                    <p>🕒 Sab: 9:00-17:00</p>
+                    <p>🕒 Dom: Chiuso</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wali Wheels. Tutti i diritti riservati.</p>
+                <p>Creato da Adil Fayyaz</p>
+            </div>
+        </footer>
     </div>
 
     <!-- Toast Notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- JavaScript -->
-    <script src="js/utils.js"></script>
-    <script src="js/admin.js"></script>
-    <script>
-        // Funzioni globali per i modali
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        function showSection(sectionName) {
-            if (window.adminPanel) {
-                adminPanel.showSection(sectionName);
-            }
-        }
-
-        function processBulkUpload() {
-            const fileInput = document.getElementById('bulkFileInput');
-            const file = fileInput.files[0];
-            
-            if (!file) {
-                showToast('⚠️ Seleziona un file prima di procedere!', 'error');
-                return;
-            }
-            
-            // Simula processamento file
-            showToast('⏳ Processamento file in corso...', 'info');
-            
-            setTimeout(() => {
-                const preview = document.getElementById('uploadPreview');
-                const previewTable = document.getElementById('previewTable');
-                
-                // Mock data per l'anteprima
-                previewTable.innerHTML = `
-                    <table class="preview-table-content">
-                        <thead>
-                            <tr>
-                                <th>Marca</th>
-                                <th>Modello</th>
-                                <th>Anno</th>
-                                <th>Prezzo</th>
-                                <th>Stato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>BMW</td>
-                                <td>X5</td>
-                                <td>2024</td>
-                                <td>€85.000</td>
-                                <td>✅ Valido</td>
-                            </tr>
-                            <tr>
-                                <td>Mercedes</td>
-                                <td>Classe S</td>
-                                <td>2023</td>
-                                <td>€120.000</td>
-                                <td>✅ Valido</td>
-                            </tr>
-                            <tr>
-                                <td>Audi</td>
-                                <td>Q7</td>
-                                <td>2024</td>
-                                <td>€95.000</td>
-                                <td>✅ Valido</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                `;
-                
-                preview.style.display = 'block';
-                showToast('✅ File processato con successo! Verifica l\'anteprima.', 'success');
-            }, 2000);
-        }
-
-        function confirmBulkUpload() {
-            showToast('✅ Importazione completata! 3 auto aggiunte al catalogo.', 'success');
-            closeModal('bulkUploadModal');
-            
-            // Reset form
-            document.getElementById('bulkFileInput').value = '';
-            document.getElementById('uploadPreview').style.display = 'none';
-            
-            // Aggiorna dashboard
-            if (window.adminPanel) {
-                adminPanel.renderDashboard();
-                adminPanel.renderCarsTable();
-            }
-        }
-
-        function confirmDeleteUser() {
-            if (window.adminPanel && window.adminPanel.currentUserToDelete) {
-                adminPanel.deleteUser(window.adminPanel.currentUserToDelete);
-                closeModal('deleteUserModal');
-                window.adminPanel.currentUserToDelete = null;
-            }
-        }
-
-        function showToast(message, type = 'info') {
-            const toastContainer = document.getElementById('toastContainer');
-            if (!toastContainer) return;
-            
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.innerHTML = `
-                <div class="toast-content">
-                    <div class="toast-message">${message}</div>
-                    <button class="toast-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
-                </div>
-            `;
-            
-            toastContainer.appendChild(toast);
-            
-            // Mostra il toast
-            setTimeout(() => toast.classList.add('show'), 100);
-            
-            // Rimuovi automaticamente dopo 5 secondi
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 5000);
-        }
-
-        // Click fuori per chiudere modali
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay')) {
-                e.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Chiudi modali con ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const openModals = document.querySelectorAll('.modal-overlay[style*="flex"]');
-                openModals.forEach(modal => {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                });
-            }
-        });
-
-        // Gestione file input per bulk upload
-        document.addEventListener('DOMContentLoaded', function() {
-            const fileInput = document.getElementById('bulkFileInput');
-            const chooseFileBtn = fileInput?.nextElementSibling;
-            
-            if (chooseFileBtn && fileInput) {
-                chooseFileBtn.addEventListener('click', function() {
-                    fileInput.click();
-                });
-                
-                fileInput.addEventListener('change', function() {
-                    if (this.files.length > 0) {
-                        showToast(`📁 File selezionato: ${this.files[0].name}`, 'info');
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="js/utils.js?v=2.0.0"></script>
+    <script src="js/navigation.js?v=2.0.0"></script>
+    <script src="js/main.js?v=2.0.0"></script>
+    <script src="js/admin.js?v=2.0.0"></script>
+    <script src="js/unified-auth-profile.js"></script>
+    <script src="js/auth-modal.js"></script>
 </body>
 </html>

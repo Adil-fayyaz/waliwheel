@@ -171,14 +171,17 @@ class AuthSystem {
         this.currentUser = user;
         this.isAuthenticated = true;
         
-        // Save to localStorage
-        localStorage.setItem('waliWheelsUser', JSON.stringify(user));
+        // Save to localStorage with new key
+        localStorage.setItem('waliwheels_user', JSON.stringify(user));
         
         // Update UI
         this.updateAuthUI();
         
         // Close modal
         this.closeAuthModal();
+        
+        // Show profile menu
+        this.showProfileMenu();
         
         // Dispatch event
         window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
@@ -189,10 +192,13 @@ class AuthSystem {
         this.isAuthenticated = false;
         
         // Remove from localStorage
-        localStorage.removeItem('waliWheelsUser');
+        localStorage.removeItem('waliwheels_user');
         
         // Update UI
         this.updateAuthUI();
+        
+        // Hide profile menu
+        this.hideProfileMenu();
         
         // Show toast
         this.showToast('Logout effettuato con successo!', 'info');
@@ -262,18 +268,51 @@ class AuthSystem {
         });
     }
 
+    // Profile Menu Management
+    showProfileMenu() {
+        const profileMenu = document.getElementById('profileMenu');
+        const authContainer = document.getElementById('authContainer');
+        
+        if (profileMenu) profileMenu.style.display = 'block';
+        if (authContainer) authContainer.style.display = 'none';
+        
+        // Update profile info
+        this.updateProfileInfo();
+    }
+    
+    hideProfileMenu() {
+        const profileMenu = document.getElementById('profileMenu');
+        const authContainer = document.getElementById('authContainer');
+        
+        if (profileMenu) profileMenu.style.display = 'none';
+        if (authContainer) authContainer.style.display = 'block';
+    }
+    
+    updateProfileInfo() {
+        const profileName = document.getElementById('profileName');
+        const profileEmail = document.getElementById('profileEmail');
+        
+        if (profileName && this.currentUser) {
+            profileName.textContent = this.currentUser.name || 'Nome Utente';
+        }
+        if (profileEmail && this.currentUser) {
+            profileEmail.textContent = this.currentUser.email || 'email@example.com';
+        }
+    }
+    
     // Storage Management
     loadUserFromStorage() {
-        const storedUser = localStorage.getItem('waliWheelsUser');
+        const storedUser = localStorage.getItem('waliwheels_user');
         if (storedUser) {
             try {
                 const user = JSON.parse(storedUser);
                 this.currentUser = user;
                 this.isAuthenticated = true;
                 this.updateAuthUI();
+                this.showProfileMenu();
             } catch (error) {
                 console.error('Error loading user from storage:', error);
-                localStorage.removeItem('waliWheelsUser');
+                localStorage.removeItem('waliwheels_user');
             }
         }
     }

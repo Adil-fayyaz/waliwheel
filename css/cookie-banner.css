@@ -1,0 +1,225 @@
+/* Banner Cookie */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 2px solid #40E0D0;
+    z-index: 9999;
+    padding: 1.5rem;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookie-banner.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.cookie-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.cookie-text h3 {
+    color: #40E0D0;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.cookie-text p {
+    color: #ffffff;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.cookie-accept,
+.cookie-decline {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.cookie-accept {
+    background: linear-gradient(135deg, #40E0D0, #36c9b0);
+    color: white;
+    box-shadow: 0 4px 15px rgba(64, 224, 208, 0.3);
+}
+
+.cookie-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(64, 224, 208, 0.4);
+}
+
+.cookie-decline {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cookie-decline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.button-icon {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #40E0D0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    max-width: 300px;
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-success {
+    border-left-color: #4CAF50;
+}
+
+.toast-info {
+    border-left-color: #2196F3;
+}
+
+.toast-warning {
+    border-left-color: #FF9800;
+}
+
+.toast-error {
+    border-left-color: #F44336;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .cookie-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .cookie-accept,
+    .cookie-decline {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .cookie-banner {
+        padding: 1rem;
+    }
+    
+    .cookie-text h3 {
+        font-size: 1.1rem;
+    }
+    
+    .cookie-text p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cookie-banner {
+        padding: 1rem 0.75rem;
+    }
+    
+    .cookie-content {
+        gap: 1rem;
+    }
+    
+    .cookie-buttons {
+        gap: 0.75rem;
+    }
+}
+
+/* Animazioni di entrata */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+/* Stati per funzionalità cookie */
+.cookies-enabled .cookie-dependent {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cookie-dependent {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+

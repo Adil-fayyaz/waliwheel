@@ -79,6 +79,15 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Theme color for supported browsers */
+:root {
+    --theme-color: #0f172a;
+}
+
+meta[name="theme-color"] {
+    content: var(--theme-color);
+}
+
 /* Optimized animations */
 @media (prefers-reduced-motion: reduce) {
     *,

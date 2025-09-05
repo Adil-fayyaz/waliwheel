@@ -16,6 +16,7 @@ class SiteOptimizer {
         this.optimizePerformance();
         this.optimizeAccessibility();
         this.optimizeInteractivity();
+        this.addBackToTop();
         this.monitorPerformance();
         this.setupErrorHandling();
         this.optimizeImages();
@@ -75,7 +76,7 @@ class SiteOptimizer {
 
     optimizeResourceLoading() {
         // Defer script non critici
-        const nonCriticalScripts = document.querySelectorAll('script[data-defer]');
+        const nonCriticalScripts = document.querySelectorAll('script[data-defer], script[src*="unified-auth-profile.js"], script[src*="ultra-modern-buttons.js"], script[src*="site-optimizer.js"], script[src*="cookie-manager.js"], script[src*="auth-modal.js"]');
         nonCriticalScripts.forEach(script => {
             script.defer = true;
         });
@@ -398,6 +399,23 @@ class SiteOptimizer {
         });
         
         animatedElements.forEach(el => animationObserver.observe(el));
+    }
+
+    addBackToTop() {
+        if (document.getElementById('backToTop')) return;
+        const btn = document.createElement('button');
+        btn.id = 'backToTop';
+        btn.className = 'btn-ultra-modern floating primary shimmer magnetic';
+        btn.style.bottom = '30px';
+        btn.style.right = '30px';
+        btn.title = 'Torna su';
+        btn.innerHTML = `<svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.59 5.58L20 12l-8-8-8 8z"/></svg>`;
+        btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+        btn.style.display = 'none';
+        window.addEventListener('scroll', () => {
+            btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+        });
+        document.body.appendChild(btn);
     }
 
     // ===== MONITORAGGIO PRESTAZIONI =====

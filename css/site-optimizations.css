@@ -116,6 +116,53 @@ meta[name="theme-color"] {
     transform: translateY(0) scale(0.98);
 }
 
+/* ===== LAYOUT PULSANTI UNIFICATO ===== */
+
+/* Contenitori pulsanti: allineamento e spaziatura coerenti */
+.hero-cta-group,
+.filter-actions,
+.form-actions,
+.action-buttons,
+.profile-actions,
+.map-actions,
+.newsletter-input,
+.btn-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Pulsanti glass: interazioni coerenti senza cambiare stile visivo */
+.glass-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.glass-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+.glass-button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.glass-button:focus-visible {
+    outline: 3px solid #40E0D0;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(64,224,208,0.25);
+}
+
+/* Varianti dimensionali opzionali */
+.glass-button.small { padding: 8px 14px; border-radius: 10px; }
+.glass-button.large { padding: 16px 28px; border-radius: 16px; }
+
 /* Ripple effect animation */
 @keyframes ripple {
     0% {

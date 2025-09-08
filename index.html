@@ -167,7 +167,7 @@
 
     <!-- Hero Section con Parallax Glass -->
     <main id="main-content">
-    <section class="hero-glass preserve-3d gpu-accelerated">
+    <section class="hero-glass preserve-3d gpu-accelerated section-spacing-lg">
         <div class="hero-background">
             <div class="parallax-layer" data-speed="0.5">
                 <div class="bokeh-lights"></div>
@@ -176,7 +176,7 @@
         </div>
         
         <div class="hero-content preserve-3d">
-            <div class="hero-text preserve-3d">
+            <div class="hero-text preserve-3d fade-in-up">
                 <h1 class="hero-title preserve-3d">
                     <span class="title-line">Trova la tua</span>
                     <span class="title-accent animated-gradient">Auto dei Sogni</span>
@@ -504,6 +504,13 @@
     <!-- Toast Notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Floating Action Button -->
+    <button class="fab magnetic-effect" id="contactFab" aria-label="Contattaci">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+    </button>
+
     <!-- Overlay Carrello -->
     <!-- JavaScript -->
     <script src="js/unified-auth-profile.js" data-defer></script>
@@ -518,6 +525,72 @@
         function openExploreCars() {
             window.location.href = 'esplora-macchine.html';
         }
+
+        // Microinterazioni e animazioni moderne
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer per animazioni di entrata
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Osserva tutti gli elementi con classi di animazione
+            document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right').forEach(el => {
+                observer.observe(el);
+            });
+
+            // FAB (Floating Action Button) per contatti
+            const contactFab = document.getElementById('contactFab');
+            if (contactFab) {
+                contactFab.addEventListener('click', function() {
+                    window.location.href = 'contatti.html';
+                });
+            }
+
+            // Effetto ripple per tutti i pulsanti
+            document.querySelectorAll('.ripple-effect').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Toast notifications moderne
+            window.showToast = function(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `toast-notification ${type}`;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.classList.add('show'), 100);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            };
+        });
     </script>
 </body>
 </html>

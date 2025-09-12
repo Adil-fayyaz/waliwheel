@@ -4,8 +4,8 @@
  */
 
 // Import Firebase functions (as module). We also expose to window for non-module callers.
-import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged } from './firebase-config.js';
-window.firebaseAuth = { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged };
+import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithRedirect, getRedirectResult } from './firebase-config.js';
+window.firebaseAuth = { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithRedirect, getRedirectResult };
 
 class UnifiedAuthProfile {
     constructor() {
@@ -19,6 +19,22 @@ class UnifiedAuthProfile {
         this.bindEvents();
         this.updateUI();
         this.initFirebaseAuth();
+        // Handle redirect result if we returned from a redirect-based sign-in
+        if (window.firebaseAuth?.getRedirectResult) {
+            window.firebaseAuth.getRedirectResult(auth).then((res) => {
+                if (res && res.user) {
+                    this.currentUser = {
+                        uid: res.user.uid,
+                        email: res.user.email,
+                        displayName: res.user.displayName,
+                        photoURL: res.user.photoURL
+                    };
+                    this.isAuthenticated = true;
+                    this.saveUserToStorage();
+                    this.updateUI();
+                }
+            }).catch(console.warn);
+        }
     }
 
     bindEvents() {
@@ -187,9 +203,22 @@ class UnifiedAuthProfile {
         try {
             this.showLoading('Accesso con Google...');
             
-            // Firebase Google Sign In
-            const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
+            // Firebase Google Sign In with popup, fallback to redirect if blocked
+            let userCred;
+            try {
+                userCred = await signInWithPopup(auth, googleProvider);
+            } catch (popupError) {
+                if (popupError?.code === 'auth/popup-blocked' || popupError?.code === 'auth/cancelled-popup-request') {
+                    // Fallback to redirect
+                    if (window.firebaseAuth?.signInWithRedirect) {
+                        await window.firebaseAuth.signInWithRedirect(auth, googleProvider);
+                        this.hideLoading();
+                        return; // flow will resume after redirect
+                    }
+                }
+                throw popupError;
+            }
+            const user = userCred.user;
             
             // Crea l'utente con i dati Firebase
             const userData = {

@@ -1,7 +1,7 @@
 // Firebase Configuration (ES Modules via CDN)
 // Import from Firebase CDN to work without a bundler
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,4 +20,4 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 // Export for use in other files
-export { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged };
+export { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithRedirect, getRedirectResult };

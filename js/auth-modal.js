@@ -131,21 +131,35 @@
         });
 
         // Socials
-        overlay.querySelector('[data-auth-google]')?.addEventListener('click', function() {
-            // Prefer global function provided by unified auth
-            if (window.signInWithGoogle) {
-                window.signInWithGoogle();
-                return;
-            }
-            if (window.unifiedSystem && typeof window.unifiedSystem.signInWithGoogle === 'function') {
-                window.unifiedSystem.signInWithGoogle();
-                return;
-            }
-            // Fallback: directly use firebase if available
-            if (window.firebaseAuth) {
-                const { auth, googleProvider, signInWithPopup } = window.firebaseAuth;
-                signInWithPopup(auth, googleProvider).catch(console.error);
-            }
+        overlay.querySelector('[data-auth-google]')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🔥 Google button clicked!');
+            
+            // Wait a bit for modules to load
+            setTimeout(() => {
+                // Try multiple approaches
+                if (window.signInWithGoogle) {
+                    console.log('🔥 Using window.signInWithGoogle');
+                    window.signInWithGoogle();
+                } else if (window.unifiedSystem && typeof window.unifiedSystem.signInWithGoogle === 'function') {
+                    console.log('🔥 Using unifiedSystem.signInWithGoogle');
+                    window.unifiedSystem.signInWithGoogle();
+                } else if (window.firebaseAuth) {
+                    console.log('🔥 Using direct Firebase');
+                    const { auth, googleProvider, signInWithPopup } = window.firebaseAuth;
+                    signInWithPopup(auth, googleProvider).then((result) => {
+                        console.log('✅ Firebase login success:', result);
+                        // Close modal
+                        closeModal();
+                    }).catch((error) => {
+                        console.error('❌ Firebase login error:', error);
+                        alert('Errore login Google: ' + error.message);
+                    });
+                } else {
+                    console.error('❌ No auth method available');
+                    alert('Sistema di autenticazione non disponibile. Ricarica la pagina.');
+                }
+            }, 100);
         });
 
         overlay.querySelector('[data-auth-wali]')?.addEventListener('click', function() {
@@ -163,17 +177,94 @@
 
         containers.forEach(function(container) {
             if (!container) return;
-            const existing = container.querySelector('.glow-cta');
-            const profileVisible = document.getElementById('profileMenu') && getComputedStyle(document.getElementById('profileMenu')).display !== 'none';
-            if (existing || profileVisible) return;
+            
+            // Check if user is already logged in
+            const storedUser = localStorage.getItem('waliwheels_user');
+            const isLoggedIn = storedUser && JSON.parse(storedUser);
+            
+            if (isLoggedIn) {
+                // Show profile button instead
+                ensureProfileButton(container);
+            } else {
+                // Show auth button
+                const existing = container.querySelector('.glow-cta');
+                if (existing) return;
 
-            const wrapper = document.createElement('div');
-            wrapper.className = 'glow-cta';
-            wrapper.innerHTML = '<button type="button" id="openAuthModalBtn">Accedi / Registrati ✨</button>';
-            container.prepend(wrapper);
+                const wrapper = document.createElement('div');
+                wrapper.className = 'glow-cta';
+                wrapper.innerHTML = '<button type="button" id="openAuthModalBtn">Accedi / Registrati ✨</button>';
+                container.prepend(wrapper);
 
-            wrapper.querySelector('#openAuthModalBtn')?.addEventListener('click', openModal);
+                wrapper.querySelector('#openAuthModalBtn')?.addEventListener('click', openModal);
+            }
         });
+    }
+
+    function ensureProfileButton(container) {
+        const existing = container.querySelector('.profile-button-wrapper');
+        if (existing) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'profile-button-wrapper';
+        wrapper.innerHTML = `
+            <div class="profile-button" id="profileButton">
+                <div class="profile-avatar">
+                    <img src="${getUserAvatar()}" alt="Profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="avatar-fallback" style="display:none;">👤</div>
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name">${getUserName()}</span>
+                    <span class="profile-email">${getUserEmail()}</span>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="profilo.html" class="profile-link">👤 Il Mio Profilo</a>
+                    <a href="#" class="profile-link" onclick="logout()">🚪 Logout</a>
+                </div>
+            </div>
+        `;
+        container.prepend(wrapper);
+
+        // Add click handler for profile button
+        const profileBtn = wrapper.querySelector('#profileButton');
+        profileBtn?.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = wrapper.querySelector('#profileDropdown');
+            dropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!wrapper.contains(e.target)) {
+                wrapper.querySelector('#profileDropdown').classList.remove('active');
+            }
+        });
+    }
+
+    function getUserAvatar() {
+        try {
+            const user = JSON.parse(localStorage.getItem('waliwheels_user'));
+            return user?.photoURL || user?.avatar || '';
+        } catch {
+            return '';
+        }
+    }
+
+    function getUserName() {
+        try {
+            const user = JSON.parse(localStorage.getItem('waliwheels_user'));
+            return user?.displayName || user?.name || 'Utente';
+        } catch {
+            return 'Utente';
+        }
+    }
+
+    function getUserEmail() {
+        try {
+            const user = JSON.parse(localStorage.getItem('waliwheels_user'));
+            return user?.email || '';
+        } catch {
+            return '';
+        }
     }
 
     // Public global bindings to keep compatibility
@@ -188,8 +279,17 @@
     });
 
     // Also ensure after unified system initializes UI (e.g., toggling profile/auth containers)
-    window.addEventListener('userLoggedIn', ensureAuthButton);
-    window.addEventListener('userLoggedOut', ensureAuthButton);
+    window.addEventListener('userLoggedIn', function() {
+        // Clear existing buttons and show profile
+        document.querySelectorAll('.glow-cta').forEach(el => el.remove());
+        ensureAuthButton();
+    });
+    
+    window.addEventListener('userLoggedOut', function() {
+        // Clear existing profile and show auth button
+        document.querySelectorAll('.profile-button-wrapper').forEach(el => el.remove());
+        ensureAuthButton();
+    });
 })();
 
 

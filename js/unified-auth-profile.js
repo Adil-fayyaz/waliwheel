@@ -73,19 +73,14 @@ class UnifiedAuthProfile {
 
     // Google OAuth Initialization
     initFirebaseAuth() {
-        console.log('🔥 Initializing Firebase Auth...');
         // Firebase Auth State Listener
         onAuthStateChanged(auth, (user) => {
-            console.log('🔥 Firebase Auth State Changed:', user);
             if (user) {
                 this.currentUser = {
                     uid: user.uid,
                     email: user.email,
                     displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    firstName: user.displayName?.split(' ')[0] || 'Utente',
-                    lastName: user.displayName?.split(' ').slice(1).join(' ') || 'Google',
-                    name: user.displayName || 'Utente Google'
+                    photoURL: user.photoURL
                 };
                 this.isAuthenticated = true;
                 this.saveUserToStorage();
@@ -206,19 +201,14 @@ class UnifiedAuthProfile {
 
     async signInWithGoogle() {
         try {
-            console.log('🚀 Starting Google Sign In...');
             this.showLoading('Accesso con Google...');
             
             // Firebase Google Sign In with popup, fallback to redirect if blocked
             let userCred;
             try {
-                console.log('🔄 Attempting popup sign in...');
                 userCred = await signInWithPopup(auth, googleProvider);
-                console.log('✅ Popup sign in successful:', userCred);
             } catch (popupError) {
-                console.log('❌ Popup error:', popupError);
                 if (popupError?.code === 'auth/popup-blocked' || popupError?.code === 'auth/cancelled-popup-request') {
-                    console.log('🔄 Falling back to redirect...');
                     // Fallback to redirect
                     if (window.firebaseAuth?.signInWithRedirect) {
                         await window.firebaseAuth.signInWithRedirect(auth, googleProvider);
@@ -248,6 +238,11 @@ class UnifiedAuthProfile {
 
             this.loginSuccess(userData);
             this.showToast(`Accesso con Google completato! Benvenuto ${userData.name}!`, 'success');
+            
+            // Close modal and update UI
+            if (window.closeAuthModal) {
+                window.closeAuthModal();
+            }
             
         } catch (error) {
             console.error('Errore login Google:', error);
@@ -415,18 +410,10 @@ class UnifiedAuthProfile {
         const authContainer = document.getElementById('authContainer');
         const profileMenu = document.getElementById('profileMenu');
         
-        console.log('🔄 updateUI called - isAuthenticated:', this.isAuthenticated, 'currentUser:', this.currentUser);
-        
         if (this.isAuthenticated && this.currentUser) {
             // Show profile menu, hide auth container
-            if (profileMenu) {
-                profileMenu.style.display = 'block';
-                console.log('✅ Profile menu shown');
-            }
-            if (authContainer) {
-                authContainer.style.display = 'none';
-                console.log('✅ Auth container hidden');
-            }
+            if (profileMenu) profileMenu.style.display = 'block';
+            if (authContainer) authContainer.style.display = 'none';
             
             // Update profile info
             this.updateProfileInfo();
@@ -435,14 +422,8 @@ class UnifiedAuthProfile {
             this.populateProfileForm();
         } else {
             // Show auth container, hide profile menu
-            if (profileMenu) {
-                profileMenu.style.display = 'none';
-                console.log('✅ Profile menu hidden');
-            }
-            if (authContainer) {
-                authContainer.style.display = 'block';
-                console.log('✅ Auth container shown');
-            }
+            if (profileMenu) profileMenu.style.display = 'none';
+            if (authContainer) authContainer.style.display = 'block';
         }
     }
 

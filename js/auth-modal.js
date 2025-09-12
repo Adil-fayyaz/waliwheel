@@ -180,12 +180,31 @@
             
             // Check if user is already logged in
             const storedUser = localStorage.getItem('waliwheels_user');
-            const isLoggedIn = storedUser && JSON.parse(storedUser);
+            let isLoggedIn = false;
+            
+            try {
+                const userData = storedUser ? JSON.parse(storedUser) : null;
+                isLoggedIn = userData && (userData.email || userData.uid);
+                console.log('🔍 Auth check - storedUser:', storedUser, 'isLoggedIn:', isLoggedIn);
+            } catch (e) {
+                console.error('Error parsing user data:', e);
+                isLoggedIn = false;
+            }
             
             if (isLoggedIn) {
+                console.log('✅ User is logged in, showing profile button');
+                // Remove existing auth button
+                const existingAuth = container.querySelector('.glow-cta');
+                if (existingAuth) existingAuth.remove();
+                
                 // Show profile button instead
                 ensureProfileButton(container);
             } else {
+                console.log('❌ User is not logged in, showing auth button');
+                // Remove existing profile button
+                const existingProfile = container.querySelector('.profile-button-wrapper');
+                if (existingProfile) existingProfile.remove();
+                
                 // Show auth button
                 const existing = container.querySelector('.glow-cta');
                 if (existing) return;
@@ -266,6 +285,33 @@
             return '';
         }
     }
+
+    // Force UI update function
+    window.updateAuthUI = function() {
+        console.log('🔄 Force updating auth UI...');
+        ensureAuthButton();
+    };
+
+    // Test function to simulate login
+    window.testLogin = function() {
+        const testUser = {
+            uid: 'test123',
+            email: 'test@example.com',
+            displayName: 'Test User',
+            photoURL: 'https://via.placeholder.com/40',
+            name: 'Test User'
+        };
+        localStorage.setItem('waliwheels_user', JSON.stringify(testUser));
+        window.updateAuthUI();
+        console.log('✅ Test login applied');
+    };
+
+    // Test function to simulate logout
+    window.testLogout = function() {
+        localStorage.removeItem('waliwheels_user');
+        window.updateAuthUI();
+        console.log('✅ Test logout applied');
+    };
 
     // Public global bindings to keep compatibility
     window.openAuthModal = openModal;

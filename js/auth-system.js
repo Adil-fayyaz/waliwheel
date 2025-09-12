@@ -15,6 +15,10 @@ class AuthSystem {
 
     init() {
         console.log('🚀 Initializing Auth System...');
+        
+        // Debug iniziale della configurazione
+        this.debugFirebaseConfig();
+        
         this.loadUserFromStorage();
         this.initFirebaseAuth();
         this.updateUI();
@@ -104,10 +108,29 @@ class AuthSystem {
                 console.log('✅ Popup sign in successful');
             } catch (popupError) {
                 console.log('⚠️ Popup failed, trying redirect:', popupError);
+                
+                // Gestione errori specifici del popup
                 if (popupError.code === 'auth/popup-blocked') {
+                    console.log('🔄 Popup bloccato, tentativo con redirect...');
+                    this.showToast('Popup bloccato. Reindirizzamento...', 'info');
                     await signInWithRedirect(auth, googleProvider);
                     return; // Redirect will handle the rest
+                } else if (popupError.code === 'auth/popup-closed-by-user') {
+                    this.showToast('Accesso annullato dall\'utente', 'info');
+                    return;
+                } else if (popupError.code === 'auth/unauthorized-domain') {
+                    this.showToast(`Dominio non autorizzato: ${location.hostname}. Aggiungi questo dominio in Firebase Console.`, 'error');
+                    console.warn('🔧 Aggiungi questo dominio in Firebase Authentication → Domini autorizzati:', location.hostname);
+                    return;
+                } else if (popupError.code === 'auth/operation-not-allowed') {
+                    this.showToast('Provider Google non abilitato in Firebase Console.', 'error');
+                    console.warn('🔧 Abilita Google provider in Firebase Authentication → Sign-in method');
+                    return;
+                } else if (popupError.code === 'auth/network-request-failed') {
+                    this.showToast('Errore di rete. Controlla la connessione internet.', 'error');
+                    return;
                 }
+                
                 throw popupError;
             }
 
@@ -133,11 +156,34 @@ class AuthSystem {
             console.error('❌ Google Sign In Error:', error);
             let message = 'Errore durante l\'accesso con Google';
             
-            if (error.code === 'auth/popup-closed-by-user') {
-                message = 'Accesso annullato';
-            } else if (error.code === 'auth/unauthorized-domain') {
-                message = `Dominio non autorizzato: ${location.hostname}`;
-                console.warn('🔧 Aggiungi questo dominio in Firebase Authentication → Domini autorizzati');
+            // Gestione errori dettagliata
+            switch (error.code) {
+                case 'auth/popup-closed-by-user':
+                    message = 'Accesso annullato dall\'utente';
+                    break;
+                case 'auth/popup-blocked':
+                    message = 'Popup bloccato dal browser. Prova a disabilitare il blocco popup.';
+                    break;
+                case 'auth/unauthorized-domain':
+                    message = `Dominio non autorizzato: ${location.hostname}`;
+                    console.warn('🔧 Aggiungi questo dominio in Firebase Authentication → Domini autorizzati:', location.hostname);
+                    break;
+                case 'auth/operation-not-allowed':
+                    message = 'Provider Google non abilitato in Firebase Console.';
+                    console.warn('🔧 Abilita Google provider in Firebase Authentication → Sign-in method');
+                    break;
+                case 'auth/network-request-failed':
+                    message = 'Errore di rete. Controlla la connessione internet.';
+                    break;
+                case 'auth/too-many-requests':
+                    message = 'Troppi tentativi. Riprova più tardi.';
+                    break;
+                case 'auth/user-disabled':
+                    message = 'Account utente disabilitato.';
+                    break;
+                default:
+                    message = `Errore: ${error.message}`;
+                    console.error('Errore completo:', error);
             }
             
             this.showToast(message, 'error');
@@ -200,6 +246,40 @@ class AuthSystem {
             alert(message);
         }
     }
+
+    // Funzione di debug per verificare la configurazione
+    debugFirebaseConfig() {
+        console.log('🔍 DEBUG FIREBASE CONFIGURATION:');
+        console.log('📍 Current domain:', location.hostname);
+        console.log('🔗 Current URL:', location.href);
+        console.log('🌐 Protocol:', location.protocol);
+        console.log('🔥 Firebase Auth:', auth);
+        console.log('🔑 Google Provider:', googleProvider);
+        console.log('👤 Current User:', auth.currentUser);
+        console.log('📱 User Agent:', navigator.userAgent);
+        
+        // Verifica se Firebase è inizializzato correttamente
+        if (auth) {
+            console.log('✅ Firebase Auth inizializzato correttamente');
+        } else {
+            console.error('❌ Firebase Auth NON inizializzato');
+        }
+        
+        if (googleProvider) {
+            console.log('✅ Google Provider inizializzato correttamente');
+        } else {
+            console.error('❌ Google Provider NON inizializzato');
+        }
+        
+        return {
+            domain: location.hostname,
+            url: location.href,
+            protocol: location.protocol,
+            firebaseAuth: !!auth,
+            googleProvider: !!googleProvider,
+            currentUser: auth?.currentUser
+        };
+    }
 }
 
 // Create global instance
@@ -209,4 +289,13 @@ window.authSystem = new AuthSystem();
 window.signInWithGoogle = () => window.authSystem.signInWithGoogle();
 window.logout = () => window.authSystem.logout();
 
+// Debug functions
+window.debugAuth = () => window.authSystem.debugFirebaseConfig();
+window.testGoogleLogin = () => window.authSystem.signInWithGoogle();
+
 console.log('✅ Auth System initialized');
+console.log('🔧 Debug functions available:');
+console.log('  - debugAuth() - Verifica configurazione Firebase');
+console.log('  - testGoogleLogin() - Testa login Google');
+console.log('  - signInWithGoogle() - Login Google');
+console.log('  - logout() - Logout');

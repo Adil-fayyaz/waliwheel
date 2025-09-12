@@ -304,11 +304,6 @@ class UnifiedAuthProfile {
         
         // Dispatch event
         window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
-        
-        // Force update auth modal UI
-        if (window.updateAuthUI) {
-            setTimeout(() => window.updateAuthUI(), 100);
-        }
     }
 
     saveUserToStorage() {

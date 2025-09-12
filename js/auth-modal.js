@@ -178,18 +178,18 @@
         containers.forEach(function(container) {
             if (!container) return;
             
-            // Check if user is already logged in
-            const storedUser = localStorage.getItem('waliwheels_user');
-            let isLoggedIn = false;
-            
-            try {
-                const userData = storedUser ? JSON.parse(storedUser) : null;
-                isLoggedIn = userData && (userData.email || userData.uid);
-                console.log('🔍 Auth check - storedUser:', storedUser, 'isLoggedIn:', isLoggedIn);
-            } catch (e) {
-                console.error('Error parsing user data:', e);
-                isLoggedIn = false;
-            }
+             // Check if user is already logged in
+             const storedUser = localStorage.getItem('waliwheels_user');
+             let isLoggedIn = false;
+             
+             try {
+                 const userData = storedUser ? JSON.parse(storedUser) : null;
+                 isLoggedIn = userData && (userData.email || userData.uid);
+                 console.log('🔍 Auth check - storedUser:', storedUser, 'isLoggedIn:', isLoggedIn);
+             } catch (e) {
+                 console.error('Error parsing user data:', e);
+                 isLoggedIn = false;
+             }
             
             if (isLoggedIn) {
                 console.log('✅ User is logged in, showing profile button');
@@ -286,36 +286,36 @@
         }
     }
 
-    // Force UI update function
-    window.updateAuthUI = function() {
-        console.log('🔄 Force updating auth UI...');
-        ensureAuthButton();
-    };
+     // Force UI update function
+     window.updateAuthUI = function() {
+         console.log('🔄 Force updating auth UI...');
+         ensureAuthButton();
+     };
 
-    // Test function to simulate login
-    window.testLogin = function() {
-        const testUser = {
-            uid: 'test123',
-            email: 'test@example.com',
-            displayName: 'Test User',
-            photoURL: 'https://via.placeholder.com/40',
-            name: 'Test User'
-        };
-        localStorage.setItem('waliwheels_user', JSON.stringify(testUser));
-        window.updateAuthUI();
-        console.log('✅ Test login applied');
-    };
+     // Test function to simulate login
+     window.testLogin = function() {
+         const testUser = {
+             uid: 'test123',
+             email: 'test@example.com',
+             displayName: 'Test User',
+             photoURL: 'https://via.placeholder.com/40',
+             name: 'Test User'
+         };
+         localStorage.setItem('waliwheels_user', JSON.stringify(testUser));
+         window.updateAuthUI();
+         console.log('✅ Test login applied');
+     };
 
-    // Test function to simulate logout
-    window.testLogout = function() {
-        localStorage.removeItem('waliwheels_user');
-        window.updateAuthUI();
-        console.log('✅ Test logout applied');
-    };
+     // Test function to simulate logout
+     window.testLogout = function() {
+         localStorage.removeItem('waliwheels_user');
+         window.updateAuthUI();
+         console.log('✅ Test logout applied');
+     };
 
-    // Public global bindings to keep compatibility
-    window.openAuthModal = openModal;
-    window.closeAuthModal = closeModal;
+     // Public global bindings to keep compatibility
+     window.openAuthModal = openModal;
+     window.closeAuthModal = closeModal;
 
     // Initialize when DOM ready
     document.addEventListener('DOMContentLoaded', function() {

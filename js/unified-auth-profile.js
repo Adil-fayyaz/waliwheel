@@ -1,17 +1,15 @@
 /**
- * Wali Wheels - Unified Authentication & Profile System
- * Sistema unificato per autenticazione e gestione profilo
+ * Wali Wheels - Unified Authentication & Profile System with Firebase
+ * Sistema unificato per autenticazione e gestione profilo con Firebase
  */
 
-// Google OAuth Configuration
-const GOOGLE_CLIENT_ID = '746323229250-lbmdfoccdu1peof606v45db7p6gpnmtn.apps.googleusercontent.com';
-const GOOGLE_SCOPES = 'email profile';
+// Import Firebase functions
+import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged } from './firebase-config.js';
 
 class UnifiedAuthProfile {
     constructor() {
         this.currentUser = null;
         this.isAuthenticated = false;
-        this.googleAuth = null;
         this.init();
     }
 
@@ -19,7 +17,7 @@ class UnifiedAuthProfile {
         this.loadUserFromStorage();
         this.bindEvents();
         this.updateUI();
-        this.initGoogleAuth();
+        this.initFirebaseAuth();
     }
 
     bindEvents() {
@@ -57,31 +55,26 @@ class UnifiedAuthProfile {
     }
 
     // Google OAuth Initialization
-    initGoogleAuth() {
-        // Load Google OAuth script
-        if (!window.gapi) {
-            const script = document.createElement('script');
-            script.src = 'https://apis.google.com/js/api.js';
-            script.onload = () => {
-                this.setupGoogleAuth();
-            };
-            document.head.appendChild(script);
-        } else {
-            this.setupGoogleAuth();
-        }
-    }
-
-    setupGoogleAuth() {
-        gapi.load('auth2', () => {
-            gapi.auth2.init({
-                client_id: GOOGLE_CLIENT_ID,
-                scope: GOOGLE_SCOPES
-            }).then((auth2) => {
-                this.googleAuth = auth2;
-                console.log('✅ Google OAuth inizializzato con successo');
-            }).catch((error) => {
-                console.error('❌ Errore inizializzazione Google OAuth:', error);
-            });
+    initFirebaseAuth() {
+        // Firebase Auth State Listener
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.currentUser = {
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                };
+                this.isAuthenticated = true;
+                this.saveUserToStorage();
+                console.log('✅ Utente Firebase autenticato:', this.currentUser);
+            } else {
+                this.currentUser = null;
+                this.isAuthenticated = false;
+                this.clearUserFromStorage();
+                console.log('❌ Utente Firebase non autenticato');
+            }
+            this.updateUI();
         });
     }
 
@@ -191,40 +184,34 @@ class UnifiedAuthProfile {
 
     async signInWithGoogle() {
         try {
-            if (!this.googleAuth) {
-                throw new Error('Google OAuth non ancora inizializzato');
-            }
-
             this.showLoading('Accesso con Google...');
             
-            // Esegui il login con Google
-            const googleUser = await this.googleAuth.signIn();
-            const profile = googleUser.getBasicProfile();
-            const authResponse = googleUser.getAuthResponse();
+            // Firebase Google Sign In
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
             
-            // Crea l'utente con i dati reali di Google
-            const user = {
-                id: this.generateId(),
-                email: profile.getEmail(),
-                firstName: profile.getGivenName() || 'Utente',
-                lastName: profile.getFamilyName() || 'Google',
-                name: profile.getName() || 'Utente Google',
+            // Crea l'utente con i dati Firebase
+            const userData = {
+                id: user.uid,
+                email: user.email,
+                firstName: user.displayName?.split(' ')[0] || 'Utente',
+                lastName: user.displayName?.split(' ').slice(1).join(' ') || 'Google',
+                name: user.displayName || 'Utente Google',
                 phone: '+39 123 456 789',
                 address: 'Via Roma 123, Milano',
-                avatar: profile.getImageUrl() || this.generateAvatar('google'),
+                avatar: user.photoURL || this.generateAvatar('google'),
                 loginMethod: 'google',
-                googleId: profile.getId(),
-                accessToken: authResponse.access_token,
+                googleId: user.uid,
                 createdAt: new Date().toISOString(),
                 lastLogin: new Date().toISOString()
             };
 
-            this.loginSuccess(user);
-            this.showToast(`Accesso con Google completato! Benvenuto ${user.name}!`, 'success');
+            this.loginSuccess(userData);
+            this.showToast(`Accesso con Google completato! Benvenuto ${userData.name}!`, 'success');
             
         } catch (error) {
             console.error('Errore login Google:', error);
-            if (error.error === 'popup_closed_by_user') {
+            if (error.code === 'auth/popup-closed-by-user') {
                 this.showToast('Accesso annullato dall\'utente', 'info');
             } else {
                 this.showToast('Errore durante l\'accesso con Google. Riprova.', 'error');
@@ -284,31 +271,42 @@ class UnifiedAuthProfile {
         window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
     }
 
-    logout() {
-        if (confirm('Effettuare il logout?')) {
-            // Logout da Google se l'utente ha fatto login con Google
-            if (this.currentUser?.loginMethod === 'google' && this.googleAuth) {
-                this.googleAuth.signOut().then(() => {
-                    console.log('✅ Logout Google completato');
-                }).catch((error) => {
-                    console.error('❌ Errore logout Google:', error);
-                });
-            }
+    saveUserToStorage() {
+        if (this.currentUser) {
+            localStorage.setItem('waliwheels_user', JSON.stringify(this.currentUser));
+        }
+    }
 
-            this.currentUser = null;
-            this.isAuthenticated = false;
-            
-            // Remove from localStorage
-            localStorage.removeItem('waliwheels_user');
-            
-            // Update UI
-            this.updateUI();
-            
-            // Show toast
-            this.showToast('Logout effettuato con successo!', 'info');
-            
-            // Dispatch event
-            window.dispatchEvent(new CustomEvent('userLoggedOut'));
+    clearUserFromStorage() {
+        localStorage.removeItem('waliwheels_user');
+    }
+
+    async logout() {
+        if (confirm('Effettuare il logout?')) {
+            try {
+                // Firebase logout
+                await signOut(auth);
+                console.log('✅ Logout Firebase completato');
+                
+                this.currentUser = null;
+                this.isAuthenticated = false;
+                
+                // Remove from localStorage
+                localStorage.removeItem('waliwheels_user');
+                
+                // Update UI
+                this.updateUI();
+                
+                // Show toast
+                this.showToast('Logout effettuato con successo!', 'info');
+                
+                // Dispatch event
+                window.dispatchEvent(new CustomEvent('userLoggedOut'));
+                
+            } catch (error) {
+                console.error('❌ Errore logout Firebase:', error);
+                this.showToast('Errore durante il logout', 'error');
+            }
         }
     }
 

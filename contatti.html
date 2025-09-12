@@ -380,8 +380,13 @@
     <!-- Modal injected globally by js/auth-modal.js -->
 
     <!-- Scripts -->
-    <script src="js/unified-auth-profile.js" data-defer></script>
-    <script src="js/auth-modal.js" data-defer></script>
+    <!-- Firebase -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    
+    <!-- JavaScript -->
+    <script type="module" src="js/firebase-auth.js"></script>
+    <script src="js/simple-auth.js"></script>
     <script src="js/ultra-modern-buttons.js" data-defer></script>
     <script src="js/site-optimizer.js" data-defer></script>
     <script src="js/cookie-manager.js" data-defer></script>

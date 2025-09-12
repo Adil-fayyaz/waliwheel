@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login con Google - Firebase v9 (Static)</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0b1220">
+</head>
+<body>
+    <main class="container">
+        <section class="panel">
+            <h1 class="title">Autenticazione con Google</h1>
+            <p class="subtitle">Firebase Authentication (CDN v9) - Sito statico</p>
+
+            <div id="authArea">
+                <button id="googleBtn" class="btn primary">Accedi con Google</button>
+                <p class="hint">Se il popup è bloccato, useremo il reindirizzamento automatico.</p>
+                <div id="errorBox" class="error" hidden></div>
+            </div>
+
+            <div id="profileArea" class="profile" hidden>
+                <img id="userPhoto" alt="Foto profilo" class="avatar" />
+                <div class="details">
+                    <div id="userName" class="name"></div>
+                    <div id="userEmail" class="email"></div>
+                </div>
+                <button id="logoutBtn" class="btn ghost">Esci</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Guida rapida:</p>
+            <ol>
+                <li>Apri Firebase Console → Authentication → Metodo di accesso → abilita Google.</li>
+                <li>Impostazioni Authentication → <strong>Domini autorizzati</strong> → aggiungi il dominio Vercel (es. <code>mio-progetto.vercel.app</code>).</li>
+                <li>Apri il tuo progetto → Impostazioni (icona ingranaggio) → Configura app Web → copia l'<code>firebaseConfig</code> e incollalo in <code>app.js</code> dove indicato.</li>
+            </ol>
+        </footer>
+    </main>
+
+    <!-- Firebase v9 CDN (modular) -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+
+    <!-- App -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+
+

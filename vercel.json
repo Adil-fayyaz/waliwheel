@@ -20,6 +20,10 @@
   ],
   "rewrites": [
     {
+      "source": "/__/auth/(.*)",
+      "destination": "https://log-in-33798.firebaseapp.com/__/auth/$1"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     },

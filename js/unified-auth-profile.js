@@ -3,8 +3,9 @@
  * Sistema unificato per autenticazione e gestione profilo con Firebase
  */
 
-// Import Firebase functions
+// Import Firebase functions (as module). We also expose to window for non-module callers.
 import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged } from './firebase-config.js';
+window.firebaseAuth = { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged };
 
 class UnifiedAuthProfile {
     constructor() {
@@ -577,58 +578,22 @@ class UnifiedAuthProfile {
 // Initialize Unified System
 const unifiedSystem = new UnifiedAuthProfile();
 
-// Global Functions for HTML onclick
-function openAuthModal() {
-    unifiedSystem.openAuthModal();
-}
-
-function closeAuthModal() {
-    unifiedSystem.closeAuthModal();
-}
-
-function switchAuthTab(tab) {
-    unifiedSystem.switchAuthTab(tab);
-}
-
-function signInWithGoogle() {
-    unifiedSystem.signInWithGoogle();
-}
-
-function signInWithMicrosoft() {
-    unifiedSystem.signInWithMicrosoft();
-}
-
-function toggleProfileMenu() {
-    unifiedSystem.toggleProfileMenu();
-}
-
-function performLogout() {
-    unifiedSystem.logout();
-}
-
-function resetForm() {
-    unifiedSystem.resetForm();
-}
-
-function changePassword() {
-    unifiedSystem.changePassword();
-}
-
-function exportData() {
-    unifiedSystem.exportData();
-}
-
-function deleteAccount() {
-    unifiedSystem.deleteAccount();
-}
-
-function closeDeleteModal() {
-    unifiedSystem.closeDeleteModal();
-}
-
-function confirmDeleteAccount() {
-    unifiedSystem.confirmDeleteAccount();
-}
+// Expose globals so non-module HTML and other scripts can call them
+window.unifiedSystem = unifiedSystem;
+window.openAuthModal = () => unifiedSystem.openAuthModal();
+window.closeAuthModal = () => unifiedSystem.closeAuthModal();
+window.switchAuthTab = (tab) => unifiedSystem.switchAuthTab(tab);
+window.signInWithGoogle = () => unifiedSystem.signInWithGoogle();
+window.signInWithMicrosoft = () => unifiedSystem.signInWithMicrosoft();
+window.toggleProfileMenu = () => unifiedSystem.toggleProfileMenu();
+window.performLogout = () => unifiedSystem.logout();
+window.logout = () => unifiedSystem.logout();
+window.resetForm = () => unifiedSystem.resetForm();
+window.changePassword = () => unifiedSystem.changePassword();
+window.exportData = () => unifiedSystem.exportData();
+window.deleteAccount = () => unifiedSystem.deleteAccount();
+window.closeDeleteModal = () => unifiedSystem.closeDeleteModal();
+window.confirmDeleteAccount = () => unifiedSystem.confirmDeleteAccount();
 
 // Close modals when clicking outside
 document.addEventListener('click', (e) => {

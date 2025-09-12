@@ -132,10 +132,19 @@
 
         // Socials
         overlay.querySelector('[data-auth-google]')?.addEventListener('click', function() {
+            // Prefer global function provided by unified auth
             if (window.signInWithGoogle) {
                 window.signInWithGoogle();
-            } else if (window.unifiedSystem && typeof window.unifiedSystem.signInWithGoogle === 'function') {
+                return;
+            }
+            if (window.unifiedSystem && typeof window.unifiedSystem.signInWithGoogle === 'function') {
                 window.unifiedSystem.signInWithGoogle();
+                return;
+            }
+            // Fallback: directly use firebase if available
+            if (window.firebaseAuth) {
+                const { auth, googleProvider, signInWithPopup } = window.firebaseAuth;
+                signInWithPopup(auth, googleProvider).catch(console.error);
             }
         });
 

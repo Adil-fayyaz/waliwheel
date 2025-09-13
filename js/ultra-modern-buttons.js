@@ -47,7 +47,7 @@ class UltraModernButtons {
 
     initializeButtons() {
         // Add default classes to existing buttons
-        const buttons = document.querySelectorAll('button, .btn, .glass-button, .cta, a[href][data-button]');
+        const buttons = document.querySelectorAll('button, .btn, .glass-button, a[href]');
         
         buttons.forEach(button => {
             if (!button.classList.contains('btn-ultra-modern')) {
@@ -60,7 +60,7 @@ class UltraModernButtons {
                 }
 
                 // Add ultra-modern classes
-                button.classList.add('btn-ultra-modern', 'shimmer', 'magnetic', 'ripple');
+                button.classList.add('btn-ultra-modern', 'shimmer', 'magnetic');
                 
                 // Add appropriate variant based on existing classes
                 if (button.classList.contains('primary')) {
@@ -91,6 +91,12 @@ class UltraModernButtons {
 
                 // Add icons if needed
                 this.addIconsToButtons(button);
+
+                // Ensure accessible labels
+                if (!button.getAttribute('aria-label')) {
+                    const text = (button.textContent || '').trim();
+                    if (text) button.setAttribute('aria-label', text);
+                }
             }
         });
     }
@@ -183,7 +189,14 @@ class UltraModernButtons {
             </svg>
         `;
         contactBtn.title = 'Contattaci';
-        contactBtn.onclick = () => window.location.href = 'contatti.html';
+        contactBtn.onclick = () => {
+            const link = document.querySelector('a[href*="contatti"], a[href*="contact"], a[href*="support"]');
+            if (link) {
+                link.click();
+            } else {
+                window.location.href = 'contatti.html';
+            }
+        };
         
         document.body.appendChild(contactBtn);
     }

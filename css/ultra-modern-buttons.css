@@ -7,17 +7,17 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 22px;
+    padding: 14px 28px;
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-decoration: none;
     border: none;
-    border-radius: 14px;
+    border-radius: 16px;
     cursor: pointer;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #40E0D0 0%, #36c9b0 100%);
     color: white;
     box-shadow: 
         0 8px 25px rgba(64, 224, 208, 0.4),
@@ -53,7 +53,7 @@
 
 /* Varianti di Colore */
 .btn-ultra-modern.primary {
-    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #40E0D0 0%, #36c9b0 100%);
     box-shadow: 
         0 8px 25px rgba(64, 224, 208, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.1),
@@ -68,7 +68,7 @@
 }
 
 .btn-ultra-modern.secondary {
-    background: linear-gradient(135deg, #7c3aed 0%, #4338ca 100%);
+    background: linear-gradient(135deg, #40E0D0 0%, #36c9b0 100%);
 }
 
 .btn-ultra-modern.danger {
@@ -428,3 +428,41 @@
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
+
+/* --- Add-on: Varianti e dimensioni aggiuntive, toolbar e accessibilità --- */
+
+/* Varianti informative */
+.btn-ultra-modern.info {
+    background: linear-gradient(135deg, #3b82f6 0%, #22d3ee 100%);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
+}
+
+.btn-ultra-modern.warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.35);
+}
+
+.btn-ultra-modern.success-strong {
+    background: linear-gradient(135deg, #10b981 0%, #22c55e 100%);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
+}
+
+/* Dimensioni aggiuntive */
+.btn-ultra-modern.xsmall { padding: 6px 12px; font-size: 0.78rem; border-radius: 10px; }
+.btn-ultra-modern.medium { padding: 14px 28px; font-size: 1rem; }
+.btn-ultra-modern.xlarge { padding: 22px 42px; font-size: 1.2rem; border-radius: 22px; }
+
+/* Toolbar / bar dei pulsanti */
+.btn-toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn-toolbar .btn-ultra-modern { flex: 0 0 auto; }
+
+/* Icon helpers */
+.btn-ultra-modern .icon-left { margin-right: 8px; display: inline-flex; }
+.btn-ultra-modern .icon-right { margin-left: 8px; display: inline-flex; }
+
+/* Stato aria-pressed per toggle */
+.btn-ultra-modern[aria-pressed="true"] { filter: brightness(1.08); box-shadow: 0 12px 32px rgba(64, 224, 208, 0.5); }
+
+/* Miglior leggibilità label */
+.btn-ultra-modern .btn-label { font-weight: 700; letter-spacing: .2px; }
+

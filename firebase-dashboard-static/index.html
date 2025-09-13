@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Google Login + Dashboard (Static)</title>
+    <meta name="theme-color" content="#0b1220">
+
+    <!-- Stili -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <section class="panel">
+            <header class="header">
+                <div class="brand">
+                    <div class="logo">🚗</div>
+                    <div class="brand-text">
+                        <h1 class="title">Wali Wheels</h1>
+                        <p class="subtitle">Demo: Login con Google + Dashboard</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stato/errore -->
+            <div id="status" class="status" hidden></div>
+
+            <!-- Vista Login -->
+            <section id="loginView" class="view">
+                <p class="muted">Accedi per vedere la tua dashboard utente</p>
+                <button id="googleLoginBtn" class="btn primary">Accedi con Google</button>
+                <p class="hint">Se il popup è bloccato, useremo automaticamente il reindirizzamento.</p>
+
+                <details class="help">
+                    <summary>Come configurare Firebase (necessario)</summary>
+                    <ol>
+                        <li>In Firebase Console → Authentication → Metodo di accesso → abilita Google.</li>
+                        <li>Authentication → <strong>Impostazioni</strong> → aggiungi il tuo dominio (es. <code>progetto.vercel.app</code>) ai <strong>Domini autorizzati</strong>.</li>
+                        <li>Impostazioni progetto (icona ingranaggio) → App Web → copia l'<code>firebaseConfig</code> e incollalo in <code>app.js</code> dove indicato.</li>
+                    </ol>
+                </details>
+            </section>
+
+            <!-- Vista Dashboard -->
+            <section id="dashboardView" class="view" hidden>
+                <div class="profile">
+                    <img id="userPhoto" class="avatar" alt="Foto profilo">
+                    <div class="details">
+                        <div class="name-row">
+                            <span id="userName" class="name"></span>
+                            <button id="logoutBtn" class="btn ghost">Esci</button>
+                        </div>
+                        <div class="email" id="userEmail"></div>
+                        <div class="uid"><span class="label">UID:</span> <span id="userUid"></span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">La tua bio</h2>
+                    <p class="muted">Scrivi qualcosa su di te. I dati vengono salvati su Firestore nel documento <code>users/{uid}</code>.</p>
+                    <form id="bioForm" class="form">
+                        <textarea id="bioInput" class="textarea" rows="4" placeholder="Scrivi la tua bio..."></textarea>
+                        <div class="actions">
+                            <button type="submit" class="btn primary" id="saveBioBtn">Salva</button>
+                            <span id="saveState" class="save-state" aria-live="polite"></span>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </section>
+
+        <footer class="footer">
+            <p class="muted">Questo è un progetto statico: puoi caricare semplicemente questi file su Vercel (nessuna build necessaria).</p>
+        </footer>
+    </main>
+
+    <!-- SDK Firebase v9+ (modular) via CDN: importati all'interno di app.js tramite type="module" -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+
+

@@ -122,7 +122,7 @@
             }
         });
 
-        
+        // (Rimosso) Pulsante Waliwheel non utilizzato
     }
 
     function ensureAuthButton() {

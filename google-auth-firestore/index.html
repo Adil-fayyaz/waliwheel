@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase v9 - Login Google + Firestore (Static)</title>
+    <meta name="description" content="Demo statica: Login con Google e salvataggio Bio su Firestore usando Firebase v9 (modular CDN).">
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0b1220">
+</head>
+<body>
+    <header class="app-header glass">
+        <div class="brand">🔒 Firebase Demo</div>
+        <nav class="actions">
+            <!-- Profilo visibile dopo login -->
+            <button id="profileButton" class="profile-btn hidden" aria-expanded="false" aria-haspopup="true">
+                <img id="profileAvatar" class="avatar" alt="Avatar" />
+                <span id="profileNameShort" class="profile-name-short"></span>
+                <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div id="profileDropdown" class="dropdown hidden" role="menu">
+                <div class="dropdown__header">
+                    <img id="ddAvatar" class="avatar" alt="Avatar" />
+                    <div class="dd__info">
+                        <div id="ddName" class="dd__name"></div>
+                        <div id="ddEmail" class="dd__email"></div>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn btn--logout" role="menuitem">Esci</button>
+            </div>
+
+            <!-- Pulsante Login visibile da guest -->
+            <button id="googleBtn" class="btn btn--google">Accedi con Google</button>
+        </nav>
+    </header>
+
+    <main class="wrapper">
+        <!-- Schermata di stato / messaggi -->
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <!-- Schermata login (solo informativa, il pulsante è nell'header) -->
+        <section id="loginScreen" class="card glass">
+            <h1 class="title">Accedi per continuare</h1>
+            <p class="subtitle">Usa il pulsante in alto a destra "Accedi con Google". Se i popup sono bloccati useremo in automatico il reindirizzamento.</p>
+        </section>
+
+        <!-- Dashboard utente -->
+        <section id="dashboard" class="card glass hidden" aria-labelledby="dashTitle">
+            <h2 id="dashTitle" class="title">User Dashboard</h2>
+            <div class="grid">
+                <div class="profile-card">
+                    <img id="avatar" class="avatar avatar--xl" alt="Foto profilo" />
+                    <div class="profile-fields">
+                        <div class="row"><span class="label">Nome</span><span id="displayName" class="value"></span></div>
+                        <div class="row"><span class="label">Email</span><span id="email" class="value"></span></div>
+                        <div class="row"><span class="label">UID</span><span id="uid" class="value value--mono"></span></div>
+                    </div>
+                </div>
+
+                <form id="bioForm" class="bio-card" autocomplete="off">
+                    <label for="bio" class="label">La tua bio</label>
+                    <textarea id="bio" class="textarea" rows="5" placeholder="Scrivi qualcosa su di te..."></textarea>
+                    <div class="actions-row">
+                        <button type="submit" class="btn btn--primary">Salva Bio</button>
+                        <span id="bioStatus" class="helper"></span>
+                    </div>
+                </form>
+            </div>
+            <p class="hint">
+                La bio viene salvata su Firestore nel documento <code>users/&lt;uid&gt;</code>.
+            </p>
+        </section>
+    </main>
+
+    <!-- App logic (modular CDN v9). Nessuna build necessaria. -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+
+

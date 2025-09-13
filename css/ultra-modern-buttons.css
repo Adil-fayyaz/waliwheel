@@ -323,26 +323,6 @@
     text-shadow: 0 0 20px currentColor;
 }
 
-/* ===== Effetto richiesto: NEON BOX ===== */
-.btn-effect-1 {
-    padding: 10px 20px;
-    font-weight: 600;
-    border: 2px solid #00ffff;
-    background: rgba(0, 255, 255, 0.1);
-    color: #00ffff;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all .3s ease;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.05);
-}
-
-.btn-effect-1:hover {
-    background: linear-gradient(135deg, #00ffff, #0080ff);
-    color: #000;
-    box-shadow: 0 0 40px #00ffff, 0 20px 40px rgba(0, 255, 255, 0.3);
-    transform: translateY(-3px) rotateX(10deg);
-}
-
 /* Pulsanti Responsive */
 @media (max-width: 768px) {
     .btn-ultra-modern {

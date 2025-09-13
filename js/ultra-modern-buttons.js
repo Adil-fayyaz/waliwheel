@@ -47,7 +47,7 @@ class UltraModernButtons {
 
     initializeButtons() {
         // Add default classes to existing buttons
-        const buttons = document.querySelectorAll('button, .btn, .glass-button, a[href]');
+        const buttons = document.querySelectorAll('button, .btn, .glass-button, .cta, a[href][data-button]');
         
         buttons.forEach(button => {
             if (!button.classList.contains('btn-ultra-modern')) {
@@ -60,7 +60,7 @@ class UltraModernButtons {
                 }
 
                 // Add ultra-modern classes
-                button.classList.add('btn-ultra-modern', 'shimmer', 'magnetic');
+                button.classList.add('btn-ultra-modern', 'shimmer', 'magnetic', 'ripple');
                 
                 // Add appropriate variant based on existing classes
                 if (button.classList.contains('primary')) {

@@ -1,4 +1,4 @@
-/* ===== PULSANTI ULTRA-MODERNI E INTERATTIVI (rifiniti stile premium) ===== */
+/* ===== PULSANTI ULTRA-MODERNI E INTERATTIVI ===== */
 
 /* Pulsanti Base Ultra-Moderni */
 .btn-ultra-modern {
@@ -7,20 +7,20 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 14px 28px;
+    padding: 12px 22px;
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-decoration: none;
     border: none;
-    border-radius: 16px;
+    border-radius: 14px;
     cursor: pointer;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
     color: white;
     box-shadow: 
-        0 10px 30px rgba(13,20,33,.35),
+        0 8px 25px rgba(64, 224, 208, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transform: translateY(0);
@@ -28,12 +28,11 @@
 }
 
 .btn-ultra-modern:hover {
-    transform: translateY(-2px) scale(1.015);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-        0 16px 40px rgba(13,20,33,.45),
-        0 0 0 1px rgba(255, 255, 255, 0.18),
+        0 15px 35px rgba(64, 224, 208, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    filter: saturate(1.05);
 }
 
 .btn-ultra-modern:active {
@@ -54,23 +53,22 @@
 
 /* Varianti di Colore */
 .btn-ultra-modern.primary {
-    background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
     box-shadow: 
-        0 10px 30px rgba(13,20,33,.35),
+        0 8px 25px rgba(64, 224, 208, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn-ultra-modern.primary:hover {
     box-shadow: 
-        0 16px 40px rgba(13,20,33,.45),
+        0 15px 35px rgba(64, 224, 208, 0.6),
         0 0 0 1px rgba(255, 255, 255, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btn-ultra-modern.secondary {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.14);
+    background: linear-gradient(135deg, #7c3aed 0%, #4338ca 100%);
 }
 
 .btn-ultra-modern.danger {
@@ -90,9 +88,11 @@
 
 .btn-ultra-modern.outline {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.28);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     color: white;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .btn-ultra-modern.outline:hover {
@@ -179,10 +179,10 @@
 /* Pulsanti con Glow */
 .btn-ultra-modern.glow {
     box-shadow: 
-        0 10px 30px rgba(13,20,33,.4),
-        0 0 0 1px rgba(255, 255, 255, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22),
-        0 0 20px rgba(124, 58, 237, 0.35);
+        0 8px 25px rgba(64, 224, 208, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(64, 224, 208, 0.3);
 }
 
 .btn-ultra-modern.glow:hover {
@@ -195,12 +195,12 @@
 
 /* Pulsanti Glassmorphism */
 .btn-ultra-modern.glass {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.28),
+        0 8px 25px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 

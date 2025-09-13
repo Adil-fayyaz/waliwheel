@@ -91,12 +91,6 @@ class UltraModernButtons {
 
                 // Add icons if needed
                 this.addIconsToButtons(button);
-
-                // Ensure accessible labels
-                if (!button.getAttribute('aria-label')) {
-                    const text = (button.textContent || '').trim();
-                    if (text) button.setAttribute('aria-label', text);
-                }
             }
         });
     }
@@ -189,14 +183,7 @@ class UltraModernButtons {
             </svg>
         `;
         contactBtn.title = 'Contattaci';
-        contactBtn.onclick = () => {
-            const link = document.querySelector('a[href*="contatti"], a[href*="contact"], a[href*="support"]');
-            if (link) {
-                link.click();
-            } else {
-                window.location.href = 'contatti.html';
-            }
-        };
+        contactBtn.onclick = () => window.location.href = 'contatti.html';
         
         document.body.appendChild(contactBtn);
     }

@@ -55,7 +55,6 @@
                         <p>oppure continua con</p>
                         <div class="auth-social-buttons">
                             <button type="button" data-auth-google>🔍 Google</button>
-                            <button type="button" data-auth-wali>Waliwheel</button>
                         </div>
                     </div>
                 </div>
@@ -123,10 +122,7 @@
             }
         });
 
-        // Waliwheel button
-        overlay.querySelector('[data-auth-wali]')?.addEventListener('click', function() {
-            alert('Login con Waliwheel - In sviluppo');
-        });
+        
     }
 
     function ensureAuthButton() {

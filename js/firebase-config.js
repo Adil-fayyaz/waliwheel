@@ -4,6 +4,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Your web app's Firebase configuration
+// IMPORTANTE: Sostituisci con le tue credenziali Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBj5nRA_1R3RLL91PyZM11rNYDR2PTgqkc",
   authDomain: "log-in-33798.firebaseapp.com",
@@ -18,6 +19,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+
+// Configurazione Google Provider
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});
 
 // Export for use in other files
 export { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithRedirect, getRedirectResult };

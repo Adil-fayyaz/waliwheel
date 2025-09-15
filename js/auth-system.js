@@ -104,40 +104,63 @@ class AuthSystem {
                 console.log('✅ Popup sign in successful');
             } catch (popupError) {
                 console.log('⚠️ Popup failed, trying redirect:', popupError);
-                if (popupError.code === 'auth/popup-blocked') {
+                if (popupError.code === 'auth/popup-blocked' || popupError.code === 'auth/popup-closed-by-user') {
+                    console.log('🔄 Switching to redirect method...');
                     await signInWithRedirect(auth, googleProvider);
                     return; // Redirect will handle the rest
                 }
                 throw popupError;
             }
 
-            const user = result.user;
-            const userData = {
-                uid: user.uid,
-                email: user.email,
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-                name: user.displayName || 'Utente Google'
-            };
+            if (result && result.user) {
+                const user = result.user;
+                const userData = {
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                    name: user.displayName || 'Utente Google'
+                };
 
-            this.currentUser = userData;
-            this.isAuthenticated = true;
-            this.saveUserToStorage();
-            this.updateUI();
-            this.showToast(`Accesso completato! Benvenuto ${userData.name}!`, 'success');
-            
-            // Close modal
-            this.closeModal();
+                this.currentUser = userData;
+                this.isAuthenticated = true;
+                this.saveUserToStorage();
+                this.updateUI();
+                this.showToast(`Accesso completato! Benvenuto ${userData.name}!`, 'success');
+                
+                // Close modal
+                this.closeModal();
+            }
 
         } catch (error) {
             console.error('❌ Google Sign In Error:', error);
             let message = 'Errore durante l\'accesso con Google';
             
-            if (error.code === 'auth/popup-closed-by-user') {
-                message = 'Accesso annullato';
-            } else if (error.code === 'auth/unauthorized-domain') {
-                message = `Dominio non autorizzato: ${location.hostname}`;
-                console.warn('🔧 Aggiungi questo dominio in Firebase Authentication → Domini autorizzati');
+            switch (error.code) {
+                case 'auth/popup-closed-by-user':
+                    message = 'Accesso annullato dall\'utente';
+                    break;
+                case 'auth/popup-blocked':
+                    message = 'Popup bloccato dal browser. Prova a disabilitare il blocco popup.';
+                    break;
+                case 'auth/unauthorized-domain':
+                    message = `Dominio non autorizzato: ${location.hostname}`;
+                    console.warn('🔧 Aggiungi questo dominio in Firebase Authentication → Domini autorizzati');
+                    break;
+                case 'auth/network-request-failed':
+                    message = 'Errore di rete. Controlla la connessione internet.';
+                    break;
+                case 'auth/too-many-requests':
+                    message = 'Troppi tentativi. Riprova più tardi.';
+                    break;
+                case 'auth/user-disabled':
+                    message = 'Account disabilitato. Contatta l\'amministratore.';
+                    break;
+                case 'auth/operation-not-allowed':
+                    message = 'Operazione non consentita. Controlla la configurazione Firebase.';
+                    break;
+                default:
+                    message = `Errore: ${error.message}`;
             }
             
             this.showToast(message, 'error');
@@ -195,9 +218,24 @@ class AuthSystem {
 
     showToast(message, type = 'info') {
         console.log(`📢 Toast [${type}]:`, message);
-        // Simple alert for now, could be enhanced with a proper toast
-        if (type === 'error') {
-            alert(message);
+        
+        // Use advanced features toast if available
+        if (window.advancedFeatures && window.advancedFeatures.showNotification) {
+            window.advancedFeatures.showNotification(
+                type === 'success' ? 'Successo' : 
+                type === 'error' ? 'Errore' : 
+                type === 'warning' ? 'Attenzione' : 'Info',
+                message,
+                type,
+                5000
+            );
+        } else {
+            // Fallback to simple alert for errors
+            if (type === 'error') {
+                alert(`❌ ${message}`);
+            } else if (type === 'success') {
+                alert(`✅ ${message}`);
+            }
         }
     }
 }

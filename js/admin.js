@@ -236,10 +236,19 @@ class AdminPanel {
             return;
         }
 
-        this.readFilesAsDataUrls(imageFiles).then((images) => {
+        if (imageFiles.length > 20) {
+            this.showToast('Massimo 20 foto per auto. Seleziona fino a 20 immagini.', 'error');
+            return;
+        }
+
+            this.readFilesAsDataUrls(imageFiles).then((images) => {
             if (images.length < 6) {
                 this.showToast(`Sono state lette solo ${images.length} immagini valide. Seleziona almeno 6 immagini.`, 'error');
                 return;
+            }
+            if (images.length > 20) {
+                images = images.slice(0, 20); // Limita a 20 immagini
+                this.showToast(`Utilizzate le prime 20 immagini delle ${imageFiles.length} selezionate.`, 'info');
             }
             // Usa la prima come immagine principale
             carData.image = carData.image || images[0];
@@ -837,7 +846,7 @@ class AdminPanel {
             this.showToast('Alcuni file non sono immagini e verranno ignorati.', 'error');
         }
 
-        imageFiles.slice(0, 12).forEach((file, idx) => {
+        imageFiles.slice(0, 20).forEach((file, idx) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const img = document.createElement('img');

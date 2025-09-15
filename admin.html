@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="css/styles.css?v=2.0.0">
     <link rel="stylesheet" href="css/admin.css?v=2.0.0">
     <link rel="stylesheet" href="css/auth-modal.css">
+    <link rel="stylesheet" href="css/advanced-ui.css">
+    <link rel="stylesheet" href="css/admin-advanced.css">
+    <link rel="stylesheet" href="css/responsive-advanced.css">
     <meta name="theme-color" content="#0f172a">
+    <link rel="manifest" href="/manifest.json">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
 </head>
@@ -386,9 +390,9 @@
                     
                     <div class="form-row full-width">
                         <div class="form-group">
-                            <label for="carImages" class="form-label">Foto Auto (almeno 6) *</label>
+                            <label for="carImages" class="form-label">Foto Auto (6-20 foto) *</label>
                             <input type="file" id="carImages" class="form-input" accept="image/*" multiple>
-                            <small style="color:#b8b8b8;display:block;margin-top:6px;">Seleziona almeno 6 foto dal tuo computer. Verrà usata la prima come immagine principale.</small>
+                            <small style="color:#b8b8b8;display:block;margin-top:6px;">Seleziona da 6 a 20 foto dal tuo computer. Verrà usata la prima come immagine principale.</small>
                             <div id="carImagesPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:10px;"></div>
                         </div>
                     </div>
@@ -521,5 +525,10 @@
     <script src="js/admin.js?v=2.0.0" data-defer></script>
     <script type="module" src="js/auth-system.js"></script>
     <script src="js/auth-modal-new.js" data-defer></script>
+    <script src="js/advanced-features.js" data-defer></script>
+    <script src="js/advanced-search.js" data-defer></script>
+    <script src="js/image-gallery.js" data-defer></script>
+    <script src="js/performance-optimizer.js" data-defer></script>
+    <script src="js/mobile-navigation.js" data-defer></script>
 </body>
 </html>

@@ -1,0 +1,150 @@
+{
+  "name": "Wali Wheels - Concessionaria Auto di Lusso",
+  "short_name": "Wali Wheels",
+  "description": "La tua concessionaria di fiducia per auto di lusso e prestazioni. Scopri la nostra selezione di auto nuove e usate.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#00ff88",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "it",
+  "dir": "ltr",
+  "categories": ["automotive", "business", "shopping"],
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Homepage su desktop"
+    },
+    {
+      "src": "/assets/screenshots/mobile-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Homepage su mobile"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/assets/icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Esplora Auto",
+      "short_name": "Esplora",
+      "description": "Scopri la nostra collezione di auto",
+      "url": "/esplora-macchine.html",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-explore.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Admin Panel",
+      "short_name": "Admin",
+      "description": "Pannello di amministrazione",
+      "url": "/admin.html",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-admin.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contatti",
+      "short_name": "Contatti",
+      "description": "Contattaci per informazioni",
+      "url": "/contatti.html",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-contact.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+waliwheels",
+      "url": "/car-detail?id=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "images",
+          "accept": ["image/*"]
+        }
+      ]
+    }
+  }
+}

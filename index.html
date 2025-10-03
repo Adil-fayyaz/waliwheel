@@ -44,86 +44,100 @@
     <link rel="stylesheet" href="css/reset.css?v=2.0.0">
     <link rel="stylesheet" href="css/utilities.css?v=2.0.0">
     <link rel="stylesheet" href="css/styles.css?v=2.0.0">
-        <link rel="stylesheet" href="css/ultra-modern-buttons.css">
-        <link rel="stylesheet" href="css/site-optimizations.css">
-        <link rel="stylesheet" href="css/cookie-banner.css">
-        <link rel="stylesheet" href="css/auth-modal.css">
-        <link rel="stylesheet" href="css/advanced-ui.css">
-        <link rel="stylesheet" href="css/responsive-advanced.css">
+    <link rel="stylesheet" href="css/modern-ui.css?v=2.0.0">
+    <link rel="stylesheet" href="css/ultra-modern-buttons.css">
+    <link rel="stylesheet" href="css/site-optimizations.css">
+    <link rel="stylesheet" href="css/cookie-banner.css">
+    <link rel="stylesheet" href="css/auth-modal.css">
+    <link rel="stylesheet" href="css/advanced-ui.css">
+    <link rel="stylesheet" href="css/responsive-advanced.css">
+    <link rel="stylesheet" href="css/modern-navbar.css">
+    <link rel="stylesheet" href="css/advanced-animations.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="image.png">
 </head>
 <body>
     <!-- Header Glass -->
-    <header class="header-glass gpu-accelerated">
+    <header class="header-glass">
         <nav class="nav-container">
-            <div class="nav-brand gpu-accelerated">
-                <div class="logo-glow preserve-3d">
+            <div class="nav-brand">
+                <div class="logo-glow">
                     <span class="logo-text">Wali</span>
-                    <span class="logo-accent">Wheelse</span>
+                    <span class="logo-accent">Wheels</span>
                 </div>
             </div>
             
-            <ul class="nav-menu preserve-3d">
-                <li><a href="index.html" class="nav-link active preserve-3d">Home</a></li>
-                <li><a href="catalogo.html" class="nav-link preserve-3d">Catalogo</a></li>
-                <li><a href="esplora-macchine.html" class="nav-link preserve-3d">Esplora Macchine</a></li>
-                <li><a href="admin.html" class="nav-link preserve-3d">Admin Panel</a></li>
-                <li><a href="chi-siamo.html" class="nav-link preserve-3d">Chi Siamo</a></li>
-                <li><a href="finanziamento.html" class="nav-link preserve-3d">Finanziamento</a></li>
-                <li><a href="contatti.html" class="nav-link preserve-3d">Contatti</a></li>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="esplora-macchine.html" class="nav-link">Esplora</a></li>
+                <li><a href="admin.html" class="nav-link">Admin</a></li>
+                <li><a href="finanziamento.html" class="nav-link">Finanziamento</a></li>
+                <li><a href="contatti.html" class="nav-link">Contatti</a></li>
             </ul>
             
             <div class="nav-actions">
-                <!-- Carrello -->
-                <div class="cart-container">
-                    <button class="cart-btn" id="cartBtn" aria-label="Carrello">
-                        <svg class="cart-icon" viewBox="0 0 24 24">
-                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                        </svg>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                </div>
-
-                <!-- Notifiche -->
-                <button class="notifications-btn" id="notificationsBtn" aria-label="Notifiche">
-                    <svg class="notifications-icon" viewBox="0 0 24 24">
-                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                    </svg>
-                    <span class="notifications-badge" id="notificationsBadge">0</span>
-                </button>
-
-                <!-- Confronto Auto -->
-                <button class="compare-btn" id="compareBtn" aria-label="Confronta Auto">
-                    <svg class="compare-icon" viewBox="0 0 24 24">
-                        <path d="M9 7H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm4 0h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
-                    </svg>
-                    <span class="compare-count" id="compareCount">0</span>
-                </button>
-
                 <!-- Tema -->
-                <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
-                    <svg class="theme-icon" viewBox="0 0 24 24">
+                <button class="nav-action-btn" id="themeToggle" aria-label="Cambia tema">
+                    <svg viewBox="0 0 24 24">
                         <path class="sun-path" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                         <path class="moon-path" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                     </svg>
                 </button>
                 
-                <!-- Autenticazione Unificata -->
-                <div class="auth-container" id="authContainer"></div>
-
-                <!-- Profilo Utente -->
-                <div class="profile-menu" id="profileMenu" style="display: none;">
-                    <button id="profileBtn" class="glass-button profile-btn" onclick="toggleProfileMenu()">
-                        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px">
+                <!-- Autenticazione -->
+                <div class="auth-container" id="authContainer">
+                    <button class="btn-auth-unified" id="authBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/>
                         </svg>
-                        <span>Profilo</span>
-                        <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px">
-                            <path d="M7 10l5 5 5-5z"/>
-                        </svg>
+                        <span>Accedi</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-links">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="catalogo.html" class="nav-link">Catalogo</a></li>
+                    <li><a href="esplora-macchine.html" class="nav-link">Esplora</a></li>
+                    <li><a href="chi-siamo.html" class="nav-link">Chi Siamo</a></li>
+                    <li><a href="finanziamento.html" class="nav-link">Finanziamento</a></li>
+                    <li><a href="contatti.html" class="nav-link">Contatti</a></li>
+                </ul>
+                
+                <div class="mobile-nav-actions">
+                    <div class="auth-container">
+                        <button class="btn-auth-unified" id="mobileAuthBtn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/>
+                            </svg>
+                            <span>Accedi</span>
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profilo Utente (Hidden by default) -->
+    <div class="profile-menu" id="profileMenu" style="display: none;">
+        <button id="profileBtn" class="profile-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/>
+            </svg>
+            <span>Profilo</span>
+        </button>
                     <div id="profileDropdown" class="profile-dropdown">
                         <div class="profile-header">
                             <div class="profile-avatar">
@@ -175,6 +189,8 @@
             <div class="parallax-layer" data-speed="0.5">
                 <div class="bokeh-lights"></div>
                 <div class="aurora-gradient"></div>
+                <div class="floating-particles"></div>
+                <div class="neural-network"></div>
             </div>
         </div>
         
@@ -189,43 +205,56 @@
                     nuove e usate, con la garanzia Wali Wheels
                 </p>
                 
+                <!-- AI-Powered Search Bar -->
+                <div class="hero-search preserve-3d">
+                    <div class="search-container">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="Cerca per marca, modello, prezzo..." id="heroSearch">
+                        <button class="search-btn glass-button primary">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+                
                 <!-- Stats animati -->
-                <div class="hero-stats preserve-3d">
-                    <div class="stat-item">
+                <div class="hero-stats preserve-3d grid grid-3">
+                    <div class="stat-item card">
                         <div class="stat-number" data-count="500">0</div>
                         <div class="stat-label">Auto Premium</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item card">
                         <div class="stat-number" data-count="15">0</div>
                         <div class="stat-label">Anni Esperienza</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item card">
                         <div class="stat-number" data-count="1000">0</div>
                         <div class="stat-label">Clienti Soddisfatti</div>
                     </div>
                 </div>
                 
                 <div class="hero-cta-group preserve-3d">
-                    <button class="glass-button primary large shimmer magnetic preserve-3d ultra-modern" id="heroExplore" onclick="openExploreCars()">
+                    <button class="glass-button primary large preserve-3d" id="heroExplore" onclick="openExploreCars()">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
-                                                 <span>Esplora le Macchine</span>
-                        <div class="button-particles"></div>
+                        <span>Esplora le Macchine</span>
                     </button>
-                    <button class="glass-button secondary large pulse preserve-3d ultra-modern" id="heroTestDrive" onclick="window.testDriveBooking?.openModal()">
+                    <button class="glass-button secondary large preserve-3d" id="heroTestDrive" onclick="window.location.href='contatti.html'">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
-                        <span>Prenota Test Drive</span>
-                        <div class="button-particles"></div>
+                        <span>Contattaci</span>
                     </button>
-                    <button class="glass-button accent large glow preserve-3d ultra-modern" id="heroFinancing">
+                    <button class="glass-button accent large preserve-3d" id="heroFinancing" onclick="window.location.href='finanziamento.html'">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
                         </svg>
                         <span>Finanziamento</span>
-                        <div class="button-particles"></div>
                     </button>
                 </div>
                 
@@ -282,8 +311,8 @@
             </div>
             
             <!-- Categorie Principali -->
-            <div class="categories-grid preserve-3d">
-                <div class="category-card luxury preserve-3d" data-category="luxury">
+            <div class="categories-grid preserve-3d grid grid-3">
+                <div class="category-card luxury preserve-3d card" data-category="luxury">
                     <div class="category-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -294,7 +323,7 @@
                     <div class="category-count">150+ modelli</div>
                 </div>
                 
-                <div class="category-card sport preserve-3d" data-category="sport">
+                <div class="category-card sport preserve-3d card" data-category="sport">
                     <div class="category-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11C5.84 5 5.28 5.42 5.08 6.01L3 12v7c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-7l-2.08-5.99z"/>
@@ -305,7 +334,7 @@
                     <div class="category-count">80+ modelli</div>
                 </div>
                 
-                <div class="category-card suv preserve-3d" data-category="suv">
+                <div class="category-card suv preserve-3d card" data-category="suv">
                     <div class="category-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11C5.84 5 5.28 5.42 5.08 6.01L3 12v7c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-7l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
@@ -316,7 +345,7 @@
                     <div class="category-count">120+ modelli</div>
                 </div>
                 
-                <div class="category-card electric preserve-3d" data-category="electric">
+                <div class="category-card electric preserve-3d card" data-category="electric">
                     <div class="category-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M14.69 2.21L4.33 11.49c-.64.58-.28 1.65.58 1.73L13 14l-4.85 6.76c-.22.31-.04.74.31.74.13 0 .26-.05.35-.15L18.15 13.71c.58-.64.22-1.66-.58-1.73L10 11l4.85-8.79c.22-.31.04-.74-.31-.74-.13 0-.26.05-.35.15z"/>
@@ -327,7 +356,7 @@
                     <div class="category-count">60+ modelli</div>
                 </div>
                 
-                <div class="category-card classic preserve-3d" data-category="classic">
+                <div class="category-card classic preserve-3d card" data-category="classic">
                     <div class="category-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
@@ -338,7 +367,7 @@
                     <div class="category-count">40+ modelli</div>
                 </div>
                 
-                <div class="category-card family preserve-3d" data-category="family">
+                <div class="category-card family preserve-3d card" data-category="family">
                     <div class="category-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v-2c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v2h3v4H4z"/>
@@ -523,9 +552,11 @@
     <!-- JavaScript -->
     <script type="module" src="js/auth-system.js"></script>
     <script src="js/auth-modal-new.js" data-defer></script>
+    <script src="js/modern-interactions.js" data-defer></script>
     <script src="js/ultra-modern-buttons.js" data-defer></script>
     <script src="js/site-optimizer.js" data-defer></script>
     <script src="js/cookie-manager.js" data-defer></script>
+    <script src="js/modern-features.js"></script>
     <script src="js/advanced-features.js" data-defer></script>
     <script src="js/image-gallery.js" data-defer></script>
     <script src="js/performance-optimizer.js" data-defer></script>
@@ -559,6 +590,78 @@
             document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right').forEach(el => {
                 observer.observe(el);
             });
+
+            // AI-Powered Search Functionality
+            const heroSearch = document.getElementById('heroSearch');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            
+            if (heroSearch && searchSuggestions) {
+                let searchTimeout;
+                
+                heroSearch.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    const query = this.value.trim();
+                    
+                    if (query.length > 2) {
+                        searchTimeout = setTimeout(() => {
+                            showSearchSuggestions(query);
+                        }, 300);
+                    } else {
+                        hideSearchSuggestions();
+                    }
+                });
+
+                heroSearch.addEventListener('blur', function() {
+                    setTimeout(() => hideSearchSuggestions(), 200);
+                });
+
+                heroSearch.addEventListener('focus', function() {
+                    if (this.value.trim().length > 2) {
+                        showSearchSuggestions(this.value.trim());
+                    }
+                });
+            }
+
+            function showSearchSuggestions(query) {
+                // Simulate AI-powered search suggestions
+                const suggestions = [
+                    { icon: '🚗', text: `BMW ${query}` },
+                    { icon: '🚙', text: `Mercedes ${query}` },
+                    { icon: '🏎️', text: `Audi ${query}` },
+                    { icon: '⚡', text: `Elettrica ${query}` },
+                    { icon: '💰', text: `Prezzo ${query}` }
+                ].filter(s => s.text.toLowerCase().includes(query.toLowerCase()));
+
+                if (suggestions.length > 0) {
+                    searchSuggestions.innerHTML = suggestions.map(s => `
+                        <div class="suggestion-item" onclick="selectSuggestion('${s.text}')">
+                            <svg class="suggestion-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <span class="suggestion-text">${s.text}</span>
+                        </div>
+                    `).join('');
+                    searchSuggestions.classList.add('active');
+                } else {
+                    hideSearchSuggestions();
+                }
+            }
+
+            function hideSearchSuggestions() {
+                searchSuggestions.classList.remove('active');
+            }
+
+            window.selectSuggestion = function(text) {
+                heroSearch.value = text;
+                hideSearchSuggestions();
+                // Trigger search
+                performSearch(text);
+            };
+
+            function performSearch(query) {
+                // Redirect to catalog with search query
+                window.location.href = `catalogo.html?search=${encodeURIComponent(query)}`;
+            }
 
             // FAB (Floating Action Button) per contatti
             const contactFab = document.getElementById('contactFab');
@@ -605,5 +708,16 @@
             };
         });
     </script>
+    
+    <!-- Modern Navbar JavaScript -->
+    <script src="js/modern-navbar.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Google Auth System -->
+    <script src="js/google-auth.js"></script>
 </body>
 </html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostazioni - Wali Wheels</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/modern-ui.css">
+    <link rel="stylesheet" href="css/profile-enhancements.css">
+    <link rel="stylesheet" href="css/advanced-animations.css">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body>
+    <!-- Header Glass -->
+    <header class="header-glass gpu-accelerated">
+        <nav class="nav-container">
+            <div class="nav-brand gpu-accelerated">
+                <div class="logo-glow preserve-3d">
+                    <span class="logo-text">Wali</span>
+                    <span class="logo-accent">Wheels</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="esplora-macchine.html" class="nav-link">Esplora</a></li>
+                <li><a href="admin.html" class="nav-link">Admin</a></li>
+                <li><a href="finanziamento.html" class="nav-link">Finanziamento</a></li>
+                <li><a href="contatti.html" class="nav-link">Contatti</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="auth-container" id="authContainer"></div>
+                <a href="index.html" class="glass-button" style="margin-right: 10px;">⬅ Torna alla Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Settings Section -->
+    <section class="profile-section preserve-3d" style="margin-top: 100px; padding: 2rem;">
+        <div class="profile-container" style="max-width: 1000px; margin: 0 auto;">
+            <!-- Profile Header -->
+            <div class="profile-header-card glass preserve-3d" style="text-align: center; padding: 3rem 2rem; margin-bottom: 2rem;">
+                <div class="profile-avatar-large" id="userAvatar" style="width: 120px; height: 120px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, #00ff88, #00cc6a); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; cursor: pointer;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width: 60px; height: 60px;">
+                        <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/>
+                    </svg>
+                </div>
+                <h1 class="profile-title" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; background: linear-gradient(135deg, #00ff88, #00cc6a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    <span id="userName">Caricamento...</span>
+                </h1>
+                <p class="profile-subtitle" id="userEmail" style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">email@example.com</p>
+                <p class="profile-subtitle" style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; margin-top: 0.5rem;">
+                    Membro dal: <span id="memberSince">2024</span>
+                </p>
+            </div>
+
+            <!-- User Info Sections -->
+            <div class="settings-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <!-- Account Info -->
+                <div class="profile-form-card glass preserve-3d" style="padding: 2rem;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #00ff88; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
+                            <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/>
+                        </svg>
+                        Informazioni Account
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Nome Utente</label>
+                            <p id="displayName" style="color: white; font-size: 1rem; font-weight: 500;">-</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Email</label>
+                            <p id="displayEmail" style="color: white; font-size: 1rem; font-weight: 500;">-</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Provider</label>
+                            <p id="authProvider" style="color: white; font-size: 1rem; font-weight: 500;">-</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Email Verificata</label>
+                            <p id="emailVerified" style="color: white; font-size: 1rem; font-weight: 500;">-</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">UID</label>
+                            <p id="userUID" style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem; font-family: monospace; word-break: break-all;">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Stats -->
+                <div class="profile-form-card glass preserve-3d" style="padding: 2rem;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #00ff88; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        Attività
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="padding: 1rem; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 10px; text-align: center;">
+                            <p style="font-size: 2.5rem; font-weight: 700; color: #00ff88; margin-bottom: 0.25rem;" id="loginCount">0</p>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Accessi Totali</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Ultimo Accesso</label>
+                            <p id="lastLogin" style="color: white; font-size: 1rem; font-weight: 500;">-</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                            <label style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Data Creazione</label>
+                            <p id="creationTime" style="color: white; font-size: 1rem; font-weight: 500;">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Actions -->
+            <div class="account-actions-card glass preserve-3d" style="padding: 2rem; margin-top: 2rem;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #00ff88; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
+                        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                    </svg>
+                    Azioni Account
+                </h3>
+                
+                <div class="action-buttons" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <button onclick="editProfile()" class="glass-button secondary large preserve-3d" style="justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; margin-right: 8px;">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                        Modifica Profilo
+                    </button>
+                    
+                    <button onclick="changePassword()" class="glass-button secondary large preserve-3d" style="justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; margin-right: 8px;">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10z"/>
+                        </svg>
+                        Cambia Password
+                    </button>
+                    
+                    <button onclick="exportData()" class="glass-button secondary large preserve-3d" style="justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; margin-right: 8px;">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        Esporta Dati
+                    </button>
+                    
+                    <button onclick="logoutUser()" class="glass-button secondary large preserve-3d" style="justify-content: center; background: rgba(255, 165, 0, 0.1); border-color: rgba(255, 165, 0, 0.3);">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; margin-right: 8px;">
+                            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                        </svg>
+                        Logout
+                    </button>
+                    
+                    <button onclick="deleteAccount()" class="glass-button danger large preserve-3d" style="justify-content: center; background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; margin-right: 8px;">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                        Elimina Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firebase -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/auth-system.js"></script>
+    <script src="js/settings-page.js"></script>
+</body>
+</html>

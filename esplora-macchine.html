@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/modern-ui.css">
     <link rel="stylesheet" href="css/car-explorer.css">
     <link rel="stylesheet" href="css/ultra-modern-buttons.css">
     <link rel="stylesheet" href="css/site-optimizations.css">
     <link rel="stylesheet" href="css/cookie-banner.css">
     <link rel="stylesheet" href="css/auth-modal.css">
+    <link rel="stylesheet" href="css/3d-car-explorer.css">
+    <link rel="stylesheet" href="css/advanced-animations.css">
     <meta name="theme-color" content="#0f172a">
 </head>
 <body>
@@ -40,6 +43,8 @@
         <div class="hero-background">
             <div class="parallax-layer bokeh-lights" data-speed="0.3"></div>
             <div class="parallax-layer aurora-gradient" data-speed="0.6"></div>
+            <div class="floating-particles"></div>
+            <div class="neural-network"></div>
         </div>
         <div class="hero-content preserve-3d">
             <div>
@@ -48,6 +53,22 @@
                     <span class="title-accent">Wali Wheels</span>
                 </h1>
                 <p class="hero-subtitle">Solo auto aggiunte dall'admin. Design moderno, prestazioni top.</p>
+                
+                <!-- Interactive Car Showcase -->
+                <div class="car-showcase-3d">
+                    <div class="showcase-container">
+                        <div class="car-model-3d" id="showcaseCar">
+                            <div class="car-body-3d"></div>
+                            <div class="car-wheels-3d"></div>
+                            <div class="car-lights-3d"></div>
+                        </div>
+                        <div class="showcase-controls">
+                            <button class="control-btn" data-action="rotate">🔄 Ruota</button>
+                            <button class="control-btn" data-action="zoom">🔍 Zoom</button>
+                            <button class="control-btn" data-action="lighting">💡 Illuminazione</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="hero-stats">
                     <div class="stat-item">
                         <div class="stat-number" data-count="0">0</div>
@@ -68,74 +89,75 @@
     </section>
 
     <!-- Filtri -->
-    <section class="filters-glass preserve-3d">
-        <div class="filters-container">
-            <div class="filters-header">
-                <h2 class="filters-title">Filtra la tua ricerca</h2>
-                <p class="filters-subtitle">Affina la lista per marca, prezzo, anno e tipo</p>
-            </div>
-            <div class="filter-row">
-                <div class="filter-group">
-                    <label for="brandFilter" class="filter-label">Marca</label>
-                    <select id="brandFilter" class="filter-select">
-                        <option value="">Tutte</option>
-                        <option value="BMW">BMW</option>
-                        <option value="Mercedes">Mercedes</option>
-                        <option value="Audi">Audi</option>
-                        <option value="Porsche">Porsche</option>
-                    </select>
+    <section class="filters-glass preserve-3d section-spacing">
+        <div class="container">
+            <div class="filters-container card">
+                <div class="filters-header text-center">
+                    <h2 class="filters-title">Filtra la tua ricerca</h2>
+                    <p class="filters-subtitle">Affina la lista per marca, prezzo, anno e tipo</p>
                 </div>
-                <div class="filter-group">
-                    <label for="priceFilter" class="filter-label">Prezzo</label>
-                    <select id="priceFilter" class="filter-select">
-                        <option value="">Tutti</option>
-                        <option value="0-20000">€0 - €20.000</option>
-                        <option value="20000-50000">€20.000 - €50.000</option>
-                        <option value="50000-100000">€50.000 - €100.000</option>
-                        <option value="100000-+">€100.000+</option>
-                    </select>
+                <div class="filter-row grid grid-4">
+                    <div class="filter-group">
+                        <label for="brandFilter" class="form-label">Marca</label>
+                        <select id="brandFilter" class="form-select">
+                            <option value="">Tutte</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Mercedes">Mercedes</option>
+                            <option value="Audi">Audi</option>
+                            <option value="Porsche">Porsche</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="priceFilter" class="form-label">Prezzo</label>
+                        <select id="priceFilter" class="form-select">
+                            <option value="">Tutti</option>
+                            <option value="0-20000">€0 - €20.000</option>
+                            <option value="20000-50000">€20.000 - €50.000</option>
+                            <option value="50000-100000">€50.000 - €100.000</option>
+                            <option value="100000-+">€100.000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="yearFilter" class="form-label">Anno</label>
+                        <select id="yearFilter" class="form-select">
+                            <option value="">Tutti</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="typeFilter" class="form-label">Tipo</label>
+                        <select id="typeFilter" class="form-select">
+                            <option value="">Tutti</option>
+                            <option value="suv">SUV</option>
+                            <option value="berlina">Berlina</option>
+                            <option value="sportiva">Sportiva</option>
+                            <option value="elettrica">Elettrica</option>
+                            <option value="ibrida">Ibrida</option>
+                            <option value="cabrio">Cabrio</option>
+                            <option value="station-wagon">Station Wagon</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label for="yearFilter" class="filter-label">Anno</label>
-                    <select id="yearFilter" class="filter-select">
-                        <option value="">Tutti</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                    </select>
+                <div class="filter-actions text-center">
+                    <button class="glass-button primary shimmer magnetic" type="button" onclick="applyFilters()">Applica Filtri</button>
+                    <button class="glass-button magnetic" type="button" onclick="clearFilters()">Pulisci Filtri</button>
                 </div>
-                <div class="filter-group">
-                    <label for="typeFilter" class="filter-label">Tipo</label>
-                    <select id="typeFilter" class="filter-select">
-                        <option value="">Tutti</option>
-                        <option value="suv">SUV</option>
-                        <option value="berlina">Berlina</option>
-                        <option value="sportiva">Sportiva</option>
-                        <option value="elettrica">Elettrica</option>
-                        <option value="ibrida">Ibrida</option>
-                        <option value="cabrio">Cabrio</option>
-                        <option value="station-wagon">Station Wagon</option>
-                    </select>
-                </div>
-            </div>
-            <div class="filter-actions">
-                <button class="glass-button primary shimmer magnetic" type="button" onclick="applyFilters()">Applica Filtri</button>
-                <button class="glass-button magnetic" type="button" onclick="clearFilters()">Pulisci Filtri</button>
             </div>
         </div>
     </section>
 
     <!-- Griglia Auto -->
-    <section class="cars-grid-glass preserve-3d">
-        <div class="cars-header">
-            <h2 class="cars-title">Auto in catalogo</h2>
-            <div class="cars-count">Auto trovate: <span id="carsCount">0</span></div>
+    <section class="cars-grid-glass preserve-3d section-spacing">
+        <div class="container">
+            <div class="cars-header text-center">
+                <h2 class="cars-title">Auto in catalogo</h2>
+                <div class="cars-count">Auto trovate: <span id="carsCount">0</span></div>
+            </div>
+            <div id="carsGrid" class="cars-grid grid grid-3"></div>
         </div>
-        <div id="carsGrid" class="cars-grid"></div>
-                  <div style="text-align:center; margin-top: 1rem;">
-              <!-- Pulsante rimosso dato che ora mostriamo tutte le auto -->
-          </div>
     </section>
 
     <!-- Footer Glass -->
@@ -177,6 +199,7 @@
     <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
     <script type="module" src="js/firebase-config.js"></script>
     <script src="js/car-explorer.js"></script>
+    <script src="js/3d-car-interactions.js"></script>
     <script src="js/ultra-modern-buttons.js" data-defer></script>
     <script src="js/site-optimizer.js" data-defer></script>
     <script type="module" src="js/auth-system.js"></script>

@@ -13,14 +13,14 @@
   "categories": ["automotive", "business", "shopping"],
   "screenshots": [
     {
-      "src": "/assets/screenshots/desktop-home.png",
+      "src": "/image.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Homepage su desktop"
     },
     {
-      "src": "/assets/screenshots/mobile-home.png",
+      "src": "/image.png",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
@@ -29,49 +29,49 @@
   ],
   "icons": [
     {
-      "src": "/assets/icons/icon-72.png",
+      "src": "/image.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-96.png",
+      "src": "/image.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-128.png",
+      "src": "/image.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-144.png",
+      "src": "/image.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-152.png",
+      "src": "/image.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-192.png",
+      "src": "/image.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-384.png",
+      "src": "/image.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/icon-512.png",
+      "src": "/image.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -85,7 +85,7 @@
       "url": "/esplora-macchine.html",
       "icons": [
         {
-          "src": "/assets/icons/shortcut-explore.png",
+          "src": "/image.png",
           "sizes": "96x96"
         }
       ]
@@ -97,7 +97,7 @@
       "url": "/admin.html",
       "icons": [
         {
-          "src": "/assets/icons/shortcut-admin.png",
+          "src": "/image.png",
           "sizes": "96x96"
         }
       ]
@@ -109,7 +109,7 @@
       "url": "/contatti.html",
       "icons": [
         {
-          "src": "/assets/icons/shortcut-contact.png",
+          "src": "/image.png",
           "sizes": "96x96"
         }
       ]

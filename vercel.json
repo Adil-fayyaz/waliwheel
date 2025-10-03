@@ -36,12 +36,8 @@
       "destination": "/profilo.html"
     },
     {
-      "source": "/catalogo",
-      "destination": "/catalogo.html"
-    },
-    {
-      "source": "/chi-siamo",
-      "destination": "/chi-siamo.html"
+      "source": "/impostazioni",
+      "destination": "/impostazioni.html"
     },
     {
       "source": "/contatti",
